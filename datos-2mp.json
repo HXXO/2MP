@@ -1,6 +1,6 @@
 {
  "v": 1,
- "generado": "2026-11-05T20:10:01.676Z",
+ "generado": "2026-11-05T20:20:48.888Z",
  "miembros": [
   {
    "pid": "0zmyd6w1beq0p4",
@@ -258,22 +258,51 @@
      "pct": 0
     }
    }
+  },
+  {
+   "t": 1794187800000,
+   "tipo": "sparring",
+   "puntua": false,
+   "rojo": {
+    "pid": "0tgzcah158qzsp",
+    "nombre": "HAROLD OSPINO",
+    "rango": "APEX",
+    "record": {
+     "v": 3,
+     "e": 0,
+     "d": 0,
+     "total": 3,
+     "pct": 100
+    }
+   },
+   "azul": {
+    "pid": "0cp41nq0ogvp5y",
+    "nombre": "Alexander Velazquez",
+    "rango": "APEX",
+    "record": {
+     "v": 3,
+     "e": 0,
+     "d": 0,
+     "total": 3,
+     "pct": 100
+    }
+   }
   }
  ],
  "resultados": [],
  "cambios": [
   {
-   "t": 1793909401676,
+   "t": 1793910048888,
    "tipo": "cartelera",
-   "texto": "Sparring programado: MAX CASTAÑEDA vs Jhan Carlos Cotrina Z"
-  },
-  {
-   "t": 1793909401676,
-   "tipo": "cartelera",
-   "texto": "Sparring programado: JULIO SMITH CHOLAN CARRERA vs Ever Jhanpol Carrera Portal"
+   "texto": "Sparring programado: HAROLD OSPINO vs Alexander Velazquez"
   }
  ],
  "novedades": [
+  {
+   "t": 1793910048888,
+   "tipo": "cartelera",
+   "texto": "Sparring programado: HAROLD OSPINO vs Alexander Velazquez"
+  },
   {
    "t": 1793909401676,
    "tipo": "cartelera",
