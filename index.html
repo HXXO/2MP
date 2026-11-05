@@ -495,7 +495,7 @@
   <div class="settings-label">ADMINISTRACIÓN</div>
   <button class="settings-item" id="menuUpload" type="button">
     <span>📤</span>
-    <div><strong>Subir datos</strong><small>Actualizar contenido del sitio</small></div>
+    <div><strong>Publicar datos</strong><small>Subir a GitHub automáticamente</small></div>
   </button>
   <button class="settings-item" id="menuReload" type="button">
     <span>🔄</span>
@@ -677,18 +677,28 @@
 <div class="modal" id="uploadModal" role="dialog" aria-modal="true">
   <div class="modal-box">
     <button class="modal-close" data-close="upload" aria-label="Cerrar">✕</button>
-    <h2>SUBIR DATOS</h2>
-    <p class="modal-sub">Selecciona el archivo <code style="color: var(--gold);">datos-2mp.json</code> exportado desde la consola de control.</p>
+    <h2>PUBLICAR DATOS</h2>
+    <p class="modal-sub">Elige <code style="color: var(--gold);">datos-2mp.json</code>. Se publica solo en GitHub (<code style="color: var(--gold);">HXXO/2MP</code>) y todos lo verán en 1–2 minutos.</p>
     <form id="uploadForm">
       <div class="form-field">
         <label for="jsonFile">ARCHIVO JSON</label>
         <input type="file" id="jsonFile" accept=".json,application/json" required>
         <p class="form-hint">Solo archivos .json exportados desde 2MP CONTROL.</p>
       </div>
+      <div class="form-field" id="ghTokenField">
+        <label for="ghToken">TOKEN DE GITHUB</label>
+        <input type="password" id="ghToken" autocomplete="off" spellcheck="false" placeholder="github_pat_…">
+        <p class="form-hint">Solo repo HXXO/2MP, permiso Contents: Read and write. Se guarda únicamente en este dispositivo.</p>
+      </div>
+      <div class="form-field" id="ghTokenSaved" hidden>
+        <label>TOKEN DE GITHUB</label>
+        <p class="form-hint">✓ Guardado en este dispositivo.</p>
+        <button type="button" class="btn-form ghost" id="ghForget" style="margin-top:8px;width:100%">OLVIDAR TOKEN</button>
+      </div>
       <div class="form-error" id="uploadError"></div>
       <div class="form-actions">
         <button type="button" class="btn-form ghost" data-close="upload">CANCELAR</button>
-        <button type="submit" class="btn-form primary" id="uploadBtn">SUBIR Y ACTUALIZAR</button>
+        <button type="submit" class="btn-form primary" id="uploadBtn">PUBLICAR EN GITHUB</button>
       </div>
     </form>
   </div>
@@ -789,27 +799,87 @@ function validateJSON(data) {
   }
   return data;
 }
+const GH = Object.freeze({owner:"HXXO", repo:"2MP", branch:"main", path:"datos-2mp.json", api:"https://api.github.com"});
+const GhStore = {
+  KEY: "2mp_gh_token_v1", PEND: "2mp_gh_pending_v1",
+  get() { try { return localStorage.getItem(this.KEY) || ""; } catch(e) { return ""; } },
+  set(t) { try { localStorage.setItem(this.KEY, t); return true; } catch(e) { return false; } },
+  clear() { try { localStorage.removeItem(this.KEY); } catch(e) {} },
+  markPending() { try { localStorage.setItem(this.PEND, String(Date.now() + 4*60*1000)); } catch(e) {} },
+  isPending() { try { return (parseInt(localStorage.getItem(this.PEND) || "0") || 0) > Date.now(); } catch(e) { return false; } }
+};
+class GhError extends Error { constructor(msg, status) { super(msg); this.status = status; } }
+function utf8ToBase64(str) {
+  const bytes = new TextEncoder().encode(str), CH = 0x8000; let bin = "";
+  for (let i = 0; i < bytes.length; i += CH) bin += String.fromCharCode.apply(null, bytes.subarray(i, i + CH));
+  return btoa(bin);
+}
+async function ghFetch(path, token, opts = {}) {
+  const ctrl = new AbortController(), to = setTimeout(() => ctrl.abort(), 15000);
+  try {
+    return await fetch(GH.api + path, {...opts, signal: ctrl.signal, headers: {
+      "Accept": "application/vnd.github+json", "Authorization": "Bearer " + token,
+      "X-GitHub-Api-Version": "2022-11-28", ...(opts.body ? {"Content-Type": "application/json"} : {})
+    }});
+  } catch(e) {
+    throw new GhError(e && e.name === "AbortError" ? "GitHub no respondió a tiempo. Revisa tu conexión." : "Sin conexión con GitHub.", 0);
+  } finally { clearTimeout(to); }
+}
+async function ghHttpError(res) {
+  if (res.status === 401) return new GhError("Token inválido o vencido.", 401);
+  if (res.status === 403) return new GhError("Sin permiso (revisa Contents: Read and write) o límite de GitHub alcanzado.", 403);
+  let d = ""; try { d = (await res.json()).message || ""; } catch(e) {}
+  return new GhError("GitHub respondió " + res.status + (d ? ": " + d : ""), res.status);
+}
+async function ghGetSha(token) {
+  const res = await ghFetch(`/repos/${GH.owner}/${GH.repo}/contents/${GH.path}?ref=${GH.branch}`, token);
+  if (res.status === 200) { const j = await res.json(); return j.sha || null; }
+  if (res.status === 404) {
+    const r = await ghFetch(`/repos/${GH.owner}/${GH.repo}`, token);
+    if (r.ok) return null;
+    throw new GhError("El token no tiene acceso al repo " + GH.owner + "/" + GH.repo + ".", 404);
+  }
+  throw await ghHttpError(res);
+}
+async function ghPublish(token, text) {
+  const content = utf8ToBase64(text);
+  for (let attempt = 0; attempt < 2; attempt++) {
+    const sha = await ghGetSha(token);
+    const res = await ghFetch(`/repos/${GH.owner}/${GH.repo}/contents/${GH.path}`, token, {
+      method: "PUT",
+      body: JSON.stringify({message: "Actualizar datos 2MP · " + new Date().toISOString(), content, branch: GH.branch, ...(sha ? {sha} : {})})
+    });
+    if (res.ok) return res.json();
+    if ((res.status === 409 || res.status === 422) && attempt === 0) continue;
+    throw await ghHttpError(res);
+  }
+  throw new GhError("No se pudo publicar tras reintentar.", 409);
+}
 async function fetchData(force = false) {
   APP_STATE = State.LOADING;
-  if (!force) {
-    const cached = Store.load();
-    if (cached) { try { APP_DATA = validateJSON(cached); APP_STATE = State.SUCCESS; renderAll(); return; } catch(e) {} }
-  }
+  const cached = Store.load();
+  const applyCached = () => {
+    if (!cached) return false;
+    try { APP_DATA = validateJSON(JSON.parse(JSON.stringify(cached))); APP_STATE = State.SUCCESS; renderAll(); return true; } catch(e) { return false; }
+  };
+  if (GhStore.isPending() && applyCached()) return;
+  const showedCache = !force && applyCached();
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 8000);
   try {
-    const res = await fetch("./datos-2mp.json", {signal:controller.signal, cache:"no-cache", headers:{"Accept":"application/json"}});
+    const res = await fetch("./datos-2mp.json?t=" + Math.floor(Date.now() / 60000), {signal: controller.signal, cache: "no-cache", headers: {"Accept": "application/json"}});
     clearTimeout(timeout);
     if (!res.ok) throw new Error("HTTP " + res.status);
-    const raw = await res.json();
-    APP_DATA = validateJSON(raw);
+    const txt = await res.text();
+    const raw = JSON.parse(txt);
+    const changed = !showedCache || JSON.stringify(raw) !== JSON.stringify(cached);
     Store.save(raw);
-    APP_STATE = State.SUCCESS;
-    renderAll();
-    toast("Datos actualizados", "ok");
+    if (changed) { APP_DATA = validateJSON(JSON.parse(txt)); APP_STATE = State.SUCCESS; renderAll(); }
+    else APP_STATE = State.SUCCESS;
+    if (force) toast("Datos actualizados", "ok");
   } catch (err) {
-    const cached = Store.load();
-    if (cached) { try { APP_DATA = validateJSON(cached); APP_STATE = State.SUCCESS; renderAll(); return; } catch(e) {} }
+    clearTimeout(timeout);
+    if (showedCache || applyCached()) return;
     APP_STATE = State.ERROR;
     renderError();
   }
@@ -956,34 +1026,48 @@ function setupPasswordModal() {
 }
 function setupUploadModal() {
   const form = $("#uploadForm"), fileInput = $("#jsonFile"), error = $("#uploadError"), submitBtn = $("#uploadBtn");
+  const tokenField = $("#ghTokenField"), tokenInput = $("#ghToken"), savedBox = $("#ghTokenSaved"), forgetBtn = $("#ghForget");
   if (!form) return;
+  const syncToken = () => { const has = !!GhStore.get(); tokenField.hidden = has; savedBox.hidden = !has; };
+  const fail = msg => { error.textContent = msg; error.classList.add("show"); };
+  syncToken();
+  forgetBtn.addEventListener("click", () => { GhStore.clear(); tokenInput.value = ""; syncToken(); toast("Token olvidado en este dispositivo", "info"); });
   form.addEventListener("submit", async e => {
     e.preventDefault();
     error.classList.remove("show");
     const file = fileInput.files[0];
-    if (!file) { error.textContent = "Selecciona un archivo JSON."; error.classList.add("show"); return; }
-    if (!file.name.toLowerCase().endsWith(".json") && file.type !== "application/json") { error.textContent = "El archivo debe ser .json"; error.classList.add("show"); return; }
-    if (file.size > 10 * 1024 * 1024) { error.textContent = "Archivo demasiado grande (máx 10MB)."; error.classList.add("show"); return; }
+    if (!file) return fail("Selecciona un archivo JSON.");
+    if (!file.name.toLowerCase().endsWith(".json") && file.type !== "application/json") return fail("El archivo debe ser .json");
+    if (file.size > 10 * 1024 * 1024) return fail("Archivo demasiado grande (máx 10MB).");
+    const token = GhStore.get() || tokenInput.value.trim();
+    if (!token) return fail("Pega tu token de GitHub.");
+    if (!/^[\w-]{20,255}$/.test(token)) return fail("El token no parece válido.");
     submitBtn.disabled = true;
-    submitBtn.textContent = "PROCESANDO...";
+    submitBtn.textContent = "PUBLICANDO...";
     try {
       const text = await file.text();
-      let raw;
-      try { raw = JSON.parse(text); } catch(err) { throw new Error("El archivo no es un JSON válido."); }
-      const validated = validateJSON(raw);
-      Store.save(validated);
+      let parsed;
+      try { parsed = JSON.parse(text); } catch(err) { throw new Error("El archivo no es un JSON válido."); }
+      const validated = validateJSON(JSON.parse(text));
+      if (!validated.miembros.length) throw new Error("El JSON no tiene miembros; no se publicó para no vaciar la web.");
+      await ghPublish(token, text);
+      if (!GhStore.get()) GhStore.set(token);
+      GhStore.markPending();
+      Store.save(parsed);
       APP_DATA = validated;
       APP_STATE = State.SUCCESS;
       renderAll();
+      tokenInput.value = "";
+      syncToken();
       $("#uploadModal").classList.remove("show");
       fileInput.value = "";
-      toast(`✓ ${validated.miembros.length} miembros · ${validated.cartelera.length} combates`, "ok", 4000);
+      toast(`✓ Publicado en GitHub · ${validated.miembros.length} miembros · ${validated.cartelera.length} combates. Visible para todos en 1–2 min`, "ok", 6000);
     } catch (err) {
-      error.textContent = err.message || "No se pudo procesar el archivo.";
-      error.classList.add("show");
+      if (err && err.status === 401) { GhStore.clear(); syncToken(); }
+      fail((err && err.message) || "No se pudo publicar.");
     } finally {
       submitBtn.disabled = false;
-      submitBtn.textContent = "SUBIR Y ACTUALIZAR";
+      submitBtn.textContent = "PUBLICAR EN GITHUB";
     }
   });
 }
