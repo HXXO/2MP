@@ -1,6 +1,6 @@
 {
  "v": 1,
- "generado": "2026-11-05T22:31:02.250Z",
+ "generado": "2026-11-05T23:39:59.944Z",
  "miembros": [
   {
    "pid": "0zmyd6w1beq0p4",
@@ -66,7 +66,7 @@
    "pid": "0lb6itl0x2y6bt",
    "nombre": "Jhan Carlos Cotrina Z",
    "rango": "RAW",
-   "estrellas": 1,
+   "estrellas": 2,
    "record": {
     "v": 0,
     "e": 0,
@@ -76,7 +76,7 @@
    },
    "racha": 0,
    "mejorRacha": 0,
-   "puntosMerito": 50,
+   "puntosMerito": 100,
    "ultimos": [],
    "predator": false,
    "tier": "bronce",
@@ -198,8 +198,8 @@
      "pid": "0lb6itl0x2y6bt",
      "nombre": "Jhan Carlos Cotrina Z",
      "rango": "RAW",
-     "valor": "50 PM",
-     "detalle": "★ 1 de 3"
+     "valor": "100 PM",
+     "detalle": "★ 2 de 3"
     }
    ]
   },
@@ -299,8 +299,19 @@
   }
  ],
  "resultados": [],
- "cambios": [],
+ "cambios": [
+  {
+   "t": 1793921999944,
+   "tipo": "estrellas",
+   "texto": "Jhan Carlos Cotrina Z: estrellas 1 → 2"
+  }
+ ],
  "novedades": [
+  {
+   "t": 1793921999944,
+   "tipo": "estrellas",
+   "texto": "Jhan Carlos Cotrina Z: estrellas 1 → 2"
+  },
   {
    "t": 1793910048888,
    "tipo": "cartelera",
