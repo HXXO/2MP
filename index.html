@@ -779,6 +779,70 @@
 .pf-t.spar::before{background:linear-gradient(180deg,#a5f3fc,#0e7490)}
 @media(max-width:640px){.fx-card.spar .fx-vs{font-size:22px}.sp-chip{font-size:8px;padding:4px 9px}}
 </style>
+<style>
+/* ═══ ESTABILIDAD: sin titileo ni repintado constante ═══
+   Se quitan las animaciones que repintan cada fotograma (background-position,
+   box-shadow, máscaras giratorias, degradado en texto) y los parpadeos de
+   iconos/emojis. Se conservan las que van por transform/opacity (GPU). */
+.pw-crown,.wt-ghost,.state-box .state-icon,.fx-hint{animation:none!important}
+.fx-hint{opacity:.9}
+.pm-rank b,.member-card.rank-imperator .member-name{animation:none!important}
+.rank-row.rank-1::before,.pred-card[data-pos="1"]::before{animation:none!important;background-position:-50% 0}
+.pred-card[data-pos="1"]{animation:none!important;box-shadow:0 20px 70px -18px rgba(168,85,247,.6),inset 0 1px 0 rgba(192,132,252,.25)}
+.member-card.rank-spark::before,.member-card.rank-centurio::after{animation:none!important}
+.medal *,.spark-anim{animation:none!important}
+.nav,.settings-menu,.nav-links.open,.hero-stat{-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+.nav{background:rgba(7,7,9,.96)}
+.settings-menu{background:linear-gradient(180deg,rgba(27,27,33,.99),rgba(12,12,16,.995))}
+.nav-links.open{background:rgba(7,7,9,.99)}
+.hero-stat{background:linear-gradient(160deg,rgba(212,169,78,.09),rgba(16,16,20,.97))}
+.rank-row,.fx-card,.rs,.member-card,.pred-card{backface-visibility:hidden}
+</style>
+<style>
+/* ═══ MOVIMIENTO SIN TITILEO ═══
+   Regla: solo transform / opacity (GPU). Nada de blur, escala de bordes,
+   rotación de elementos enormes ni background-position. */
+@property --ang{syntax:"<angle>";inherits:false;initial-value:0deg}
+@keyframes ringSpin{to{--ang:360deg}}
+.member-card.rank-imperator::after{animation:none!important;background:conic-gradient(from var(--ang),transparent 0%,var(--gold-hi) 25%,transparent 50%,var(--gold) 75%,transparent 100%)!important}
+.ap .member-card.rank-imperator::after{animation:ringSpin 6s linear infinite!important}
+
+@keyframes shineX{0%,55%{transform:translate3d(-100%,0,0)}100%{transform:translate3d(100%,0,0)}}
+.rank-row.first::after{background:linear-gradient(105deg,transparent 35%,rgba(255,240,190,.28) 50%,transparent 65%)!important;background-position:0 0!important;background-size:auto!important;transform:translate3d(-100%,0,0);animation:shineX 4.5s ease-in-out infinite!important;will-change:transform}
+.whatsapp-box::before{background:linear-gradient(90deg,transparent 30%,rgba(37,211,102,.14) 50%,transparent 70%)!important;background-position:0 0!important;background-size:auto!important;transform:translate3d(-100%,0,0);animation:shineX 5.5s ease-in-out infinite!important;will-change:transform}
+@keyframes crownFloat{50%{translate:0 -4px}}
+.pred-crown{animation:crownFloat 3.4s ease-in-out infinite!important;will-change:transform}
+@keyframes flameBreath{to{scale:1.08 1.16}}
+.rk-streak .pz svg{animation:flameBreath 1.9s ease-in-out infinite alternate!important;transform-origin:50% 100%;will-change:transform}
+
+/* revelado al hacer scroll (solo opacity + transform) */
+.rv{opacity:0;transform:translate3d(0,22px,0);transition:opacity .9s var(--e-out),transform .9s var(--e-out)}
+.rv.in{opacity:1;transform:none}
+
+/* ═══ PORTADA NUEVA: lenta y suave ═══ */
+@keyframes heroIn{from{opacity:0;transform:translate3d(0,18px,0)}to{opacity:1;transform:none}}
+.hero .hero-logo{animation:heroIn 1.5s var(--e-out) .1s both!important}
+.hero .hero-title{animation:heroIn 1.3s var(--e-out) .35s both!important}
+.hero .hero-subtitle{animation:heroIn 1.2s var(--e-out) .7s both!important}
+.hero .hero-stats{animation:heroIn 1.2s var(--e-out) 1s both!important}
+.hx-pulse b,.hx-pulse i,.hx-sweep,.hx-beam{display:none!important}
+.hx-pulse::before{animation:hxBreath 9s ease-in-out infinite}
+@keyframes hvDriftA{to{transform:translate3d(14vmax,8vmax,0)}}
+@keyframes hvDriftB{to{transform:translate3d(-14vmax,-6vmax,0)}}
+.hx-aurora.a1{animation:hvDriftA 80s ease-in-out infinite alternate!important}
+.hx-aurora.a2{animation:hvDriftB 96s ease-in-out infinite alternate!important}
+@keyframes hvBreath{from{opacity:.5}to{opacity:1}}
+.hx-spot.s1{animation:hvBreath 11s ease-in-out infinite alternate!important}
+.hx-spot.s2{animation:hvBreath 14s ease-in-out -5s infinite alternate!important}
+@keyframes hvFloor{50%{opacity:.5}}
+.hx-floor2{animation:hvFloor 12s ease-in-out infinite!important}
+.hx-horizon i{animation-duration:30s!important}
+.hv-motes{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.hv-motes i{position:absolute;left:var(--x);bottom:-12px;width:var(--s);height:var(--s);border-radius:50%;background:#f6dd9a;box-shadow:0 0 8px 1px rgba(242,214,138,.7);opacity:0;will-change:transform,opacity;animation:hvRise var(--t) linear var(--o) infinite}
+@keyframes hvRise{0%{transform:translate3d(0,0,0);opacity:0}15%{opacity:.75}85%{opacity:.5}100%{transform:translate3d(var(--dx),-108vh,0);opacity:0}}
+@media(max-width:640px){.hv-motes i:nth-child(n+9){display:none}}
+@media(prefers-reduced-motion:reduce){.hv-motes{display:none}.rv{opacity:1;transform:none;transition:none}}
+</style>
 <script>
 "use strict";
 /* ═══════════════════════════════════════════════════════════════
@@ -1353,7 +1417,9 @@ function renderResultados(){
     return `<div class="rs ${sp?"spar":""}" style="animation-delay:${i*.05}s">${sd(c.rojo,d?"d":rw?"w":"l","",sp)}<div class="rs-mid">${sp?"SPAR":"VS"}<small>${fmtDate(c.t)}</small></div>${sd(c.azul,d?"d":rw?"l":"w","r",sp)}${sp?`<div class="rs-note"><span class="sp-chip">ENTRENAMIENTO · NO CUENTA PARA EL RÉCORD</span>${c.puntos?`<span class="sp-chip pts">+${c.puntos} PTS</span>`:""}</div>`:""}</div>`;}).join("");
 }
 
-function initParticles(){const c=$("#heroParticles");if(!c)return;c.innerHTML='<div class="hx-aurora a1"></div><div class="hx-aurora a2"></div><div class="hx-spot s1"></div><div class="hx-spot s2"></div><div class="hx-sweep"></div><div class="hx-floor2"></div><div class="hx-horizon"><i></i></div>';}
+function initParticles(){const c=$("#heroParticles");if(!c)return;
+  let m="";for(let i=0;i<16;i++){const x=(i*37+9)%96+2,sz=2+(i%3),t=24+(i*7)%18,o=-((i*5.3)%t).toFixed(1),dx=((i%2?1:-1)*(10+(i*13)%40))+"px";m+=`<i style="--x:${x}%;--s:${sz}px;--t:${t}s;--o:${o}s;--dx:${dx}"></i>`;}
+  c.innerHTML='<div class="hx-aurora a1"></div><div class="hx-aurora a2"></div><div class="hx-spot s1"></div><div class="hx-spot s2"></div><div class="hx-floor2"></div><div class="hv-motes">'+m+'</div><div class="hx-horizon"><i></i></div>';}
 const PV_MEDAL=`<svg class="pv-medal" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="46" fill="#16091f" stroke="#c084fc" stroke-width="3"/><circle cx="50" cy="50" r="39" fill="none" stroke="#7c3aed" stroke-width="1" stroke-dasharray="2 3"/><circle cx="42" cy="15" r="1.8" fill="#e9d5ff"/><circle cx="50" cy="12" r="1.8" fill="#e9d5ff"/><circle cx="58" cy="15" r="1.8" fill="#e9d5ff"/><path d="M50 24 66 30 72 46 64 60 58 56 50 64 42 56 36 60 28 46 34 30Z" fill="none" stroke="#e9d5ff" stroke-width="2.5" stroke-linejoin="round"/><path d="M38 41l8 3-3 4zM62 41l-8 3 3 4z" fill="#e9d5ff"/><path d="M44 66 40 78 50 70 60 78 56 66" fill="none" stroke="#c084fc" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
 function renderPredator(){
   const box=$("#predatorBox"); if(!box||!APP_DATA) return;
@@ -1725,6 +1791,11 @@ $("#footYear").textContent = new Date().getFullYear();
 /* Rendimiento: pausa animaciones fuera de pantalla y con la pestaña oculta */
 (function(){
   var root=document.documentElement;
+  if(window.CSS&&typeof CSS.registerProperty==="function")root.classList.add("ap");
+  if("IntersectionObserver" in window&&!(window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches)){
+    var rv=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");rv.unobserve(e.target);}});},{rootMargin:"0px 0px -6% 0px"});
+    document.querySelectorAll(".section-head,.heatmap-section,.guests-box,.quote-section .wrap,.cta-section>*:not(.whatsapp-box)").forEach(function(el){el.classList.add("rv");rv.observe(el);});
+  }
   document.addEventListener("visibilitychange",function(){root.classList.toggle("fx-off",document.hidden);});
   if(!("IntersectionObserver" in window))return;
   var io=new IntersectionObserver(function(es){es.forEach(function(e){e.target.classList.toggle("is-off",!e.isIntersecting);});},{rootMargin:"160px 0px"});
