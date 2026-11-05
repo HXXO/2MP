@@ -1,6 +1,6 @@
 {
  "v": 1,
- "generado": "2026-11-05T20:20:48.888Z",
+ "generado": "2026-11-05T22:31:02.250Z",
  "miembros": [
   {
    "pid": "0zmyd6w1beq0p4",
@@ -76,7 +76,7 @@
    },
    "racha": 0,
    "mejorRacha": 0,
-   "puntosMerito": 0,
+   "puntosMerito": 50,
    "ultimos": [],
    "predator": false,
    "tier": "bronce",
@@ -192,7 +192,16 @@
   "pm": {
    "titulo": "PUNTOS DE MÉRITO",
    "regla": "Total acumulado de puntos de mérito.",
-   "lista": []
+   "lista": [
+    {
+     "pos": 1,
+     "pid": "0lb6itl0x2y6bt",
+     "nombre": "Jhan Carlos Cotrina Z",
+     "rango": "RAW",
+     "valor": "50 PM",
+     "detalle": "★ 1 de 3"
+    }
+   ]
   },
   "predator": {
    "titulo": "⚡ PREDATOR",
@@ -290,13 +299,7 @@
   }
  ],
  "resultados": [],
- "cambios": [
-  {
-   "t": 1793910048888,
-   "tipo": "cartelera",
-   "texto": "Sparring programado: HAROLD OSPINO vs Alexander Velazquez"
-  }
- ],
+ "cambios": [],
  "novedades": [
   {
    "t": 1793910048888,
