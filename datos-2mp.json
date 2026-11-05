@@ -1,0 +1,234 @@
+{
+ "v": 1,
+ "generado": "2026-11-05T18:12:40.234Z",
+ "miembros": [
+  {
+   "pid": "1rc6og7042u9zb",
+   "nombre": "JULIO SMITH CHOLAN CARRERA",
+   "rango": "RAW",
+   "estrellas": 1,
+   "record": {
+    "v": 0,
+    "e": 0,
+    "d": 0,
+    "total": 0,
+    "pct": 0
+   },
+   "racha": 0,
+   "mejorRacha": 0,
+   "puntosMerito": 0,
+   "ultimos": [],
+   "predator": false,
+   "tier": "bronce",
+   "insignias": []
+  },
+  {
+   "pid": "1l391j81wv0p1g",
+   "nombre": "Ever Jhanpol Carrera Portal",
+   "rango": "RAW",
+   "estrellas": 1,
+   "record": {
+    "v": 0,
+    "e": 0,
+    "d": 0,
+    "total": 0,
+    "pct": 0
+   },
+   "racha": 0,
+   "mejorRacha": 0,
+   "puntosMerito": 0,
+   "ultimos": [],
+   "predator": false,
+   "tier": "bronce",
+   "insignias": []
+  },
+  {
+   "pid": "0lb6itl0x2y6bt",
+   "nombre": "Jhan Carlos Cotrina Z",
+   "rango": "RAW",
+   "estrellas": 1,
+   "record": {
+    "v": 0,
+    "e": 0,
+    "d": 0,
+    "total": 0,
+    "pct": 0
+   },
+   "racha": 0,
+   "mejorRacha": 0,
+   "puntosMerito": 0,
+   "ultimos": [],
+   "predator": false,
+   "tier": "bronce",
+   "insignias": []
+  },
+  {
+   "pid": "0cp41nq0ogvp5y",
+   "nombre": "Alexander Velazquez",
+   "rango": "APEX",
+   "estrellas": 3,
+   "record": {
+    "v": 3,
+    "e": 0,
+    "d": 0,
+    "total": 3,
+    "pct": 100
+   },
+   "racha": 0,
+   "mejorRacha": 0,
+   "puntosMerito": 0,
+   "ultimos": [],
+   "predator": false,
+   "tier": "oro",
+   "insignias": [
+    "acero",
+    "defensivo"
+   ]
+  },
+  {
+   "pid": "0tgzcah158qzsp",
+   "nombre": "HAROLD OSPINO",
+   "rango": "APEX",
+   "estrellas": 3,
+   "record": {
+    "v": 3,
+    "e": 0,
+    "d": 0,
+    "total": 3,
+    "pct": 100
+   },
+   "racha": 0,
+   "mejorRacha": 0,
+   "puntosMerito": 0,
+   "ultimos": [],
+   "predator": false,
+   "tier": "oro",
+   "insignias": [
+    "agresivo",
+    "contragolpe"
+   ]
+  }
+ ],
+ "rankings": {
+  "wins": {
+   "titulo": "VICTORIAS",
+   "regla": "Orden: victorias, luego % de victorias y menos derrotas.",
+   "lista": [
+    {
+     "pos": 1,
+     "pid": "0cp41nq0ogvp5y",
+     "nombre": "Alexander Velazquez",
+     "rango": "APEX",
+     "valor": "3V",
+     "detalle": "100% · 3 peleas"
+    },
+    {
+     "pos": 2,
+     "pid": "0tgzcah158qzsp",
+     "nombre": "HAROLD OSPINO",
+     "rango": "APEX",
+     "valor": "3V",
+     "detalle": "100% · 3 peleas"
+    }
+   ]
+  },
+  "pct": {
+   "titulo": "% VICTORIAS",
+   "regla": "Mínimo 3 peleas para entrar. Orden: porcentaje, luego victorias.",
+   "lista": [
+    {
+     "pos": 1,
+     "pid": "0cp41nq0ogvp5y",
+     "nombre": "Alexander Velazquez",
+     "rango": "APEX",
+     "valor": "100%",
+     "detalle": "3V de 3 peleas"
+    },
+    {
+     "pos": 2,
+     "pid": "0tgzcah158qzsp",
+     "nombre": "HAROLD OSPINO",
+     "rango": "APEX",
+     "valor": "100%",
+     "detalle": "3V de 3 peleas"
+    }
+   ]
+  },
+  "streak": {
+   "titulo": "RACHA 🔥",
+   "regla": "Victorias seguidas ahora mismo; un empate o derrota la corta.",
+   "lista": []
+  },
+  "att": {
+   "titulo": "ASISTENCIA",
+   "regla": "Semanas perfectas de los últimos 30 días (un mes sin faltas vale 4). Se suma desde la ficha del miembro.",
+   "lista": []
+  },
+  "impr": {
+   "titulo": "MAYOR MEJORA",
+   "regla": "Victorias ganadas en los últimos 30 días; menos derrotas desempata.",
+   "lista": []
+  },
+  "pm": {
+   "titulo": "PUNTOS DE MÉRITO",
+   "regla": "Total acumulado de puntos de mérito.",
+   "lista": []
+  },
+  "predator": {
+   "titulo": "⚡ PREDATOR",
+   "regla": "Top 3 del mes · solo rango Spark o superior · mínimo 3 peleas en el mes. Orden: victorias, luego % de victorias y menos derrotas. 3 meses seguidos sin derrotas = medalla Predator.",
+   "lista": []
+  }
+ },
+ "cartelera": [],
+ "resultados": [],
+ "cambios": [
+  {
+   "t": 1793902360234,
+   "tipo": "rango",
+   "texto": "Alexander Velazquez: rango SPARK → APEX"
+  },
+  {
+   "t": 1793902360234,
+   "tipo": "record",
+   "texto": "Alexander Velazquez: récord V/E/D 0/0/0 → 3/0/0"
+  },
+  {
+   "t": 1793902360234,
+   "tipo": "rango",
+   "texto": "HAROLD OSPINO: rango SPARK → APEX"
+  },
+  {
+   "t": 1793902360234,
+   "tipo": "record",
+   "texto": "HAROLD OSPINO: récord V/E/D 0/0/0 → 3/0/0"
+  }
+ ],
+ "novedades": [
+  {
+   "t": 1793902360234,
+   "tipo": "record",
+   "texto": "HAROLD OSPINO: récord V/E/D 0/0/0 → 3/0/0"
+  },
+  {
+   "t": 1793902360234,
+   "tipo": "rango",
+   "texto": "HAROLD OSPINO: rango SPARK → APEX"
+  },
+  {
+   "t": 1793902360234,
+   "tipo": "record",
+   "texto": "Alexander Velazquez: récord V/E/D 0/0/0 → 3/0/0"
+  },
+  {
+   "t": 1793902360234,
+   "tipo": "rango",
+   "texto": "Alexander Velazquez: rango SPARK → APEX"
+  },
+  {
+   "t": 1793902085169,
+   "tipo": "inicio",
+   "texto": "Primera exportación"
+  }
+ ]
+}
