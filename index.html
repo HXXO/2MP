@@ -8,6 +8,7 @@
 <meta name="referrer" content="no-referrer">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="DENY">
+<meta http-equiv="Content-Security-Policy" content="connect-src 'self' https://api.github.com data: blob:; object-src 'none'; base-uri 'none'; form-action 'none'">
 <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()">
 <title>2MP · TOO MUCH POWER</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -495,7 +496,7 @@
   <div class="settings-label">ADMINISTRACIÓN</div>
   <button class="settings-item" id="menuUpload" type="button">
     <span>📤</span>
-    <div><strong>Publicar datos</strong><small>Subir a GitHub automáticamente</small></div>
+    <div><strong>Panel admin</strong><small>Publicar o eliminar el JSON</small></div>
   </button>
   <button class="settings-item" id="menuReload" type="button">
     <span>🔄</span>
@@ -653,58 +654,74 @@
   <p style="margin-top: 10px;">GRUPO PRIVADO</p>
 </footer>
 
-<!-- ═══ MODAL PASSWORD ═══ -->
+<!-- ═══ MODAL ACCESO ADMIN ═══ -->
 <div class="modal" id="passwordModal" role="dialog" aria-modal="true">
   <div class="modal-box">
     <button class="modal-close" data-close="password" aria-label="Cerrar">✕</button>
-    <h2>ACCESO ADMIN</h2>
-    <p class="modal-sub">Contraseña requerida para subir o actualizar datos.</p>
-    <form id="passwordForm">
+    <h2 id="gateTitle">ACCESO ADMIN</h2>
+    <p class="modal-sub" id="gateSub"></p>
+    <form id="passwordForm" autocomplete="off">
+      <div class="form-field" id="vaultSetup" hidden>
+        <label for="vaultToken">TOKEN DE GITHUB</label>
+        <input type="password" id="vaultToken" autocomplete="off" spellcheck="false" placeholder="github_pat_…">
+        <p class="form-hint">Se cifra con tu contraseña (AES-256). Nunca se guarda en texto plano.</p>
+      </div>
       <div class="form-field">
         <label for="adminPass">CONTRASEÑA</label>
-        <input type="password" id="adminPass" autocomplete="current-password" required placeholder="••••••">
-        <div class="form-error" id="passError"></div>
+        <input type="password" id="adminPass" autocomplete="current-password" placeholder="••••••••••••">
       </div>
+      <div class="form-field" id="vaultSetup2" hidden>
+        <label for="vaultPass2">REPETIR CONTRASEÑA</label>
+        <input type="password" id="vaultPass2" autocomplete="new-password" placeholder="••••••••••••">
+        <p class="form-hint">Mínimo 12 caracteres con mayúsculas, minúsculas, números y símbolos (o 20+ caracteres).</p>
+      </div>
+      <div class="form-error" id="passError"></div>
       <div class="form-actions">
         <button type="button" class="btn-form ghost" data-close="password">CANCELAR</button>
-        <button type="submit" class="btn-form primary">ACCEDER</button>
+        <button type="submit" class="btn-form primary" id="gateBtn">ACCEDER</button>
       </div>
     </form>
   </div>
 </div>
 
-<!-- ═══ MODAL UPLOAD ═══ -->
+<!-- ═══ MODAL ADMIN (PUBLICAR / ELIMINAR) ═══ -->
 <div class="modal" id="uploadModal" role="dialog" aria-modal="true">
   <div class="modal-box">
     <button class="modal-close" data-close="upload" aria-label="Cerrar">✕</button>
-    <h2>PUBLICAR DATOS</h2>
-    <p class="modal-sub">Elige <code style="color: var(--gold);">datos-2mp.json</code>. Se publica solo en GitHub (<code style="color: var(--gold);">HXXO/2MP</code>) y todos lo verán en 1–2 minutos.</p>
+    <h2>PANEL ADMIN</h2>
+    <p class="modal-sub">Repo <code style="color: var(--gold);">HXXO/2MP</code> · <code style="color: var(--gold);">datos-2mp.json</code>. La sesión se bloquea sola tras 3 min sin actividad.</p>
     <form id="uploadForm">
       <div class="form-field">
         <label for="jsonFile">ARCHIVO JSON</label>
-        <input type="file" id="jsonFile" accept=".json,application/json" required>
+        <input type="file" id="jsonFile" accept=".json,application/json">
         <p class="form-hint">Solo archivos .json exportados desde 2MP CONTROL.</p>
-      </div>
-      <div class="form-field" id="ghTokenField">
-        <label for="ghToken">TOKEN DE GITHUB</label>
-        <input type="password" id="ghToken" autocomplete="off" spellcheck="false" placeholder="github_pat_…">
-        <p class="form-hint">Solo repo HXXO/2MP, permiso Contents: Read and write. Se guarda únicamente en este dispositivo.</p>
-      </div>
-      <div class="form-field" id="ghTokenSaved" hidden>
-        <label>TOKEN DE GITHUB</label>
-        <p class="form-hint">✓ Guardado en este dispositivo.</p>
-        <button type="button" class="btn-form ghost" id="ghForget" style="margin-top:8px;width:100%">OLVIDAR TOKEN</button>
       </div>
       <div class="form-error" id="uploadError"></div>
       <div class="form-actions">
-        <button type="button" class="btn-form ghost" data-close="upload">CANCELAR</button>
+        <button type="button" class="btn-form ghost" data-close="upload">CERRAR</button>
         <button type="submit" class="btn-form primary" id="uploadBtn">PUBLICAR EN GITHUB</button>
       </div>
     </form>
+    <div class="settings-sep" style="margin:18px 0"></div>
+    <div class="settings-label" style="color: var(--blood-hi);">ZONA DE PELIGRO</div>
+    <div class="form-field">
+      <label for="delConfirm">ESCRIBE: ELIMINAR</label>
+      <input type="text" id="delConfirm" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="ELIMINAR">
+    </div>
+    <div class="form-field">
+      <label for="delPass">CONTRASEÑA (CONFIRMACIÓN)</label>
+      <input type="password" id="delPass" autocomplete="current-password" placeholder="••••••••••••">
+      <p class="form-hint">Borra el JSON del repo. La web quedará "En espera de actualización" hasta que publiques otro.</p>
+    </div>
+    <div class="form-error" id="delError"></div>
+    <div class="form-actions">
+      <button type="button" class="btn-form ghost" id="vaultWipe">BORRAR TOKEN</button>
+      <button type="button" class="btn-form primary" id="delBtn" style="background:var(--blood);border-color:var(--blood)">ELIMINAR JSON</button>
+    </div>
   </div>
 </div>
 
-<!-- ═══ MODAL PERFIL INDIVIDUAL ═══ -->
+<!-- ═══ MODAL PERFIL ═══ -->
 <div class="modal" id="profileModal" role="dialog" aria-modal="true">
   <div class="modal-box wide">
     <button class="modal-close" data-close="profile" aria-label="Cerrar">✕</button>
@@ -735,7 +752,6 @@ const ini = name => { const p = String(name || "").trim().split(/\s+/).filter(Bo
 const fmtDate = ts => new Date(ts).toLocaleDateString("es", {day:"2-digit",month:"short",year:"numeric"}).replace(".","").toUpperCase();
 const fmtTime = ts => new Date(ts).toLocaleTimeString("es", {hour:"2-digit",minute:"2-digit"});
 const pad = n => String(n).padStart(2,"0");
-const ADMIN_KEY = atob("MTMxMzEz");
 const RANK_COLORS = {RAW:"#9fb4c7",SPARK:"#e2a63d",APEX:"#e4574f",CENTURIO:"#aa82eb",IMPERATOR:"#d4a94e"};
 const RANK_ORDER = ["IMPERATOR","CENTURIO","APEX","SPARK","RAW"];
 function toast(msg, type = "ok", ms = 3500) {
@@ -754,9 +770,7 @@ const Store = {
   save(data) { try { localStorage.setItem(this.KEY, JSON.stringify({saved:Date.now(), data})); return true; } catch(e) { return false; } },
   load() { try { const raw = localStorage.getItem(this.KEY); if (!raw) return null; return JSON.parse(raw).data || null; } catch(e) { return null; } },
   clear() { try { localStorage.removeItem(this.KEY); return true; } catch(e) { return false; } },
-  isAuthed() { try { const t = parseInt(localStorage.getItem(this.AUTH_KEY)||"0"); return t && (Date.now()-t) < 24*3600*1000; } catch(e) { return false; } },
-  setAuth() { try { localStorage.setItem(this.AUTH_KEY, String(Date.now())); } catch(e) {} },
-  clearAuth() { try { localStorage.removeItem(this.AUTH_KEY); } catch(e) {} }
+  purgeLegacy() { try { localStorage.removeItem("2mp_admin_auth_v2"); localStorage.removeItem("2mp_gh_token_v1"); } catch(e) {} }
 };
 function validateJSON(data) {
   if (!data || typeof data !== "object") throw new Error("JSON raíz inválido");
@@ -801,11 +815,9 @@ function validateJSON(data) {
 }
 const GH = Object.freeze({owner:"HXXO", repo:"2MP", branch:"main", path:"datos-2mp.json", api:"https://api.github.com"});
 const GhStore = {
-  KEY: "2mp_gh_token_v1", PEND: "2mp_gh_pending_v1",
-  get() { try { return localStorage.getItem(this.KEY) || ""; } catch(e) { return ""; } },
-  set(t) { try { localStorage.setItem(this.KEY, t); return true; } catch(e) { return false; } },
-  clear() { try { localStorage.removeItem(this.KEY); } catch(e) {} },
+  PEND: "2mp_gh_pending_v1",
   markPending() { try { localStorage.setItem(this.PEND, String(Date.now() + 4*60*1000)); } catch(e) {} },
+  clearPending() { try { localStorage.removeItem(this.PEND); } catch(e) {} },
   isPending() { try { return (parseInt(localStorage.getItem(this.PEND) || "0") || 0) > Date.now(); } catch(e) { return false; } }
 };
 class GhError extends Error { constructor(msg, status) { super(msg); this.status = status; } }
@@ -855,6 +867,66 @@ async function ghPublish(token, text) {
   }
   throw new GhError("No se pudo publicar tras reintentar.", 409);
 }
+async function ghDelete(token) {
+  const sha = await ghGetSha(token);
+  if (!sha) throw new GhError("El JSON no existe en el repo (ya estaba eliminado).", 404);
+  const res = await ghFetch(`/repos/${GH.owner}/${GH.repo}/contents/${GH.path}`, token, {
+    method: "DELETE",
+    body: JSON.stringify({message: "Eliminar datos 2MP · " + new Date().toISOString(), sha, branch: GH.branch})
+  });
+  if (!res.ok) throw await ghHttpError(res);
+}
+const TOKEN_RE = /^(github_pat_|ghp_)[A-Za-z0-9_]{20,255}$/;
+const isStrongPass = p => p.length >= 20 || (p.length >= 12 && [/[a-z]/, /[A-Z]/, /\d/, /[^A-Za-z0-9]/].filter(r => r.test(p)).length >= 3);
+const Vault = (() => {
+  const KEY = "2mp_vault_v3", ATT = "2mp_vault_att_v3", ITER = 600000, IDLE_MS = 3 * 60 * 1000;
+  const AAD = new TextEncoder().encode("2mp-vault-v3|" + GH.owner + "/" + GH.repo), enc = new TextEncoder(), dec = new TextDecoder();
+  let tok = null, timer = 0;
+  const b64 = u8 => { let t = ""; for (let i = 0; i < u8.length; i++) t += String.fromCharCode(u8[i]); return btoa(t); };
+  const unb64 = t => Uint8Array.from(atob(t), c => c.charCodeAt(0));
+  const rd = k => { try { return JSON.parse(localStorage.getItem(k) || "null"); } catch(e) { return null; } };
+  const derive = async (pass, salt, it) => {
+    const base = await crypto.subtle.importKey("raw", enc.encode(pass), "PBKDF2", false, ["deriveKey"]);
+    return crypto.subtle.deriveKey({name: "PBKDF2", hash: "SHA-256", salt, iterations: it}, base, {name: "AES-GCM", length: 256}, false, ["encrypt", "decrypt"]);
+  };
+  const lockLeft = () => { const a = rd(ATT); return a && a.until > Date.now() ? Math.ceil((a.until - Date.now()) / 1000) : 0; };
+  const penalize = () => {
+    const a = rd(ATT) || {n: 0, until: 0}; a.n++;
+    if (a.n >= 3) a.until = Date.now() + Math.min(3600, 30 * 2 ** (a.n - 3)) * 1000;
+    try { localStorage.setItem(ATT, JSON.stringify(a)); } catch(e) {}
+  };
+  return {
+    supported: () => !!(window.crypto && crypto.subtle && window.isSecureContext),
+    exists: () => !!rd(KEY),
+    unlocked: () => tok !== null,
+    token: () => tok,
+    lockLeft,
+    touch() { clearTimeout(timer); if (tok !== null) timer = setTimeout(() => this.lock(), IDLE_MS); },
+    lock() { tok = null; clearTimeout(timer); },
+    wipe() { this.lock(); try { localStorage.removeItem(KEY); localStorage.removeItem(ATT); } catch(e) {} },
+    async create(token, pass) {
+      const salt = crypto.getRandomValues(new Uint8Array(16)), iv = crypto.getRandomValues(new Uint8Array(12));
+      const key = await derive(pass, salt, ITER);
+      const ct = new Uint8Array(await crypto.subtle.encrypt({name: "AES-GCM", iv, additionalData: AAD}, key, enc.encode(token)));
+      localStorage.setItem(KEY, JSON.stringify({v: 3, it: ITER, s: b64(salt), iv: b64(iv), ct: b64(ct)}));
+      tok = token; this.touch();
+    },
+    async open(pass) {
+      const w = lockLeft();
+      if (w) throw new Error("Demasiados intentos. Espera " + w + " s.");
+      const v = rd(KEY);
+      if (!v) throw new Error("No hay token configurado.");
+      try {
+        const key = await derive(pass, unb64(v.s), v.it);
+        const pt = await crypto.subtle.decrypt({name: "AES-GCM", iv: unb64(v.iv), additionalData: AAD}, key, unb64(v.ct));
+        tok = dec.decode(pt);
+      } catch(e) { penalize(); throw new Error("Contraseña incorrecta."); }
+      try { localStorage.removeItem(ATT); } catch(e) {}
+      this.touch();
+      return tok;
+    }
+  };
+})();
 async function fetchData(force = false) {
   APP_STATE = State.LOADING;
   const cached = Store.load();
@@ -864,11 +936,13 @@ async function fetchData(force = false) {
   };
   if (GhStore.isPending() && applyCached()) return;
   const showedCache = !force && applyCached();
+  let gone = false;
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 8000);
   try {
     const res = await fetch("./datos-2mp.json?t=" + Math.floor(Date.now() / 60000), {signal: controller.signal, cache: "no-cache", headers: {"Accept": "application/json"}});
     clearTimeout(timeout);
+    if (res.status === 404) gone = true;
     if (!res.ok) throw new Error("HTTP " + res.status);
     const txt = await res.text();
     const raw = JSON.parse(txt);
@@ -879,6 +953,7 @@ async function fetchData(force = false) {
     if (force) toast("Datos actualizados", "ok");
   } catch (err) {
     clearTimeout(timeout);
+    if (gone) { Store.clear(); APP_DATA = null; APP_STATE = State.ERROR; renderError(); return; }
     if (showedCache || applyCached()) return;
     APP_STATE = State.ERROR;
     renderError();
@@ -989,86 +1064,109 @@ function setupSettingsMenu() {
   });
   $("#menuUpload").addEventListener("click", () => {
     menu.classList.remove("show");
-    if (Store.isAuthed()) { $("#uploadModal").classList.add("show"); }
-    else { $("#passwordModal").classList.add("show"); setTimeout(() => $("#adminPass").focus(), 100); }
+    openAdmin();
   });
   $("#menuReload").addEventListener("click", async () => { menu.classList.remove("show"); toast("Recargando datos...", "info", 2000); await fetchData(true); });
   $("#menuClear").addEventListener("click", () => {
     menu.classList.remove("show");
-    if (Store.isAuthed()) {
-      if (confirm("¿Borrar los datos almacenados en este dispositivo?")) { Store.clear(); Store.clearAuth(); toast("Datos eliminados", "ok"); setTimeout(() => location.reload(), 800); }
-    } else { $("#passwordModal").classList.add("show"); setTimeout(() => $("#adminPass").focus(), 100); }
+    openAdmin(() => {
+      if (confirm("¿Borrar los datos almacenados en este dispositivo?")) { Store.clear(); Vault.lock(); toast("Datos eliminados", "ok"); setTimeout(() => location.reload(), 800); }
+    });
   });
 }
+let ADMIN_NEXT = null;
+function showPanel() { $("#uploadModal").classList.add("show"); }
+function openAdmin(next) {
+  if (Vault.unlocked()) { Vault.touch(); (next || showPanel)(); return; }
+  ADMIN_NEXT = next || showPanel;
+  const setup = !Vault.exists();
+  $("#vaultSetup").hidden = !setup; $("#vaultSetup2").hidden = !setup;
+  $("#gateTitle").textContent = setup ? "CONFIGURAR ADMIN" : "ACCESO ADMIN";
+  $("#gateSub").textContent = setup ? "Primera vez en este dispositivo: pega tu token y crea una contraseña fuerte." : "Introduce tu contraseña para desbloquear.";
+  $("#gateBtn").textContent = setup ? "GUARDAR Y ACCEDER" : "ACCEDER";
+  $("#adminPass").autocomplete = setup ? "new-password" : "current-password";
+  $("#passwordModal").classList.add("show");
+  setTimeout(() => (setup ? $("#vaultToken") : $("#adminPass")).focus(), 100);
+}
 function setupPasswordModal() {
-  const form = $("#passwordForm"), input = $("#adminPass"), error = $("#passError");
+  Store.purgeLegacy();
+  const form = $("#passwordForm"), err = $("#passError"), btn = $("#gateBtn");
   if (!form) return;
-  form.addEventListener("submit", e => {
-    e.preventDefault();
-    error.classList.remove("show");
-    const pass = input.value.trim();
-    if (!pass) { error.textContent = "Introduce la contraseña."; error.classList.add("show"); return; }
-    if (pass === ADMIN_KEY) {
-      Store.setAuth();
+  const fail = m => { err.textContent = m; err.classList.add("show"); };
+  const wipeInputs = () => { ["#adminPass", "#vaultToken", "#vaultPass2"].forEach(i => { $(i).value = ""; }); };
+  form.addEventListener("submit", async e => {
+    e.preventDefault(); err.classList.remove("show");
+    if (!Vault.supported()) return fail("Se requiere HTTPS para el cifrado seguro.");
+    const pass = $("#adminPass").value;
+    if (!pass) return fail("Introduce la contraseña.");
+    const label = btn.textContent; btn.disabled = true; btn.textContent = "VERIFICANDO...";
+    try {
+      if (!Vault.exists()) {
+        const tk = $("#vaultToken").value.trim();
+        if (!TOKEN_RE.test(tk)) throw new Error("El token no parece válido.");
+        if (!isStrongPass(pass)) throw new Error("Contraseña débil: 12+ caracteres con mayúsculas, minúsculas, números y símbolos (o 20+).");
+        if (pass !== $("#vaultPass2").value) throw new Error("Las contraseñas no coinciden.");
+        await Vault.create(tk, pass);
+      } else await Vault.open(pass);
+      wipeInputs();
       $("#passwordModal").classList.remove("show");
-      input.value = "";
-      toast("Acceso concedido · 24h", "ok");
-      $("#uploadModal").classList.add("show");
-      setTimeout(() => $("#jsonFile").focus(), 100);
-    } else {
-      error.textContent = "Contraseña incorrecta.";
-      error.classList.add("show");
-      input.value = "";
-      input.focus();
-    }
+      toast("Acceso concedido · se bloquea tras 3 min sin actividad", "ok");
+      const n = ADMIN_NEXT; ADMIN_NEXT = null; if (n) n();
+    } catch(ex) { $("#adminPass").value = ""; fail(ex.message || "No se pudo acceder."); }
+    finally { btn.disabled = false; btn.textContent = label; }
   });
-  document.querySelectorAll('[data-close="password"]').forEach(btn => { btn.addEventListener("click", () => { input.value = ""; error.classList.remove("show"); }); });
+  document.querySelectorAll('[data-close="password"]').forEach(b => b.addEventListener("click", () => { wipeInputs(); err.classList.remove("show"); ADMIN_NEXT = null; }));
 }
 function setupUploadModal() {
   const form = $("#uploadForm"), fileInput = $("#jsonFile"), error = $("#uploadError"), submitBtn = $("#uploadBtn");
-  const tokenField = $("#ghTokenField"), tokenInput = $("#ghToken"), savedBox = $("#ghTokenSaved"), forgetBtn = $("#ghForget");
+  const delErr = $("#delError"), delBtn = $("#delBtn");
   if (!form) return;
-  const syncToken = () => { const has = !!GhStore.get(); tokenField.hidden = has; savedBox.hidden = !has; };
-  const fail = msg => { error.textContent = msg; error.classList.add("show"); };
-  syncToken();
-  forgetBtn.addEventListener("click", () => { GhStore.clear(); tokenInput.value = ""; syncToken(); toast("Token olvidado en este dispositivo", "info"); });
+  const fail = m => { error.textContent = m; error.classList.add("show"); };
+  const failDel = m => { delErr.textContent = m; delErr.classList.add("show"); };
+  const closePanel = () => { $("#uploadModal").classList.remove("show"); fileInput.value = ""; $("#delConfirm").value = ""; $("#delPass").value = ""; error.classList.remove("show"); delErr.classList.remove("show"); };
+  ["pointerdown", "keydown", "input"].forEach(ev => $("#uploadModal").addEventListener(ev, () => Vault.touch(), {passive: true}));
+  document.addEventListener("visibilitychange", () => { if (document.hidden) Vault.lock(); });
+  document.querySelectorAll('[data-close="upload"]').forEach(b => b.addEventListener("click", () => { Vault.lock(); closePanel(); }));
   form.addEventListener("submit", async e => {
-    e.preventDefault();
-    error.classList.remove("show");
+    e.preventDefault(); error.classList.remove("show");
+    const token = Vault.token();
+    if (!token) { closePanel(); return toast("Sesión bloqueada. Vuelve a entrar.", "err"); }
     const file = fileInput.files[0];
     if (!file) return fail("Selecciona un archivo JSON.");
     if (!file.name.toLowerCase().endsWith(".json") && file.type !== "application/json") return fail("El archivo debe ser .json");
     if (file.size > 10 * 1024 * 1024) return fail("Archivo demasiado grande (máx 10MB).");
-    const token = GhStore.get() || tokenInput.value.trim();
-    if (!token) return fail("Pega tu token de GitHub.");
-    if (!/^[\w-]{20,255}$/.test(token)) return fail("El token no parece válido.");
-    submitBtn.disabled = true;
-    submitBtn.textContent = "PUBLICANDO...";
+    submitBtn.disabled = true; submitBtn.textContent = "PUBLICANDO...";
     try {
       const text = await file.text();
-      let parsed;
-      try { parsed = JSON.parse(text); } catch(err) { throw new Error("El archivo no es un JSON válido."); }
+      let parsed; try { parsed = JSON.parse(text); } catch(x) { throw new Error("El archivo no es un JSON válido."); }
       const validated = validateJSON(JSON.parse(text));
       if (!validated.miembros.length) throw new Error("El JSON no tiene miembros; no se publicó para no vaciar la web.");
       await ghPublish(token, text);
-      if (!GhStore.get()) GhStore.set(token);
-      GhStore.markPending();
-      Store.save(parsed);
-      APP_DATA = validated;
-      APP_STATE = State.SUCCESS;
-      renderAll();
-      tokenInput.value = "";
-      syncToken();
-      $("#uploadModal").classList.remove("show");
-      fileInput.value = "";
+      GhStore.markPending(); Store.save(parsed);
+      APP_DATA = validated; APP_STATE = State.SUCCESS; renderAll();
+      Vault.lock(); closePanel();
       toast(`✓ Publicado en GitHub · ${validated.miembros.length} miembros · ${validated.cartelera.length} combates. Visible para todos en 1–2 min`, "ok", 6000);
-    } catch (err) {
-      if (err && err.status === 401) { GhStore.clear(); syncToken(); }
-      fail((err && err.message) || "No se pudo publicar.");
-    } finally {
-      submitBtn.disabled = false;
-      submitBtn.textContent = "PUBLICAR EN GITHUB";
-    }
+    } catch(ex) { fail((ex && ex.message) || "No se pudo publicar."); }
+    finally { submitBtn.disabled = false; submitBtn.textContent = "PUBLICAR EN GITHUB"; }
+  });
+  delBtn.addEventListener("click", async () => {
+    delErr.classList.remove("show");
+    if ($("#delConfirm").value.trim() !== "ELIMINAR") return failDel("Escribe ELIMINAR para confirmar.");
+    const pass = $("#delPass").value;
+    if (!pass) return failDel("Introduce tu contraseña.");
+    delBtn.disabled = true; delBtn.textContent = "ELIMINANDO...";
+    try {
+      const token = await Vault.open(pass);
+      await ghDelete(token);
+      Store.clear(); GhStore.clearPending(); APP_DATA = null; APP_STATE = State.ERROR; renderError();
+      Vault.lock(); closePanel();
+      toast("JSON eliminado del repo. La web queda en espera de nuevos datos.", "ok", 6000);
+    } catch(ex) { $("#delPass").value = ""; failDel((ex && ex.message) || "No se pudo eliminar."); }
+    finally { delBtn.disabled = false; delBtn.textContent = "ELIMINAR JSON"; }
+  });
+  $("#vaultWipe").addEventListener("click", () => {
+    if (!confirm("¿Borrar el token cifrado de este dispositivo? Tendrás que pegarlo de nuevo.")) return;
+    Vault.wipe(); closePanel(); toast("Token borrado de este dispositivo. Revócalo también en GitHub.", "ok", 6000);
   });
 }
 function renderHeroStats(){
