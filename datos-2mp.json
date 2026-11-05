@@ -1,6 +1,6 @@
 {
  "v": 1,
- "generado": "2026-11-05T19:03:50.478Z",
+ "generado": "2026-11-05T20:10:01.676Z",
  "miembros": [
   {
    "pid": "0zmyd6w1beq0p4",
@@ -200,16 +200,90 @@
    "lista": []
   }
  },
- "cartelera": [],
+ "cartelera": [
+  {
+   "t": 1794186000000,
+   "tipo": "sparring",
+   "puntua": false,
+   "rojo": {
+    "pid": "0zmyd6w1beq0p4",
+    "nombre": "MAX CASTAÑEDA",
+    "rango": "RAW",
+    "record": {
+     "v": 0,
+     "e": 0,
+     "d": 0,
+     "total": 0,
+     "pct": 0
+    }
+   },
+   "azul": {
+    "pid": "0lb6itl0x2y6bt",
+    "nombre": "Jhan Carlos Cotrina Z",
+    "rango": "RAW",
+    "record": {
+     "v": 0,
+     "e": 0,
+     "d": 0,
+     "total": 0,
+     "pct": 0
+    }
+   }
+  },
+  {
+   "t": 1794187200000,
+   "tipo": "sparring",
+   "puntua": false,
+   "rojo": {
+    "pid": "1rc6og7042u9zb",
+    "nombre": "JULIO SMITH CHOLAN CARRERA",
+    "rango": "RAW",
+    "record": {
+     "v": 0,
+     "e": 0,
+     "d": 0,
+     "total": 0,
+     "pct": 0
+    }
+   },
+   "azul": {
+    "pid": "1l391j81wv0p1g",
+    "nombre": "Ever Jhanpol Carrera Portal",
+    "rango": "RAW",
+    "record": {
+     "v": 0,
+     "e": 0,
+     "d": 0,
+     "total": 0,
+     "pct": 0
+    }
+   }
+  }
+ ],
  "resultados": [],
  "cambios": [
   {
-   "t": 1793905430478,
-   "tipo": "miembro",
-   "texto": "Nuevo miembro: MAX CASTAÑEDA"
+   "t": 1793909401676,
+   "tipo": "cartelera",
+   "texto": "Sparring programado: MAX CASTAÑEDA vs Jhan Carlos Cotrina Z"
+  },
+  {
+   "t": 1793909401676,
+   "tipo": "cartelera",
+   "texto": "Sparring programado: JULIO SMITH CHOLAN CARRERA vs Ever Jhanpol Carrera Portal"
   }
  ],
  "novedades": [
+  {
+   "t": 1793909401676,
+   "tipo": "cartelera",
+   "texto": "Sparring programado: JULIO SMITH CHOLAN CARRERA vs Ever Jhanpol Carrera Portal"
+  },
+  {
+   "t": 1793909401676,
+   "tipo": "cartelera",
+   "texto": "Sparring programado: MAX CASTAÑEDA vs Jhan Carlos Cotrina Z"
+  },
   {
    "t": 1793905430478,
    "tipo": "miembro",
