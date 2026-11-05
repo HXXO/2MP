@@ -1,7 +1,27 @@
 {
  "v": 1,
- "generado": "2026-11-05T18:12:40.234Z",
+ "generado": "2026-11-05T19:03:50.478Z",
  "miembros": [
+  {
+   "pid": "0zmyd6w1beq0p4",
+   "nombre": "MAX CASTAÑEDA",
+   "rango": "RAW",
+   "estrellas": 1,
+   "record": {
+    "v": 0,
+    "e": 0,
+    "d": 0,
+    "total": 0,
+    "pct": 0
+   },
+   "racha": 0,
+   "mejorRacha": 0,
+   "puntosMerito": 0,
+   "ultimos": [],
+   "predator": false,
+   "tier": "bronce",
+   "insignias": []
+  },
   {
    "pid": "1rc6og7042u9zb",
    "nombre": "JULIO SMITH CHOLAN CARRERA",
@@ -184,27 +204,17 @@
  "resultados": [],
  "cambios": [
   {
-   "t": 1793902360234,
-   "tipo": "rango",
-   "texto": "Alexander Velazquez: rango SPARK → APEX"
-  },
-  {
-   "t": 1793902360234,
-   "tipo": "record",
-   "texto": "Alexander Velazquez: récord V/E/D 0/0/0 → 3/0/0"
-  },
-  {
-   "t": 1793902360234,
-   "tipo": "rango",
-   "texto": "HAROLD OSPINO: rango SPARK → APEX"
-  },
-  {
-   "t": 1793902360234,
-   "tipo": "record",
-   "texto": "HAROLD OSPINO: récord V/E/D 0/0/0 → 3/0/0"
+   "t": 1793905430478,
+   "tipo": "miembro",
+   "texto": "Nuevo miembro: MAX CASTAÑEDA"
   }
  ],
  "novedades": [
+  {
+   "t": 1793905430478,
+   "tipo": "miembro",
+   "texto": "Nuevo miembro: MAX CASTAÑEDA"
+  },
   {
    "t": 1793902360234,
    "tipo": "record",
