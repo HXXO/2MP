@@ -740,6 +740,45 @@
 
 <div class="toasts" id="toasts" aria-live="polite"></div>
 
+<style>
+/* ═══ SPARRING (entrenamiento) ═══ */
+:root{--sp:#22d3ee;--sp-hi:#a5f3fc;--sp-deep:#0e7490}
+.fx-card.spar{border:1.5px dashed rgba(34,211,238,.55);box-shadow:0 0 34px -16px rgba(34,211,238,.55);background:repeating-linear-gradient(135deg,rgba(34,211,238,.055) 0 10px,transparent 10px 22px),linear-gradient(115deg,rgba(14,116,144,.32),rgba(14,116,144,.05) 40%,transparent 50%,rgba(14,116,144,.05) 60%,rgba(14,116,144,.32)),var(--void-2)}
+.fx-card.spar::before{background:linear-gradient(transparent,rgba(165,243,252,.5),transparent)}
+.fx-card.spar:hover{border-color:var(--sp)}
+.fx-card.spar .fx-tag{background:linear-gradient(90deg,var(--sp-deep),var(--sp-hi),var(--sp-deep));color:#03222a}
+.fx-card.spar .fx-red .fx-av{background:linear-gradient(145deg,#67e8f9,#0e7490);--cc:#22d3ee}
+.fx-card.spar .fx-blue .fx-av{background:linear-gradient(145deg,#a5b4fc,#4338ca);--cc:#818cf8}
+.fx-card.spar .fx-av{border:2px dashed rgba(255,255,255,.55);color:#021b20}
+.fx-card.spar .fx-vs{font-size:34px;letter-spacing:.06em;background:linear-gradient(180deg,var(--sp-hi),var(--sp-deep));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;text-shadow:none}
+.fx-card.spar .fx-date{border-color:rgba(34,211,238,.45)}
+.fx-card.spar .fx-date small{background:var(--sp);color:#03222a}
+.fx-card.spar .fx-date b{color:var(--sp-hi);background:rgba(34,211,238,.07)}
+.fx-card.spar .fx-u b{color:var(--sp-hi)}
+.fx-card.spar .fx-cd.urgent .fx-u b{color:#fff}
+.fx-card.spar .fx-bar i{background:linear-gradient(90deg,var(--sp-deep),var(--sp-hi))}
+.sp-note{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:8px;justify-content:center;align-items:center;margin-top:2px}
+.sp-chip{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:99px;font:800 9px var(--f-mono);letter-spacing:.16em;border:1px solid rgba(34,211,238,.45);background:rgba(34,211,238,.09);color:var(--sp-hi);text-transform:uppercase}
+.sp-chip.pts{background:linear-gradient(90deg,var(--sp-deep),var(--sp));color:#021b20;border-color:transparent}
+.sp-chip svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.rs.spar{border:1px dashed rgba(34,211,238,.5);background:repeating-linear-gradient(135deg,rgba(34,211,238,.05) 0 9px,transparent 9px 20px),var(--void-2)}
+.rs.spar .rs-side.w{background:linear-gradient(90deg,rgba(34,211,238,.2),rgba(34,211,238,.03))}
+.rs.spar .rs-side.r.w{background:linear-gradient(270deg,rgba(34,211,238,.2),rgba(34,211,238,.03))}
+.rs.spar .rs-side.w .rs-av{box-shadow:0 0 0 3px var(--sp);color:var(--sp-hi)}
+.rs.spar .w .rs-tag{background:var(--sp);color:#021b20}
+.rs.spar .l .rs-tag{background:rgba(34,211,238,.12);color:var(--sp-hi)}
+.rs.spar .rs-side.l{opacity:.7;filter:none;background:rgba(34,211,238,.03)}
+.rs.spar .rs-mid{color:var(--sp)}
+.rs-note{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:8px;justify-content:center;padding:8px 10px;border-top:1px dashed rgba(34,211,238,.3);background:rgba(34,211,238,.05)}
+.cal-day.sp::after{content:attr(data-sp);position:absolute;left:5px;bottom:4px;min-width:16px;height:16px;padding:0 4px;border-radius:99px;display:grid;place-items:center;background:var(--sp);color:#021b20;font:800 9px var(--f-mono)}
+.rank-tab[data-cat="spar"].active{background:var(--sp);border-color:var(--sp);color:#021b20}
+.rk-spar .rank-row{border:1px dashed rgba(34,211,238,.45);background:repeating-linear-gradient(135deg,rgba(34,211,238,.07) 0 10px,transparent 10px 20px),var(--void-2);border-radius:10px}
+.rk-spar .rank-row.first{border-color:var(--sp);box-shadow:0 0 36px -10px var(--sp);background:repeating-linear-gradient(135deg,rgba(34,211,238,.16) 0 10px,transparent 10px 20px),#051c22}
+.pf-t.spar b{background-image:linear-gradient(180deg,#e6fdff,#22d3ee 60%,#0e7490)}
+.pf-t.spar .pf-ic{color:rgba(34,211,238,.17)}
+.pf-t.spar::before{background:linear-gradient(180deg,#a5f3fc,#0e7490)}
+@media(max-width:640px){.fx-card.spar .fx-vs{font-size:22px}.sp-chip{font-size:8px;padding:4px 9px}}
+</style>
 <script>
 "use strict";
 /* ═══════════════════════════════════════════════════════════════
@@ -772,6 +811,7 @@ const Store = {
   clear() { try { localStorage.removeItem(this.KEY); return true; } catch(e) { return false; } },
   purgeLegacy() { try { localStorage.removeItem("2mp_admin_auth_v2"); localStorage.removeItem("2mp_gh_token_v1"); } catch(e) {} }
 };
+const isSpar = x => !!x && (x.sparring === true || ["sparring", "entrenamiento"].includes(String(x.tipo || "").toLowerCase()));
 function validateJSON(data) {
   if (!data || typeof data !== "object") throw new Error("JSON raíz inválido");
   if (!Array.isArray(data.miembros)) data.miembros = [];
@@ -792,16 +832,20 @@ function validateJSON(data) {
     mejorRacha: Math.max(0,parseInt(m.mejorRacha)||0),
     puntosMerito: Math.max(0,parseInt(m.puntosMerito)||0),
     predator: !!m.predator,
+    sparring: (() => { const sp = m.sparring && typeof m.sparring === "object" ? m.sparring : {};
+      return { total: Math.max(0, parseInt(sp.total ?? m.sparrings) || 0), puntos: Math.max(0, Math.min(99999, parseInt(sp.puntos ?? m.puntosSparring) || 0)) }; })(),
     tier: ["bronce","plata","oro","morada"].includes(m.tier) ? m.tier : "oro",
     insignias: Array.isArray(m.insignias) ? m.insignias.filter(x => typeof x === "string" && /^([a-z]{3,12}|ev-[a-z]+-\d{8})$/.test(x)).slice(0,14) : []
   }));
   data.cartelera = data.cartelera.filter(c => c && typeof c === "object" && typeof c.t === "number" && c.rojo && c.azul).map(c => ({
     t: c.t, rojo: {nombre:esc(String(c.rojo.nombre||"ROJO")),rango:esc(String(c.rojo.rango||""))},
-    azul: {nombre:esc(String(c.azul.nombre||"AZUL")),rango:esc(String(c.azul.rango||""))}, campeonato: !!c.campeonato
+    azul: {nombre:esc(String(c.azul.nombre||"AZUL")),rango:esc(String(c.azul.rango||""))}, sparring: isSpar(c), campeonato: !isSpar(c) && !!c.campeonato,
+    puntos: Math.max(0, Math.min(9999, parseInt(c.puntos) || 0))
   }));
   data.resultados = data.resultados.filter(r => r && typeof r === "object" && typeof r.t === "number" && r.rojo && r.azul && typeof r.resultado === "string").map(r => ({
     t: r.t, rojo: {nombre:esc(String(r.rojo.nombre||"ROJO")),rango:esc(String(r.rojo.rango||""))},
-    azul: {nombre:esc(String(r.azul.nombre||"AZUL")),rango:esc(String(r.azul.rango||""))}, resultado: r.resultado
+    azul: {nombre:esc(String(r.azul.nombre||"AZUL")),rango:esc(String(r.azul.rango||""))}, resultado: r.resultado,
+    sparring: isSpar(r), puntos: Math.max(0, Math.min(9999, parseInt(r.puntos) || 0))
   }));
   for (const cat in data.rankings) {
     const r = data.rankings[cat];
@@ -829,7 +873,7 @@ function utf8ToBase64(str) {
 async function ghFetch(path, token, opts = {}) {
   const ctrl = new AbortController(), to = setTimeout(() => ctrl.abort(), 15000);
   try {
-    return await fetch(GH.api + path, {...opts, signal: ctrl.signal, headers: {
+    return await fetch(GH.api + path, {...opts, signal: ctrl.signal, cache: "no-store", headers: {
       "Accept": "application/vnd.github+json", "Authorization": "Bearer " + token,
       "X-GitHub-Api-Version": "2022-11-28", ...(opts.body ? {"Content-Type": "application/json"} : {})
     }});
@@ -839,40 +883,55 @@ async function ghFetch(path, token, opts = {}) {
 }
 async function ghHttpError(res) {
   if (res.status === 401) return new GhError("Token inválido o vencido.", 401);
-  if (res.status === 403) return new GhError("Sin permiso (revisa Contents: Read and write) o límite de GitHub alcanzado.", 403);
   let d = ""; try { d = (await res.json()).message || ""; } catch(e) {}
+  if (res.status === 403) return new GhError("Sin permiso (revisa Contents: Read and write) o límite de GitHub alcanzado." + (d ? " Detalle: " + d : ""), 403);
   return new GhError("GitHub respondió " + res.status + (d ? ": " + d : ""), res.status);
 }
+let ghBranch = GH.branch;
+async function ghResolveBranch(token) {
+  const r = await ghFetch(`/repos/${GH.owner}/${GH.repo}?_=${Date.now()}`, token);
+  if (r.status === 404) throw new GhError("El token no tiene acceso al repo " + GH.owner + "/" + GH.repo + ". En GitHub, edita el token y selecciona ese repositorio con Contents: Read and write.", 404);
+  if (!r.ok) throw await ghHttpError(r);
+  const j = await r.json();
+  if (j && j.permissions && j.permissions.push === false) throw new GhError("El token solo puede leer el repo. Activa Contents: Read and write.", 403);
+  const b = await ghFetch(`/repos/${GH.owner}/${GH.repo}/branches/${encodeURIComponent(GH.branch)}?_=${Date.now()}`, token);
+  ghBranch = b.ok ? GH.branch : ((j && j.default_branch) || GH.branch);
+  return ghBranch;
+}
 async function ghGetSha(token) {
-  const res = await ghFetch(`/repos/${GH.owner}/${GH.repo}/contents/${GH.path}?ref=${GH.branch}`, token);
+  const res = await ghFetch(`/repos/${GH.owner}/${GH.repo}/contents/${GH.path}?ref=${encodeURIComponent(ghBranch)}&_=${Date.now()}`, token);
   if (res.status === 200) { const j = await res.json(); return j.sha || null; }
-  if (res.status === 404) {
-    const r = await ghFetch(`/repos/${GH.owner}/${GH.repo}`, token);
-    if (r.ok) return null;
-    throw new GhError("El token no tiene acceso al repo " + GH.owner + "/" + GH.repo + ".", 404);
-  }
+  if (res.status === 404) return null;
   throw await ghHttpError(res);
 }
 async function ghPublish(token, text) {
   const content = utf8ToBase64(text);
-  for (let attempt = 0; attempt < 2; attempt++) {
+  await ghResolveBranch(token);
+  let lastErr = null;
+  for (let attempt = 0; attempt < 3; attempt++) {
     const sha = await ghGetSha(token);
     const res = await ghFetch(`/repos/${GH.owner}/${GH.repo}/contents/${GH.path}`, token, {
       method: "PUT",
-      body: JSON.stringify({message: "Actualizar datos 2MP · " + new Date().toISOString(), content, branch: GH.branch, ...(sha ? {sha} : {})})
+      body: JSON.stringify({message: "Actualizar datos 2MP · " + new Date().toISOString(), content, branch: ghBranch, ...(sha ? {sha} : {})})
     });
-    if (res.ok) return res.json();
-    if ((res.status === 409 || res.status === 422) && attempt === 0) continue;
-    throw await ghHttpError(res);
+    if (res.ok) {
+      const out = await res.json();
+      if (!out || !out.commit || !out.commit.sha) throw new GhError("GitHub respondió sin confirmar el commit.", res.status);
+      return out;
+    }
+    lastErr = await ghHttpError(res);
+    if ((res.status === 409 || res.status === 422) && attempt < 2) { await new Promise(r => setTimeout(r, 700 * (attempt + 1))); continue; }
+    throw lastErr;
   }
-  throw new GhError("No se pudo publicar tras reintentar.", 409);
+  throw lastErr || new GhError("No se pudo publicar tras reintentar.", 409);
 }
 async function ghDelete(token) {
+  await ghResolveBranch(token);
   const sha = await ghGetSha(token);
   if (!sha) throw new GhError("El JSON no existe en el repo (ya estaba eliminado).", 404);
   const res = await ghFetch(`/repos/${GH.owner}/${GH.repo}/contents/${GH.path}`, token, {
     method: "DELETE",
-    body: JSON.stringify({message: "Eliminar datos 2MP · " + new Date().toISOString(), sha, branch: GH.branch})
+    body: JSON.stringify({message: "Eliminar datos 2MP · " + new Date().toISOString(), sha, branch: ghBranch})
   });
   if (!res.ok) throw await ghHttpError(res);
 }
@@ -881,7 +940,7 @@ const isStrongPass = p => p.length >= 20 || (p.length >= 12 && [/[a-z]/, /[A-Z]/
 const Vault = (() => {
   const KEY = "2mp_vault_v3", ATT = "2mp_vault_att_v3", ITER = 600000, IDLE_MS = 3 * 60 * 1000;
   const AAD = new TextEncoder().encode("2mp-vault-v3|" + GH.owner + "/" + GH.repo), enc = new TextEncoder(), dec = new TextDecoder();
-  let tok = null, timer = 0;
+  let tok = null, timer = 0, last = 0;
   const b64 = u8 => { let t = ""; for (let i = 0; i < u8.length; i++) t += String.fromCharCode(u8[i]); return btoa(t); };
   const unb64 = t => Uint8Array.from(atob(t), c => c.charCodeAt(0));
   const rd = k => { try { return JSON.parse(localStorage.getItem(k) || "null"); } catch(e) { return null; } };
@@ -901,7 +960,8 @@ const Vault = (() => {
     unlocked: () => tok !== null,
     token: () => tok,
     lockLeft,
-    touch() { clearTimeout(timer); if (tok !== null) timer = setTimeout(() => this.lock(), IDLE_MS); },
+    touch() { clearTimeout(timer); last = Date.now(); if (tok !== null) timer = setTimeout(() => this.lock(), IDLE_MS); },
+    checkIdle() { if (tok !== null && Date.now() - last > IDLE_MS) this.lock(); return tok !== null; },
     lock() { tok = null; clearTimeout(timer); },
     wipe() { this.lock(); try { localStorage.removeItem(KEY); localStorage.removeItem(ATT); } catch(e) {} },
     async create(token, pass) {
@@ -1000,6 +1060,7 @@ const RANK_CATS = [
   {k:"att",t:"ASISTENCIA",color:"var(--steel)"},
   {k:"impr",t:"MEJORA",color:"#2dd4bf"},
   {k:"pm",t:"PUNTOS MÉRITO",color:"var(--amber)"},
+  {k:"spar",t:"🥊 SPARRING",color:"#22d3ee"},
   {k:"predator",t:"⚡ PREDATOR",color:"var(--violet)"}
 ];
 let currentCat = "wins";
@@ -1121,31 +1182,38 @@ function setupUploadModal() {
   const form = $("#uploadForm"), fileInput = $("#jsonFile"), error = $("#uploadError"), submitBtn = $("#uploadBtn");
   const delErr = $("#delError"), delBtn = $("#delBtn");
   if (!form) return;
+  let pendingText = null, pendingName = "";
   const fail = m => { error.textContent = m; error.classList.add("show"); };
   const failDel = m => { delErr.textContent = m; delErr.classList.add("show"); };
-  const closePanel = () => { $("#uploadModal").classList.remove("show"); fileInput.value = ""; $("#delConfirm").value = ""; $("#delPass").value = ""; error.classList.remove("show"); delErr.classList.remove("show"); };
+  const closePanel = () => { $("#uploadModal").classList.remove("show"); fileInput.value = ""; pendingText = null; $("#delConfirm").value = ""; $("#delPass").value = ""; error.classList.remove("show"); delErr.classList.remove("show"); };
   ["pointerdown", "keydown", "input"].forEach(ev => $("#uploadModal").addEventListener(ev, () => Vault.touch(), {passive: true}));
-  document.addEventListener("visibilitychange", () => { if (document.hidden) Vault.lock(); });
+  document.addEventListener("visibilitychange", () => { if (!document.hidden) Vault.checkIdle(); });
   document.querySelectorAll('[data-close="upload"]').forEach(b => b.addEventListener("click", () => { Vault.lock(); closePanel(); }));
+  fileInput.addEventListener("change", async () => {
+    pendingText = null; error.classList.remove("show");
+    const f = fileInput.files[0]; if (!f) return;
+    try { pendingText = await f.text(); pendingName = f.name; } catch(x) { fail("No se pudo leer el archivo. Vuelve a seleccionarlo."); }
+  });
   form.addEventListener("submit", async e => {
     e.preventDefault(); error.classList.remove("show");
+    Vault.checkIdle();
     const token = Vault.token();
-    if (!token) { closePanel(); return toast("Sesión bloqueada. Vuelve a entrar.", "err"); }
+    if (!token) { $("#uploadModal").classList.remove("show"); toast("Sesión bloqueada. Vuelve a entrar.", "err"); return openAdmin(); }
     const file = fileInput.files[0];
     if (!file) return fail("Selecciona un archivo JSON.");
     if (!file.name.toLowerCase().endsWith(".json") && file.type !== "application/json") return fail("El archivo debe ser .json");
     if (file.size > 10 * 1024 * 1024) return fail("Archivo demasiado grande (máx 10MB).");
     submitBtn.disabled = true; submitBtn.textContent = "PUBLICANDO...";
     try {
-      const text = await file.text();
+      const text = pendingText !== null ? pendingText : await file.text();
       let parsed; try { parsed = JSON.parse(text); } catch(x) { throw new Error("El archivo no es un JSON válido."); }
       const validated = validateJSON(JSON.parse(text));
       if (!validated.miembros.length) throw new Error("El JSON no tiene miembros; no se publicó para no vaciar la web.");
-      await ghPublish(token, text);
+      const out = await ghPublish(token, text);
       GhStore.markPending(); Store.save(parsed);
       APP_DATA = validated; APP_STATE = State.SUCCESS; renderAll();
       Vault.lock(); closePanel();
-      toast(`✓ Publicado en GitHub · ${validated.miembros.length} miembros · ${validated.cartelera.length} combates. Visible para todos en 1–2 min`, "ok", 6000);
+      toast(`✓ Publicado en GitHub (commit ${String(out.commit.sha).slice(0,7)}) · ${validated.miembros.length} miembros · ${validated.cartelera.filter(c=>!c.sparring).length} combates + ${validated.cartelera.filter(c=>c.sparring).length} sparring. Visible para todos en 1–2 min`, "ok", 7000);
     } catch(ex) { fail((ex && ex.message) || "No se pudo publicar."); }
     finally { submitBtn.disabled = false; submitBtn.textContent = "PUBLICAR EN GITHUB"; }
   });
@@ -1173,7 +1241,7 @@ function renderHeroStats(){
   if(!APP_DATA) return;
   if(!window._visited){window._visited=1; window._visits=getVisitCount();}
   animateNumber($('[data-stat="miembros"]'),APP_DATA.miembros.length,1500);
-  animateNumber($('[data-stat="combates"]'),APP_DATA.resultados.length+APP_DATA.cartelera.length,1500);
+  animateNumber($('[data-stat="combates"]'),APP_DATA.resultados.filter(r=>!r.sparring).length+APP_DATA.cartelera.filter(c=>!c.sparring).length,1500);
   animateNumber($('[data-stat="visitas"]'),window._visits,1500);
 }
 function renderActivity(){
@@ -1181,13 +1249,14 @@ function renderActivity(){
   const M=APP_DATA.miembros,R=APP_DATA.resultados,C=APP_DATA.cartelera,now=Date.now(),D=86400000;
   const day0=t=>{const d=new Date(t);d.setHours(0,0,0,0);return d.getTime();};
   const byDay={},upDay={};
-  R.forEach(r=>{const k=day0(r.t);byDay[k]=(byDay[k]||0)+1;});
-  C.filter(c=>c.t>now).forEach(c=>{const k=day0(c.t);upDay[k]=(upDay[k]||0)+1;});
+  const spDay={};
+  R.forEach(r=>{const k=day0(r.t);if(r.sparring)spDay[k]=(spDay[k]||0)+1;else byDay[k]=(byDay[k]||0)+1;});
+  C.filter(c=>c.t>now&&!c.sparring).forEach(c=>{const k=day0(c.t);upDay[k]=(upDay[k]||0)+1;});
   const today=day0(now),dow=(new Date(today).getDay()+6)%7,start=today-dow*D-21*D;
   const names=["LUN","MAR","MIÉ","JUE","VIE","SÁB","DOM"];
   let cells="";
-  for(let i=0;i<35;i++){const t=start+i*D,d=new Date(t),n=byDay[t]||0,u=upDay[t]||0,fut=t>today;
-    cells+=`<div class="cal-day ${n?"act":""} ${u?"up":""} ${fut&&!u?"fut":""} ${t===today?"today":""}" title="${d.getDate()}/${d.getMonth()+1}: ${n} combate(s)${u?` · ${u} programado(s)`:""}"><span>${d.getDate()}</span>${n?`<em>${n}</em>`:u?`<em>⚔</em>`:""}</div>`;}
+  for(let i=0;i<35;i++){const t=start+i*D,d=new Date(t),n=byDay[t]||0,u=upDay[t]||0,q=spDay[t]||0,fut=t>today;
+    cells+=`<div class="cal-day ${n?"act":""} ${u?"up":""} ${q?"sp":""} ${fut&&!u&&!q?"fut":""} ${t===today?"today":""}" ${q?`data-sp="${q}"`:""} title="${d.getDate()}/${d.getMonth()+1}: ${n} combate(s)${q?` · ${q} sparring`:""}${u?` · ${u} programado(s)`:""}"><span>${d.getDate()}</span>${n?`<em>${n}</em>`:u?`<em>⚔</em>`:""}</div>`;}
   const last7=Array.from({length:7},(_,i)=>byDay[today-(6-i)*D]||0),mx=Math.max(1,...last7);
   const spark=a=>`<div class="act-bars">${a.map(v=>`<i style="height:${Math.max(8,v/mx*100)}%"></i>`).join("")}</div>`;
   const rk={};M.forEach(m=>rk[m.rango]=(rk[m.rango]||0)+1);
@@ -1198,7 +1267,7 @@ function renderActivity(){
   const card=(ac,lb,val,det,extra)=>`<div class="activity-card" style="--accent:${ac}"><div class="activity-top"><div><div class="activity-label">${lb}</div><div class="activity-value">${val}</div></div></div><div class="activity-detail">${det}</div>${extra}</div>`;
   s.innerHTML=`<div class="heatmap-section"><div class="cal-head"><div><div class="heatmap-title">CALENDARIO DE COMBATES</div><div class="heatmap-subtitle" style="margin:0">Últimas 3 semanas y las próximas</div></div><div class="cal-month">${mon}</div></div>
   <div class="cal-grid">${names.map(n=>`<div class="cal-dow">${n}</div>`).join("")}${cells}</div>
-  <div class="cal-legend"><span><b style="background:rgba(212,169,78,.4)"></b>Hubo combates (número = cantidad)</span><span><b style="border:1px dashed var(--steel)"></b>Combate programado ⚔</span><span><b style="box-shadow:0 0 0 2px var(--gold)"></b>Hoy</span></div></div>`;
+  <div class="cal-legend"><span><b style="background:rgba(212,169,78,.4)"></b>Hubo combates (número = cantidad)</span><span><b style="border:1px dashed var(--steel)"></b>Combate programado ⚔</span><span><b style="background:var(--sp)"></b>Sparring (no cuenta para récord)</span><span><b style="box-shadow:0 0 0 2px var(--gold)"></b>Hoy</span></div></div>`;
 }
 function cdParts(t){const d=Math.max(0,t-Date.now());return{d:Math.floor(d/864e5),h:Math.floor(d%864e5/36e5),m:Math.floor(d%36e5/6e4),s:Math.floor(d%6e4/1e3),urgent:d<864e5,pct:Math.min(100,d/(7*864e5)*100),over:d<=0};}
 function cdHTML(p){return [["d","DÍAS"],["h","HRS"],["m","MIN"],["s","SEG"]].map(([k,l])=>`<div class="fx-u"><b data-u="${k}">${pad(p[k])}</b><small>${l}</small></div>`).join("");}
@@ -1242,18 +1311,19 @@ function pickMain(all){
 }
 function renderCartelera(){
   const list=$("#carteleraList"); if(!list||!APP_DATA) return;
-  const all=APP_DATA.cartelera.filter(c=>c.t>Date.now()-36e5).sort((a,b)=>a.t-b.t),mi=pickMain(all),f=mi<0?[]:[all[mi],...all.filter((_,k)=>k!==mi)].slice(0,10);
+  const all=APP_DATA.cartelera.filter(c=>c.t>Date.now()-36e5).sort((a,b)=>a.t-b.t),normal=all.filter(c=>!c.sparring),mi=pickMain(normal),main=mi<0?null:normal[mi],f=(main?[main,...all.filter(c=>c!==main)]:all).slice(0,10);
   if(!f.length){list.innerHTML=`<div class="wt" style="--c:#d4a94e"><div class="wt-duel" aria-hidden="true"><div class="wt-ghost r">?</div><div class="wt-vs">VS</div><div class="wt-ghost b">?</div></div>
     <span class="wt-tag">PRÓXIMO COMBATE</span><h3>CARTELERA EN BLANCO</h3><p>Aún no hay peleas agendadas. Cuando se anuncie un enfrentamiento aparecerá aquí con su cuenta regresiva.</p>
     <div class="wt-cd" aria-hidden="true"><span>--<small>DÍAS</small></span><span>--<small>HRS</small></span><span>--<small>MIN</small></span><span>--<small>SEG</small></span></div></div>`;return;}
   const side=(x,c)=>`<div class="fx-side fx-${c}"><span class="fx-wm">${esc(ini(x.nombre).charAt(0))}</span><div class="fx-av">${esc(ini(x.nombre))}</div><div class="fx-txt"><div class="fx-name">${esc(x.nombre)}</div>${x.rango?`<div class="fx-rk">${esc(x.rango)}</div>`:""}</div></div>`;
-  list.innerHTML=f.map((c,i)=>{const d=new Date(c.t),p=cdParts(c.t);
-    return `<div class="fx-card ${c.campeonato?"champ":i===0?"main":""}"${i===0?' data-main="1" tabindex="0" role="button" aria-label="Ver entrada al ring"':""} style="animation:fadeUp .5s var(--e-out) ${i*.08}s both">${c.campeonato?`<div class="fx-tag">🏆 CAMPEONATO</div>`:i===0?`<div class="fx-tag">MAIN EVENT</div>`:""}
-    ${side(c.rojo,"red")}<div class="fx-vs">VS</div>${side(c.azul,"blue")}
+  const SP_IC='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8v8M3 10v4M18 8v8M21 10v4M6 12h12"/></svg>';
+  list.innerHTML=f.map((c,i)=>{const d=new Date(c.t),p=cdParts(c.t),sp=!!c.sparring,mn=!sp&&c===main;
+    return `<div class="fx-card ${sp?"spar":c.campeonato?"champ":mn?"main":""}"${mn?' data-main="1" tabindex="0" role="button" aria-label="Ver entrada al ring"':""} style="animation:fadeUp .5s var(--e-out) ${i*.08}s both">${sp?`<div class="fx-tag">🥊 SPARRING · ENTRENAMIENTO</div>`:c.campeonato?`<div class="fx-tag">🏆 CAMPEONATO</div>`:mn?`<div class="fx-tag">MAIN EVENT</div>`:""}
+    ${side(c.rojo,"red")}<div class="fx-vs">${sp?"SPAR":"VS"}</div>${side(c.azul,"blue")}
     <div class="fx-foot"><div class="fx-when"><div class="fx-date"><small>${d.toLocaleDateString("es",{month:"short"}).replace(".","").toUpperCase()}</small><b>${pad(d.getDate())}</b></div><div class="fx-clock">${fmtTime(c.t)}<small>${d.toLocaleDateString("es",{weekday:"long"}).toUpperCase()}</small></div></div>
     <div class="fx-cd ${p.urgent?"urgent":""}" data-t="${c.t}">${cdHTML(p)}</div></div>
-    ${i===0?`<div class="fx-hint">${window._mainWhy?window._mainWhy+" · ":""}▶ TOCA PARA VER LA ENTRADA</div>`:""}<div class="fx-bar"><i data-bar="${c.t}" style="width:${p.pct}%"></i></div></div>`;}).join("");
-  window._mainFight=f[0];if(!list._rb){list._rb=1;const go=e=>{if(e.target.closest("[data-main]")&&window._mainFight&&(e.type==="click"||e.key==="Enter"))ringEntrance(window._mainFight);};list.addEventListener("click",go);list.addEventListener("keydown",go);}
+    ${sp?`<div class="sp-note"><span class="sp-chip">${SP_IC}NO CUENTA PARA EL RÉCORD</span><span class="sp-chip pts">${c.puntos?`+${c.puntos} PTS`:"SUMA PUNTOS"}</span></div>`:""}${mn?`<div class="fx-hint">${window._mainWhy?window._mainWhy+" · ":""}▶ TOCA PARA VER LA ENTRADA</div>`:""}<div class="fx-bar"><i data-bar="${c.t}" style="width:${p.pct}%"></i></div></div>`;}).join("");
+  window._mainFight=main;if(!list._rb){list._rb=1;const go=e=>{if(e.target.closest("[data-main]")&&window._mainFight&&(e.type==="click"||e.key==="Enter"))ringEntrance(window._mainFight);};list.addEventListener("click",go);list.addEventListener("keydown",go);}
   if(!window._cdInterval) window._cdInterval=setInterval(updateCountdowns,1000);
 }
 function updateCountdowns(){
@@ -1278,9 +1348,9 @@ function renderResultados(){
   const l=$("#resultadosList"); if(!l||!APP_DATA) return;
   const f=[...APP_DATA.resultados].sort((a,b)=>b.t-a.t).slice(0,10);
   if(!f.length){l.innerHTML=`<div class="state-box"><div class="state-icon">📋</div><h3>SIN COMBATES REGISTRADOS</h3><p>Los resultados aparecerán aquí.</p></div>`;return;}
-  const sd=(x,st,r)=>`<div class="rs-side ${st} ${r}"><div class="rs-av">${esc(ini(x.nombre))}</div><div class="rs-nm">${esc(x.nombre)}<small>${esc(x.rango||"")}</small><span class="rs-tag">${st==="w"?"🏆 GANÓ":st==="l"?"PERDIÓ":"EMPATE"}</span></div></div>`;
-  l.innerHTML=f.map((c,i)=>{const d=c.resultado==="empate",rw=c.resultado==="rojo";
-    return `<div class="rs" style="animation-delay:${i*.05}s">${sd(c.rojo,d?"d":rw?"w":"l","")}<div class="rs-mid">VS<small>${fmtDate(c.t)}</small></div>${sd(c.azul,d?"d":rw?"l":"w","r")}</div>`;}).join("");
+  const sd=(x,st,r,sp)=>`<div class="rs-side ${st} ${r}"><div class="rs-av">${esc(ini(x.nombre))}</div><div class="rs-nm">${esc(x.nombre)}<small>${esc(x.rango||"")}</small><span class="rs-tag">${st==="w"?(sp?"🥊 VENTAJA":"🏆 GANÓ"):st==="l"?(sp?"ENTRENÓ":"PERDIÓ"):"EMPATE"}</span></div></div>`;
+  l.innerHTML=f.map((c,i)=>{const d=c.resultado==="empate",rw=c.resultado==="rojo",sp=!!c.sparring;
+    return `<div class="rs ${sp?"spar":""}" style="animation-delay:${i*.05}s">${sd(c.rojo,d?"d":rw?"w":"l","",sp)}<div class="rs-mid">${sp?"SPAR":"VS"}<small>${fmtDate(c.t)}</small></div>${sd(c.azul,d?"d":rw?"l":"w","r",sp)}${sp?`<div class="rs-note"><span class="sp-chip">ENTRENAMIENTO · NO CUENTA PARA EL RÉCORD</span>${c.puntos?`<span class="sp-chip pts">+${c.puntos} PTS</span>`:""}</div>`:""}</div>`;}).join("");
 }
 
 function initParticles(){const c=$("#heroParticles");if(!c)return;c.innerHTML='<div class="hx-aurora a1"></div><div class="hx-aurora a2"></div><div class="hx-spot s1"></div><div class="hx-spot s2"></div><div class="hx-sweep"></div><div class="hx-floor2"></div><div class="hx-horizon"><i></i></div>';}
@@ -1540,7 +1610,7 @@ function openProfile(pid){
   $("#profileContent").innerHTML=`<div class="pf-hero" style="--rc:${rc}"><div class="pf-av">${avatarHTML(m,124)}</div><div class="pf-id"><div class="profile-name">${esc(m.nombre)}</div><div class="pf-rk"><span class="profile-rank-badge" style="background:${rc}22;border:1px solid ${rc}66;color:${rc}">${esc(m.rango)}</span>${starsHTML(m)}</div><div class="pf-motto">${motto(m)}</div></div></div>
   ${all?`<div class="pf-sec"><h4>INSIGNIAS</h4><div class="mdl mdl-s pf-medals" id="pfMedals" style="--ms:54px"></div></div>`:""}
   <div class="pf-sec"><h4>RÉCORD</h4><div class="pf-score"><div class="ps v"><b>${r.v}</b><small>VICTORIAS</small></div><div class="ps e"><b>${r.e}</b><small>EMPATES</small></div><div class="ps d"><b>${r.d}</b><small>DERROTAS</small></div></div><div class="pf-eff"><span>EFECTIVIDAD</span><b>${r.pct}<s>%</s></b></div></div>
-  <div class="pf-sec"><h4>ESTADÍSTICAS</h4><div class="pf-tiles">${tile("fl",m.racha,"RACHA ACTUAL","victorias seguidas",m.racha>=3?"hot":"")}${tile("bl",m.mejorRacha,"MEJOR RACHA","tu marca personal")}${tile("st",m.puntosMerito,"PUNTOS MÉRITO","reputación ganada")}${tile("sw",r.total,"COMBATES","disputados")}</div></div>
+  <div class="pf-sec"><h4>ESTADÍSTICAS</h4><div class="pf-tiles">${tile("fl",m.racha,"RACHA ACTUAL","victorias seguidas",m.racha>=3?"hot":"")}${tile("bl",m.mejorRacha,"MEJOR RACHA","tu marca personal")}${tile("st",m.puntosMerito,"PUNTOS MÉRITO","reputación ganada")}${tile("sw",r.total,"COMBATES","disputados")}${(m.sparring.total||m.sparring.puntos)?tile("sw",m.sparring.puntos,"PUNTOS SPARRING","entrenamiento · no es récord","spar")+tile("sw",m.sparring.total,"SPARRINGS","sesiones de entrenamiento","spar"):""}</div></div>
   <div class="profile-actions pf-act"><button class="btn-form primary" style="flex:1 1 100%" onclick="shareProfile('${esc(m.pid)}',this)">⬇ DESCARGAR PERFIL (IMAGEN)</button>${peers.length?`<select id="cmpSel" aria-label="Comparar con"><option value="">⚔ Comparar con…</option>${peers.map(p=>`<option value="${esc(p.pid)}">${esc(p.nombre)}</option>`).join("")}</select>`:""}<button class="btn-form ghost" data-close="profile" style="flex:1">CERRAR</button></div>`;
   const sel=$("#cmpSel");if(sel)sel.onchange=()=>{const b=APP_DATA.miembros.find(x=>x.pid===sel.value);if(b){showCompare(m,b);$("#profileModal").classList.remove("show");}};
   $("#profileModal").classList.add("show");
@@ -1590,12 +1660,16 @@ async function shareProfile(pid,btn){
   }catch(e){btn.textContent="NO SE PUDO GENERAR";}
   setTimeout(()=>{btn.textContent=t0;btn.disabled=false;},2200);
 }
-const RK_IC={wins:'<path d="M7 4h10v5a5 5 0 0 1-10 0zM7 6H4v2a3 3 0 0 0 3 3M17 6h3v2a3 3 0 0 1-3 3M12 14v4M8 20h8"/>',pct:'<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3.5"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/>',streak:'<path d="M12 3c1 4 5 5 5 10a5 5 0 0 1-10 0c0-2 1-3 2-4 0 2 1 3 2 3 0-3-1-6 1-9z"/>',att:'<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/>',impr:'<path d="M5 14l7-7 7 7M5 20l7-7 7 7"/>',pm:'<path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/>'};
+const RK_IC={wins:'<path d="M7 4h10v5a5 5 0 0 1-10 0zM7 6H4v2a3 3 0 0 0 3 3M17 6h3v2a3 3 0 0 1-3 3M12 14v4M8 20h8"/>',pct:'<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3.5"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/>',streak:'<path d="M12 3c1 4 5 5 5 10a5 5 0 0 1-10 0c0-2 1-3 2-4 0 2 1 3 2 3 0-3-1-6 1-9z"/>',att:'<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/>',impr:'<path d="M5 14l7-7 7 7M5 20l7-7 7 7"/>',spar:'<path d="M6 8v8M3 10v4M18 8v8M21 10v4M6 12h12"/>',pm:'<path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/>'};
 function renderRankings(){
   const tabs=$("#rankTabs"),content=$("#rankContent");if(!tabs||!content||!APP_DATA)return;
   tabs.innerHTML=RANK_CATS.map(c=>`<button class="rank-tab ${c.k===currentCat?"active":""}" data-cat="${c.k}">${c.t}</button>`).join("");
   tabs.onclick=e=>{const b=e.target.closest("[data-cat]");if(!b)return;currentCat=b.dataset.cat;renderRankings();};
-  const data=APP_DATA.rankings[currentCat];
+  let data=APP_DATA.rankings[currentCat];
+  if(currentCat==="spar"&&(!data||!data.lista||!data.lista.length)){
+    const lista=APP_DATA.miembros.filter(m=>m.sparring&&m.sparring.puntos>0).sort((a,b)=>b.sparring.puntos-a.sparring.puntos||b.sparring.total-a.sparring.total).slice(0,10).map((m,i)=>({pos:i+1,nombre:m.nombre,rango:m.rango,valor:String(m.sparring.puntos),detalle:m.sparring.total+" sparring"}));
+    data={titulo:"SPARRING",regla:"Puntos de entrenamiento. No afectan el récord.",lista};
+  }
   if(!data||!data.lista||!data.lista.length){const c0=RANK_CATS.find(c=>c.k===currentCat)||RANK_CATS[0];
     content.innerHTML=`<div class="wt" style="--c:${c0.color}"><div class="wt-pod" aria-hidden="true"><i>2</i><i>1</i><i>3</i></div>
     <span class="wt-tag">${esc(c0.t)}</span><h3>PODIO SIN CORONAR</h3><p>Aún no hay miembros clasificados en esta categoría. El primer lugar sigue libre.${data&&data.regla?` <em>${esc(data.regla)}</em>`:""}</p></div>`;return;}
