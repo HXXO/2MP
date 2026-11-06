@@ -1,6 +1,6 @@
 {
  "v": 1,
- "generado": "2026-11-06T23:14:30.228Z",
+ "generado": "2026-11-06T23:17:39.280Z",
  "miembros": [
   {
    "pid": "0zmyd6w1beq0p4",
@@ -16,7 +16,7 @@
    },
    "racha": 0,
    "mejorRacha": 0,
-   "puntosMerito": 100,
+   "puntosMerito": 150,
    "ultimos": [],
    "predator": false,
    "tier": "bronce",
@@ -141,8 +141,8 @@
    "restante": {
     "dias": 5,
     "horas": 23,
-    "minutos": 6,
-    "ms": 515189429
+    "minutos": 3,
+    "ms": 515000377
    },
    "porVencer": false
   },
@@ -157,8 +157,8 @@
    "restante": {
     "dias": 6,
     "horas": 0,
-    "minutos": 23,
-    "ms": 519790948
+    "minutos": 20,
+    "ms": 519601896
    },
    "porVencer": false
   },
@@ -173,8 +173,8 @@
    "restante": {
     "dias": 6,
     "horas": 2,
-    "minutos": 19,
-    "ms": 526746627
+    "minutos": 15,
+    "ms": 526557575
    },
    "porVencer": false
   },
@@ -189,8 +189,8 @@
    "restante": {
     "dias": 6,
     "horas": 3,
-    "minutos": 33,
-    "ms": 531194843
+    "minutos": 30,
+    "ms": 531005791
    },
    "porVencer": false
   },
@@ -205,8 +205,8 @@
    "restante": {
     "dias": 6,
     "horas": 23,
-    "minutos": 55,
-    "ms": 604511893
+    "minutos": 52,
+    "ms": 604322841
    },
    "porVencer": false
   }
@@ -285,7 +285,7 @@
      "pid": "0zmyd6w1beq0p4",
      "nombre": "MAX CASTAÑEDA",
      "rango": "RAW",
-     "valor": "100 PM",
+     "valor": "150 PM",
      "detalle": "★ 2 de 3"
     },
     {
@@ -394,13 +394,7 @@
   }
  ],
  "resultados": [],
- "cambios": [
-  {
-   "t": 1794006870228,
-   "tipo": "pase",
-   "texto": "Nuevo pase temporal: Jhon Edilberto Olano Calderón · vence 12/11/2026"
-  }
- ],
+ "cambios": [],
  "novedades": [
   {
    "t": 1794006870228,
