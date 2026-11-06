@@ -409,20 +409,7 @@
 .guests-bar-fill.full{background:linear-gradient(90deg,var(--blood),var(--blood-hi))}
 </style>
 <style id="cal-pv-ux">
-.cal-day.spu:not(.up){border:1px dashed var(--sp);background:rgba(34,211,238,.09)}
-.cal-day.spu:not(.up)>span,.cal-day.spu:not(.up) em{color:var(--sp-hi)}
-.cal-day.spu::before{content:attr(data-spu);position:absolute;left:5px;bottom:4px;min-width:16px;height:16px;padding:0 4px;border-radius:99px;display:grid;place-items:center;border:1px dashed var(--sp);background:rgba(3,34,42,.9);color:var(--sp-hi);font:800 9px var(--f-mono)}
-.cal-day.sp.spu::before{left:26px}
-.cal-day[tabindex]{cursor:pointer}
-.cal-day[tabindex]:focus-visible,.cal-day.sel{outline:2px solid var(--gold-hi);outline-offset:1px;z-index:2}
-.cal-detail{margin-top:14px;display:grid;gap:8px}
-.cal-hint{margin:0;font:700 10px var(--f-mono);letter-spacing:.1em;color:var(--muted)}
-.cal-ev{display:flex;gap:10px;align-items:center;padding:10px 12px;border-radius:10px;border:1px solid rgba(212,169,78,.3);background:rgba(212,169,78,.06);font-size:13px}
-.cal-ev.sp{border:1px dashed rgba(34,211,238,.5);background:rgba(34,211,238,.06)}
-.cal-ev b{font:800 11px var(--f-mono);color:var(--gold-hi)}
-.cal-ev.sp b{color:var(--sp-hi)}
-.cal-ev span{flex:1;min-width:0;overflow-wrap:anywhere}
-.cal-ev em{font:800 8px var(--f-mono);letter-spacing:.12em;font-style:normal;color:var(--muted);text-align:right}
+.cal-x{position:absolute;top:4px;right:5px;font-style:normal;font-size:13px;line-height:1;color:var(--steel);font-variant-emoji:text;text-shadow:0 0 8px rgba(120,170,230,.55)}
 .pv-medal{width:84px;height:84px;filter:drop-shadow(0 0 12px rgba(168,85,247,.6)) drop-shadow(0 2px 6px rgba(0,0,0,.6))}
 .pv-medal .pv-eye{animation:pvEye 4.6s ease-in-out infinite}
 @keyframes pvEye{0%,46%,56%,100%{opacity:1}50%{opacity:.35}}
@@ -1379,14 +1366,14 @@ function renderActivity(){
   const s=$("#activitySection"); if(!s||!APP_DATA) return;
   const M=APP_DATA.miembros,R=APP_DATA.resultados,C=APP_DATA.cartelera,now=Date.now(),D=86400000;
   const day0=t=>{const d=new Date(t);d.setHours(0,0,0,0);return d.getTime();};
-  const byDay={},upDay={},spDay={},spUp={},evs={};
-  R.forEach(r=>{const k=day0(r.t);if(r.sparring)spDay[k]=(spDay[k]||0)+1;else byDay[k]=(byDay[k]||0)+1;(evs[k]=evs[k]||[]).push({c:r,done:true});});
-  C.filter(c=>c.t>now-36e5).forEach(c=>{const k=day0(c.t);if(c.sparring)spUp[k]=(spUp[k]||0)+1;else upDay[k]=(upDay[k]||0)+1;(evs[k]=evs[k]||[]).push({c,done:false});});
+  const byDay={},upDay={},spDay={};
+  R.forEach(r=>{const k=day0(r.t);if(r.sparring)spDay[k]=(spDay[k]||0)+1;else byDay[k]=(byDay[k]||0)+1;});
+  C.filter(c=>c.t>now-36e5).forEach(c=>{const k=day0(c.t);upDay[k]=(upDay[k]||0)+1;});
   const today=day0(now),dow=(new Date(today).getDay()+6)%7,start=today-dow*D-21*D;
   const names=["LUN","MAR","MIÉ","JUE","VIE","SÁB","DOM"];
   let cells="";
-  for(let i=0;i<35;i++){const t=start+i*D,d=new Date(t),n=byDay[t]||0,u=upDay[t]||0,q=spDay[t]||0,qu=spUp[t]||0,fut=t>today;
-    cells+=`<div class="cal-day ${n?"act":""} ${u?"up":""} ${q?"sp":""} ${fut&&!u&&!q&&!qu?"fut":""} ${qu?"spu":""} ${t===today?"today":""}" ${q?`data-sp="${q}"`:""} ${qu?`data-spu="${qu}"`:""} data-k="${t}" ${evs[t]?`tabindex="0" role="button"`:""} title="${d.getDate()}/${d.getMonth()+1}: ${n} combate(s)${q?` · ${q} sparring`:""}${u?` · ${u} programado(s)`:""}${qu?` · ${qu} sparring programado(s)`:""}"><span>${d.getDate()}</span>${n?`<em>${n}</em>`:u||qu?`<em>⚔</em>`:""}</div>`;}
+  for(let i=0;i<35;i++){const t=start+i*D,d=new Date(t),n=byDay[t]||0,u=upDay[t]||0,q=spDay[t]||0,fut=t>today;
+    cells+=`<div class="cal-day ${n?"act":""} ${u?"up":""} ${q?"sp":""} ${fut&&!u&&!q?"fut":""} ${t===today?"today":""}" ${q?`data-sp="${q}"`:""} title="${d.getDate()}/${d.getMonth()+1}: ${n} combate(s)${q?` · ${q} sparring`:""}${u?` · ${u} programado(s)`:""}"><span>${d.getDate()}</span>${u?`<i class="cal-x" aria-hidden="true">⚔${u>1?u:""}</i>`:""}${n?`<em>${n}</em>`:""}</div>`;}
   const last7=Array.from({length:7},(_,i)=>byDay[today-(6-i)*D]||0),mx=Math.max(1,...last7);
   const spark=a=>`<div class="act-bars">${a.map(v=>`<i style="height:${Math.max(8,v/mx*100)}%"></i>`).join("")}</div>`;
   const rk={};M.forEach(m=>rk[m.rango]=(rk[m.rango]||0)+1);
@@ -1397,19 +1384,7 @@ function renderActivity(){
   const card=(ac,lb,val,det,extra)=>`<div class="activity-card" style="--accent:${ac}"><div class="activity-top"><div><div class="activity-label">${lb}</div><div class="activity-value">${val}</div></div></div><div class="activity-detail">${det}</div>${extra}</div>`;
   s.innerHTML=`<div class="heatmap-section"><div class="cal-head"><div><div class="heatmap-title">CALENDARIO DE COMBATES</div><div class="heatmap-subtitle" style="margin:0">Últimas 3 semanas y las próximas</div></div><div class="cal-month">${mon}</div></div>
   <div class="cal-grid">${names.map(n=>`<div class="cal-dow">${n}</div>`).join("")}${cells}</div>
-  <div class="cal-legend"><span><b style="background:rgba(212,169,78,.4)"></b>Hubo combates (número = cantidad)</span><span><b style="border:1px dashed var(--steel)"></b>Combate programado ⚔</span><span><b style="background:var(--sp)"></b>Sparring (no cuenta para récord)</span><span><b style="border:1px dashed var(--sp)"></b>Sparring programado</span><span><b style="box-shadow:0 0 0 2px var(--gold)"></b>Hoy</span></div><div class="cal-detail" id="calDetail"><p class="cal-hint">Toca un día con actividad para ver los combates.</p></div></div>`;
-  bindCal(evs,today);
-}
-function bindCal(evs,today){
-  const g=$(".cal-grid"),out=$("#calDetail"); if(!g||!out) return;
-  const show=cell=>{
-    const list=(evs[cell.getAttribute("data-k")]||[]).slice().sort((a,b)=>a.c.t-b.c.t); if(!list.length) return;
-    g.querySelectorAll(".cal-day.sel").forEach(x=>x.classList.remove("sel")); cell.classList.add("sel");
-    out.innerHTML=list.map(({c,done})=>`<div class="cal-ev ${c.sparring?"sp":""}"><b>${fmtTime(c.t)}</b><span>${c.rojo.nombre} vs ${c.azul.nombre}</span><em>${c.sparring?"SPARRING":"COMBATE"} · ${done?"TERMINADO":"PROGRAMADO"}</em></div>`).join("");
-  };
-  g.addEventListener("click",e=>{const c=e.target.closest(".cal-day[data-k]"); if(c) show(c);});
-  g.addEventListener("keydown",e=>{if(e.key!=="Enter"&&e.key!==" ") return; const c=e.target.closest(".cal-day[data-k]"); if(c){e.preventDefault(); show(c);}});
-  const first=[...g.querySelectorAll(".cal-day[tabindex]")].find(x=>+x.getAttribute("data-k")>=today); if(first) show(first);
+  <div class="cal-legend"><span><b style="background:rgba(212,169,78,.4)"></b>Hubo combates (número = cantidad)</span><span><b style="border:1px dashed var(--steel)"></b>Combate programado ⚔</span><span><b style="background:var(--sp)"></b>Sparring (no cuenta para récord)</span><span><b style="box-shadow:0 0 0 2px var(--gold)"></b>Hoy</span></div></div>`;
 }
 function cdParts(t){const d=Math.max(0,t-Date.now());return{d:Math.floor(d/864e5),h:Math.floor(d%864e5/36e5),m:Math.floor(d%36e5/6e4),s:Math.floor(d%6e4/1e3),urgent:d<864e5,pct:Math.min(100,d/(7*864e5)*100),over:d<=0};}
 function cdHTML(p){return [["d","DÍAS"],["h","HRS"],["m","MIN"],["s","SEG"]].map(([k,l])=>`<div class="fx-u"><b data-u="${k}">${pad(p[k])}</b><small>${l}</small></div>`).join("");}
