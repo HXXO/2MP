@@ -1,6 +1,6 @@
 {
  "v": 1,
- "generado": "2026-11-06T01:19:01.195Z",
+ "generado": "2026-11-06T02:11:49.695Z",
  "miembros": [
   {
    "pid": "0zmyd6w1beq0p4",
@@ -140,9 +140,9 @@
    "estado": "activo",
    "restante": {
     "dias": 6,
-    "horas": 21,
-    "minutos": 1,
-    "ms": 594118462
+    "horas": 20,
+    "minutos": 9,
+    "ms": 590949962
    },
    "porVencer": false
   },
@@ -156,15 +156,31 @@
    "estado": "activo",
    "restante": {
     "dias": 6,
-    "horas": 22,
-    "minutos": 18,
-    "ms": 598719981
+    "horas": 21,
+    "minutos": 25,
+    "ms": 595551481
+   },
+   "porVencer": false
+  },
+  {
+   "pid": "09oh8xz0lg8wg7",
+   "nombre": "Yeick Arias",
+   "emitida": "05/11/2026",
+   "expira": "12/11/2026",
+   "emitidaTs": 1793928816855,
+   "venceTs": 1794533616855,
+   "estado": "activo",
+   "restante": {
+    "dias": 6,
+    "horas": 23,
+    "minutos": 21,
+    "ms": 602507160
    },
    "porVencer": false
   }
  ],
  "resumenPases": {
-  "activos": 2,
+  "activos": 3,
   "porVencer": 0,
   "vencidos": 0
  },
@@ -338,8 +354,19 @@
   }
  ],
  "resultados": [],
- "cambios": [],
+ "cambios": [
+  {
+   "t": 1793931109695,
+   "tipo": "pase",
+   "texto": "Nuevo pase temporal: Yeick Arias · vence 11/11/2026"
+  }
+ ],
  "novedades": [
+  {
+   "t": 1793931109695,
+   "tipo": "pase",
+   "texto": "Nuevo pase temporal: Yeick Arias · vence 11/11/2026"
+  },
   {
    "t": 1793921999944,
    "tipo": "estrellas",
