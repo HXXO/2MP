@@ -1,6 +1,6 @@
 {
  "v": 1,
- "generado": "2026-11-06T02:48:34.587Z",
+ "generado": "2026-11-06T23:14:30.228Z",
  "miembros": [
   {
    "pid": "0zmyd6w1beq0p4",
@@ -139,10 +139,10 @@
    "venceTs": 1794522059657,
    "estado": "activo",
    "restante": {
-    "dias": 6,
-    "horas": 19,
-    "minutos": 32,
-    "ms": 588745070
+    "dias": 5,
+    "horas": 23,
+    "minutos": 6,
+    "ms": 515189429
    },
    "porVencer": false
   },
@@ -156,9 +156,9 @@
    "estado": "activo",
    "restante": {
     "dias": 6,
-    "horas": 20,
-    "minutos": 49,
-    "ms": 593346589
+    "horas": 0,
+    "minutos": 23,
+    "ms": 519790948
    },
    "porVencer": false
   },
@@ -172,9 +172,9 @@
    "estado": "activo",
    "restante": {
     "dias": 6,
-    "horas": 22,
-    "minutos": 45,
-    "ms": 600302268
+    "horas": 2,
+    "minutos": 19,
+    "ms": 526746627
    },
    "porVencer": false
   },
@@ -188,15 +188,31 @@
    "estado": "activo",
    "restante": {
     "dias": 6,
+    "horas": 3,
+    "minutos": 33,
+    "ms": 531194843
+   },
+   "porVencer": false
+  },
+  {
+   "pid": "1u8ds6o06z1dps",
+   "nombre": "Jhon Edilberto Olano Calderón",
+   "emitida": "06/11/2026",
+   "expira": "13/11/2026",
+   "emitidaTs": 1794006582121,
+   "venceTs": 1794611382121,
+   "estado": "activo",
+   "restante": {
+    "dias": 6,
     "horas": 23,
-    "minutos": 59,
-    "ms": 604750484
+    "minutos": 55,
+    "ms": 604511893
    },
    "porVencer": false
   }
  ],
  "resumenPases": {
-  "activos": 4,
+  "activos": 5,
   "porVencer": 0,
   "vencidos": 0
  },
@@ -380,17 +396,17 @@
  "resultados": [],
  "cambios": [
   {
-   "t": 1793933314587,
-   "tipo": "estrellas",
-   "texto": "MAX CASTAÑEDA: estrellas 1 → 2"
-  },
-  {
-   "t": 1793933314587,
+   "t": 1794006870228,
    "tipo": "pase",
-   "texto": "Nuevo pase temporal: Paris Santiago Castillo Caruajulca · vence 11/11/2026"
+   "texto": "Nuevo pase temporal: Jhon Edilberto Olano Calderón · vence 12/11/2026"
   }
  ],
  "novedades": [
+  {
+   "t": 1794006870228,
+   "tipo": "pase",
+   "texto": "Nuevo pase temporal: Jhon Edilberto Olano Calderón · vence 12/11/2026"
+  },
   {
    "t": 1793933314587,
    "tipo": "pase",
