@@ -399,6 +399,35 @@
   .hx-sweep{animation-duration:48s}
 }
 </style>
+<style id="pases-ux">
+.hero-num{display:flex;align-items:baseline;justify-content:center;flex-wrap:wrap;gap:4px 8px}
+.hero-plus{font-style:normal;font-family:var(--f-display);font-size:clamp(14px,1.9vw,17px);line-height:1;letter-spacing:.04em;color:var(--steel);font-variant-numeric:tabular-nums;white-space:nowrap}
+.hero-plus[hidden]{display:none}
+.hero-plus u{text-decoration:none}
+@media(max-width:480px){.hero-stat{padding-left:8px;padding-right:8px}}
+.guests-bar-fill.warn{background:linear-gradient(90deg,var(--amber),#f5cf7a)}
+.guests-bar-fill.full{background:linear-gradient(90deg,var(--blood),var(--blood-hi))}
+</style>
+<style id="cal-pv-ux">
+.cal-day.spu:not(.up){border:1px dashed var(--sp);background:rgba(34,211,238,.09)}
+.cal-day.spu:not(.up)>span,.cal-day.spu:not(.up) em{color:var(--sp-hi)}
+.cal-day.spu::before{content:attr(data-spu);position:absolute;left:5px;bottom:4px;min-width:16px;height:16px;padding:0 4px;border-radius:99px;display:grid;place-items:center;border:1px dashed var(--sp);background:rgba(3,34,42,.9);color:var(--sp-hi);font:800 9px var(--f-mono)}
+.cal-day.sp.spu::before{left:26px}
+.cal-day[tabindex]{cursor:pointer}
+.cal-day[tabindex]:focus-visible,.cal-day.sel{outline:2px solid var(--gold-hi);outline-offset:1px;z-index:2}
+.cal-detail{margin-top:14px;display:grid;gap:8px}
+.cal-hint{margin:0;font:700 10px var(--f-mono);letter-spacing:.1em;color:var(--muted)}
+.cal-ev{display:flex;gap:10px;align-items:center;padding:10px 12px;border-radius:10px;border:1px solid rgba(212,169,78,.3);background:rgba(212,169,78,.06);font-size:13px}
+.cal-ev.sp{border:1px dashed rgba(34,211,238,.5);background:rgba(34,211,238,.06)}
+.cal-ev b{font:800 11px var(--f-mono);color:var(--gold-hi)}
+.cal-ev.sp b{color:var(--sp-hi)}
+.cal-ev span{flex:1;min-width:0;overflow-wrap:anywhere}
+.cal-ev em{font:800 8px var(--f-mono);letter-spacing:.12em;font-style:normal;color:var(--muted);text-align:right}
+.pv-medal{width:84px;height:84px;filter:drop-shadow(0 0 12px rgba(168,85,247,.6)) drop-shadow(0 2px 6px rgba(0,0,0,.6))}
+.pv-medal .pv-eye{animation:pvEye 4.6s ease-in-out infinite}
+@keyframes pvEye{0%,46%,56%,100%{opacity:1}50%{opacity:.35}}
+@media(prefers-reduced-motion:reduce){.pv-medal .pv-eye{animation:none}}
+</style>
 </head>
 <body><svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs id="mdDefs"><linearGradient id="g-bronce" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c67f45"/><stop offset="1" stop-color="#b06a38"/></linearGradient><linearGradient id="g-plata" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c0ccd6"/><stop offset="1" stop-color="#a8b5c0"/></linearGradient><linearGradient id="g-oro" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff4d6d"/><stop offset=".28" stop-color="#ffd93d"/><stop offset=".52" stop-color="#6bcf7f"/><stop offset=".76" stop-color="#4d96ff"/><stop offset="1" stop-color="#c77dff"/></linearGradient><linearGradient id="g-morada" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f2d4ff"/><stop offset=".35" stop-color="#c07df5"/><stop offset=".65" stop-color="#7a2bb8"/><stop offset="1" stop-color="#d9a6ff"/></linearGradient></defs></svg>
 
@@ -520,7 +549,7 @@
     <div class="hero-stats" id="heroStats">
       <div class="hero-stat">
         <div class="hero-stat-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-        <b data-stat="miembros">0</b><span>Miembros</span>
+        <div class="hero-num"><b data-stat="miembros">0</b><i class="hero-plus" id="heroPases" hidden title="Pases temporales de esta semana" aria-label="Más 0 pases temporales esta semana">+<u data-stat="pases">0</u></i></div><span>Miembros</span>
       </div>
       <div class="hero-stat">
         <div class="hero-stat-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
@@ -610,10 +639,10 @@
       </div>
     </div>
     <div class="guests-box">
-      <div class="guests-counter"><span id="guestsNum">0</span><small>/10</small></div>
+      <div class="guests-counter"><span id="guestsNum">0</span><small>/<u id="guestsMax" style="text-decoration:none">10</u></small></div>
       <div class="guests-label">CUPOS DE ESTA SEMANA</div>
-      <div class="guests-bar"><div class="guests-bar-fill" id="guestsBar" style="width: 0%;"></div></div>
-      <p class="guests-note">10 pases por semana. Contacta a <b style="color: var(--gold-hi);">G4t3keeper</b> para solicitar uno.</p>
+      <div class="guests-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Cupos de pases temporales usados esta semana"><div class="guests-bar-fill" id="guestsBar" style="width: 0%;"></div></div>
+      <p class="guests-note"><span id="guestsCupoTxt">10</span> pases por semana. Contacta a <b style="color: var(--gold-hi);">G4t3keeper</b> para solicitar uno.</p>
     </div>
   </div>
 </section>
@@ -876,6 +905,34 @@ const Store = {
   purgeLegacy() { try { localStorage.removeItem("2mp_admin_auth_v2"); localStorage.removeItem("2mp_gh_token_v1"); } catch(e) {} }
 };
 const isSpar = x => !!x && (x.sparring === true || ["sparring", "entrenamiento"].includes(String(x.tipo || "").toLowerCase()));
+function normPases(d) {
+  const src = [d.pases, d.pasesTemporales, d.invitados].find(v => v !== undefined && v !== null);
+  const num = v => { const n = parseInt(v); return Number.isFinite(n) ? n : null; };
+  const ts = v => (typeof v === "number" && Number.isFinite(v) ? v : null);
+  let cupo = num(d.cupoPases ?? d.cupoInvitados), fijo = null, lista = [];
+  if (Array.isArray(src)) {
+    lista = src.filter(g => g && (typeof g !== "object" || (g.activo !== false && g.vencido !== true && g.anulado !== true)))
+      .map(g => typeof g === "object" ? {d: ts(g.desde ?? g.inicio ?? g.t), h: ts(g.hasta ?? g.vence ?? g.fin)} : {d: null, h: null}).slice(0, 500);
+  } else if (typeof src === "number" || typeof src === "string") fijo = num(src);
+  else if (src && typeof src === "object") {
+    cupo = num(src.cupo ?? src.max) ?? cupo;
+    if (Array.isArray(src.lista)) return normPases({pases: src.lista, cupoPases: cupo});
+    fijo = num(src.activos ?? src.usados ?? src.semana ?? src.actuales);
+  }
+  return {cupo: Math.max(1, Math.min(99, cupo ?? 10)), fijo: fijo === null ? null : Math.max(0, Math.min(999, fijo)), lista};
+}
+function weekRange(now = new Date()) {
+  const s = new Date(now.getFullYear(), now.getMonth(), now.getDate() - ((now.getDay() + 6) % 7));
+  return [s.getTime(), new Date(s.getFullYear(), s.getMonth(), s.getDate() + 7).getTime()];
+}
+function pasesActivos() {
+  const p = APP_DATA && APP_DATA.pases;
+  if (!p) return {n: 0, cupo: 10};
+  if (p.fijo !== null) return {n: p.fijo, cupo: p.cupo};
+  const [ws, we] = weekRange();
+  const n = p.lista.filter(g => { const h = g.h ?? (g.d !== null ? g.d + 7 * 86400000 : null); return (h === null || h >= ws) && (g.d === null || g.d < we); }).length;
+  return {n, cupo: p.cupo};
+}
 function validateJSON(data) {
   if (!data || typeof data !== "object") throw new Error("JSON raíz inválido");
   if (!Array.isArray(data.miembros)) data.miembros = [];
@@ -919,6 +976,7 @@ function validateJSON(data) {
       valor: esc(String(x.valor||"")), detalle: esc(String(x.detalle||""))
     }));
   }
+  data.pases = normPases(data);
   return data;
 }
 const GH = Object.freeze({owner:"HXXO", repo:"2MP", branch:"main", path:"datos-2mp.json", api:"https://api.github.com"});
@@ -1139,11 +1197,17 @@ function getTrend(name, pos) {
 
 function renderGuests() {
   if (!APP_DATA) return;
-  const dayOfWeek = new Date().getDay();
-  const guests = Math.min(10, Math.max(0, Math.round(3 + (dayOfWeek / 7) * 5 + Math.random() * 2)));
-  const num = $("#guestsNum"), bar = $("#guestsBar");
-  if (num) animateNumber(num, guests, 1200);
-  if (bar) setTimeout(() => bar.style.width = (guests * 10) + "%", 300);
+  const {n, cupo} = pasesActivos(), pct = Math.min(100, Math.round(n / cupo * 100));
+  const num = $("#guestsNum"), bar = $("#guestsBar"), box = bar && bar.parentElement;
+  if ($("#guestsMax")) $("#guestsMax").textContent = cupo;
+  if ($("#guestsCupoTxt")) $("#guestsCupoTxt").textContent = cupo;
+  if (num) animateNumber(num, n, 1200);
+  if (bar) {
+    bar.classList.toggle("full", n >= cupo);
+    bar.classList.toggle("warn", n < cupo && pct >= 70);
+    setTimeout(() => { bar.style.width = pct + "%"; }, 300);
+    if (box) { box.setAttribute("aria-valuenow", String(pct)); box.setAttribute("aria-valuetext", n + " de " + cupo + " cupos"); }
+  }
 }
 const QUOTES = [
   {t:"Si fuera fácil, todos estarían aquí.", a:"2MP"},
@@ -1305,22 +1369,24 @@ function renderHeroStats(){
   if(!APP_DATA) return;
   if(!window._visited){window._visited=1; window._visits=getVisitCount();}
   animateNumber($('[data-stat="miembros"]'),APP_DATA.miembros.length,1500);
-  animateNumber($('[data-stat="combates"]'),APP_DATA.resultados.filter(r=>!r.sparring).length+APP_DATA.cartelera.filter(c=>!c.sparring).length,1500);
+  animateNumber($('[data-stat="combates"]'),APP_DATA.resultados.length+APP_DATA.cartelera.length,1500);
+  const pz=pasesActivos(), hp=$("#heroPases");
+  animateNumber($('[data-stat="pases"]'),pz.n,1500);
+  if(hp){hp.hidden=pz.n<=0;hp.setAttribute("aria-label","Más "+pz.n+" pases temporales esta semana");}
   animateNumber($('[data-stat="visitas"]'),window._visits,1500);
 }
 function renderActivity(){
   const s=$("#activitySection"); if(!s||!APP_DATA) return;
   const M=APP_DATA.miembros,R=APP_DATA.resultados,C=APP_DATA.cartelera,now=Date.now(),D=86400000;
   const day0=t=>{const d=new Date(t);d.setHours(0,0,0,0);return d.getTime();};
-  const byDay={},upDay={};
-  const spDay={};
-  R.forEach(r=>{const k=day0(r.t);if(r.sparring)spDay[k]=(spDay[k]||0)+1;else byDay[k]=(byDay[k]||0)+1;});
-  C.filter(c=>c.t>now&&!c.sparring).forEach(c=>{const k=day0(c.t);upDay[k]=(upDay[k]||0)+1;});
+  const byDay={},upDay={},spDay={},spUp={},evs={};
+  R.forEach(r=>{const k=day0(r.t);if(r.sparring)spDay[k]=(spDay[k]||0)+1;else byDay[k]=(byDay[k]||0)+1;(evs[k]=evs[k]||[]).push({c:r,done:true});});
+  C.filter(c=>c.t>now-36e5).forEach(c=>{const k=day0(c.t);if(c.sparring)spUp[k]=(spUp[k]||0)+1;else upDay[k]=(upDay[k]||0)+1;(evs[k]=evs[k]||[]).push({c,done:false});});
   const today=day0(now),dow=(new Date(today).getDay()+6)%7,start=today-dow*D-21*D;
   const names=["LUN","MAR","MIÉ","JUE","VIE","SÁB","DOM"];
   let cells="";
-  for(let i=0;i<35;i++){const t=start+i*D,d=new Date(t),n=byDay[t]||0,u=upDay[t]||0,q=spDay[t]||0,fut=t>today;
-    cells+=`<div class="cal-day ${n?"act":""} ${u?"up":""} ${q?"sp":""} ${fut&&!u&&!q?"fut":""} ${t===today?"today":""}" ${q?`data-sp="${q}"`:""} title="${d.getDate()}/${d.getMonth()+1}: ${n} combate(s)${q?` · ${q} sparring`:""}${u?` · ${u} programado(s)`:""}"><span>${d.getDate()}</span>${n?`<em>${n}</em>`:u?`<em>⚔</em>`:""}</div>`;}
+  for(let i=0;i<35;i++){const t=start+i*D,d=new Date(t),n=byDay[t]||0,u=upDay[t]||0,q=spDay[t]||0,qu=spUp[t]||0,fut=t>today;
+    cells+=`<div class="cal-day ${n?"act":""} ${u?"up":""} ${q?"sp":""} ${fut&&!u&&!q&&!qu?"fut":""} ${qu?"spu":""} ${t===today?"today":""}" ${q?`data-sp="${q}"`:""} ${qu?`data-spu="${qu}"`:""} data-k="${t}" ${evs[t]?`tabindex="0" role="button"`:""} title="${d.getDate()}/${d.getMonth()+1}: ${n} combate(s)${q?` · ${q} sparring`:""}${u?` · ${u} programado(s)`:""}${qu?` · ${qu} sparring programado(s)`:""}"><span>${d.getDate()}</span>${n?`<em>${n}</em>`:u||qu?`<em>⚔</em>`:""}</div>`;}
   const last7=Array.from({length:7},(_,i)=>byDay[today-(6-i)*D]||0),mx=Math.max(1,...last7);
   const spark=a=>`<div class="act-bars">${a.map(v=>`<i style="height:${Math.max(8,v/mx*100)}%"></i>`).join("")}</div>`;
   const rk={};M.forEach(m=>rk[m.rango]=(rk[m.rango]||0)+1);
@@ -1331,7 +1397,19 @@ function renderActivity(){
   const card=(ac,lb,val,det,extra)=>`<div class="activity-card" style="--accent:${ac}"><div class="activity-top"><div><div class="activity-label">${lb}</div><div class="activity-value">${val}</div></div></div><div class="activity-detail">${det}</div>${extra}</div>`;
   s.innerHTML=`<div class="heatmap-section"><div class="cal-head"><div><div class="heatmap-title">CALENDARIO DE COMBATES</div><div class="heatmap-subtitle" style="margin:0">Últimas 3 semanas y las próximas</div></div><div class="cal-month">${mon}</div></div>
   <div class="cal-grid">${names.map(n=>`<div class="cal-dow">${n}</div>`).join("")}${cells}</div>
-  <div class="cal-legend"><span><b style="background:rgba(212,169,78,.4)"></b>Hubo combates (número = cantidad)</span><span><b style="border:1px dashed var(--steel)"></b>Combate programado ⚔</span><span><b style="background:var(--sp)"></b>Sparring (no cuenta para récord)</span><span><b style="box-shadow:0 0 0 2px var(--gold)"></b>Hoy</span></div></div>`;
+  <div class="cal-legend"><span><b style="background:rgba(212,169,78,.4)"></b>Hubo combates (número = cantidad)</span><span><b style="border:1px dashed var(--steel)"></b>Combate programado ⚔</span><span><b style="background:var(--sp)"></b>Sparring (no cuenta para récord)</span><span><b style="border:1px dashed var(--sp)"></b>Sparring programado</span><span><b style="box-shadow:0 0 0 2px var(--gold)"></b>Hoy</span></div><div class="cal-detail" id="calDetail"><p class="cal-hint">Toca un día con actividad para ver los combates.</p></div></div>`;
+  bindCal(evs,today);
+}
+function bindCal(evs,today){
+  const g=$(".cal-grid"),out=$("#calDetail"); if(!g||!out) return;
+  const show=cell=>{
+    const list=(evs[cell.getAttribute("data-k")]||[]).slice().sort((a,b)=>a.c.t-b.c.t); if(!list.length) return;
+    g.querySelectorAll(".cal-day.sel").forEach(x=>x.classList.remove("sel")); cell.classList.add("sel");
+    out.innerHTML=list.map(({c,done})=>`<div class="cal-ev ${c.sparring?"sp":""}"><b>${fmtTime(c.t)}</b><span>${c.rojo.nombre} vs ${c.azul.nombre}</span><em>${c.sparring?"SPARRING":"COMBATE"} · ${done?"TERMINADO":"PROGRAMADO"}</em></div>`).join("");
+  };
+  g.addEventListener("click",e=>{const c=e.target.closest(".cal-day[data-k]"); if(c) show(c);});
+  g.addEventListener("keydown",e=>{if(e.key!=="Enter"&&e.key!==" ") return; const c=e.target.closest(".cal-day[data-k]"); if(c){e.preventDefault(); show(c);}});
+  const first=[...g.querySelectorAll(".cal-day[tabindex]")].find(x=>+x.getAttribute("data-k")>=today); if(first) show(first);
 }
 function cdParts(t){const d=Math.max(0,t-Date.now());return{d:Math.floor(d/864e5),h:Math.floor(d%864e5/36e5),m:Math.floor(d%36e5/6e4),s:Math.floor(d%6e4/1e3),urgent:d<864e5,pct:Math.min(100,d/(7*864e5)*100),over:d<=0};}
 function cdHTML(p){return [["d","DÍAS"],["h","HRS"],["m","MIN"],["s","SEG"]].map(([k,l])=>`<div class="fx-u"><b data-u="${k}">${pad(p[k])}</b><small>${l}</small></div>`).join("");}
@@ -1420,7 +1498,7 @@ function renderResultados(){
 function initParticles(){const c=$("#heroParticles");if(!c)return;
   let m="";for(let i=0;i<16;i++){const x=(i*37+9)%96+2,sz=2+(i%3),t=24+(i*7)%18,o=-((i*5.3)%t).toFixed(1),dx=((i%2?1:-1)*(10+(i*13)%40))+"px";m+=`<i style="--x:${x}%;--s:${sz}px;--t:${t}s;--o:${o}s;--dx:${dx}"></i>`;}
   c.innerHTML='<div class="hx-aurora a1"></div><div class="hx-aurora a2"></div><div class="hx-spot s1"></div><div class="hx-spot s2"></div><div class="hx-floor2"></div><div class="hv-motes">'+m+'</div><div class="hx-horizon"><i></i></div>';}
-const PV_MEDAL=`<svg class="pv-medal" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="46" fill="#16091f" stroke="#c084fc" stroke-width="3"/><circle cx="50" cy="50" r="39" fill="none" stroke="#7c3aed" stroke-width="1" stroke-dasharray="2 3"/><circle cx="42" cy="15" r="1.8" fill="#e9d5ff"/><circle cx="50" cy="12" r="1.8" fill="#e9d5ff"/><circle cx="58" cy="15" r="1.8" fill="#e9d5ff"/><path d="M50 24 66 30 72 46 64 60 58 56 50 64 42 56 36 60 28 46 34 30Z" fill="none" stroke="#e9d5ff" stroke-width="2.5" stroke-linejoin="round"/><path d="M38 41l8 3-3 4zM62 41l-8 3 3 4z" fill="#e9d5ff"/><path d="M44 66 40 78 50 70 60 78 56 66" fill="none" stroke="#c084fc" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+const PV_MEDAL=`<svg class="pv-medal" viewBox="0 0 100 100" aria-hidden="true"><defs><radialGradient id="pvBg" cx="50%" cy="38%" r="70%"><stop offset="0" stop-color="#3b1366"/><stop offset=".6" stop-color="#1a0b2c"/><stop offset="1" stop-color="#0d0616"/></radialGradient><linearGradient id="pvMt" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f5e9ff"/><stop offset=".55" stop-color="#c084fc"/><stop offset="1" stop-color="#7c3aed"/></linearGradient><radialGradient id="pvEy" cx="50%" cy="50%" r="60%"><stop offset="0" stop-color="#fff"/><stop offset=".45" stop-color="#f0abfc"/><stop offset="1" stop-color="#a855f7"/></radialGradient></defs><path d="M50.0 6.5L57.7 1.4L63.4 8.6ZM63.4 8.6L72.3 6.2L75.6 14.8ZM75.6 14.8L84.8 15.2L85.2 24.4ZM85.2 24.4L93.8 27.7L91.4 36.6ZM91.4 36.6L98.6 42.3L93.5 50.0ZM93.5 50.0L98.6 57.7L91.4 63.4ZM91.4 63.4L93.8 72.3L85.2 75.6ZM85.2 75.6L84.8 84.8L75.6 85.2ZM75.6 85.2L72.3 93.8L63.4 91.4ZM63.4 91.4L57.7 98.6L50.0 93.5ZM50.0 93.5L42.3 98.6L36.6 91.4ZM36.6 91.4L27.7 93.8L24.4 85.2ZM24.4 85.2L15.2 84.8L14.8 75.6ZM14.8 75.6L6.2 72.3L8.6 63.4ZM8.6 63.4L1.4 57.7L6.5 50.0ZM6.5 50.0L1.4 42.3L8.6 36.6ZM8.6 36.6L6.2 27.7L14.8 24.4ZM14.8 24.4L15.2 15.2L24.4 14.8ZM24.4 14.8L27.7 6.2L36.6 8.6ZM36.6 8.6L42.3 1.4L50.0 6.5Z" fill="url(#pvMt)"/><circle cx="50" cy="50" r="43.5" fill="url(#pvBg)" stroke="url(#pvMt)" stroke-width="2.6"/><circle cx="50" cy="50" r="38" fill="none" stroke="#7c3aed" stroke-width=".8" stroke-dasharray="1.6 3"/><path d="M12 62 22 50M15 70 25 56M20 77 29 62" stroke="#a855f7" stroke-width="1.4" stroke-linecap="round" opacity=".55"/><path d="M88 62 78 50M85 70 75 56M80 77 71 62" stroke="#a855f7" stroke-width="1.4" stroke-linecap="round" opacity=".55"/><path d="M50 9 55.5 25 50 21 44.5 25Z" fill="url(#pvMt)"/><path d="M50 20 61 25 76 17 71 36 74 52 63 67 56 73 50 77 44 73 37 67 26 52 29 36 24 17 39 25Z" fill="#150a24" stroke="url(#pvMt)" stroke-width="2.2" stroke-linejoin="round"/><path d="M50 27V43M44 31l6 4 6-4" fill="none" stroke="#9f6be0" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M29 37 48 44M71 37 52 44" stroke="#e9d5ff" stroke-width="3" stroke-linecap="round"/><path class="pv-eye" d="M31 41 47 47 44 52 33 47ZM69 41 53 47 56 52 67 47Z" fill="url(#pvEy)"/><path d="M33 56 40 60M67 56 60 60" stroke="#7c3aed" stroke-width="1.6" stroke-linecap="round"/><path d="M42 68 58 68" stroke="#e9d5ff" stroke-width="1.8" stroke-linecap="round"/><path d="M40 66Q27 66 25 83Q35 76 45 71ZM60 66Q73 66 75 83Q65 76 55 71Z" fill="url(#pvMt)" stroke="#150a24" stroke-width=".8" stroke-linejoin="round"/><path d="M46 70 48 83 50 73 52 83 54 70Z" fill="#e9d5ff"/></svg>`;
 function renderPredator(){
   const box=$("#predatorBox"); if(!box||!APP_DATA) return;
   const w=APP_DATA.miembros.find(m=>m.predator)||APP_DATA.miembros.filter(m=>m.record.total>=3).sort((a,b)=>b.record.pct-a.record.pct)[0];
