@@ -1,6 +1,6 @@
 {
  "v": 1,
- "generado": "2026-11-05T23:39:59.944Z",
+ "generado": "2026-11-06T01:19:01.195Z",
  "miembros": [
   {
    "pid": "0zmyd6w1beq0p4",
@@ -129,6 +129,45 @@
    ]
   }
  ],
+ "pases": [
+  {
+   "pid": "1bozjih1ngr70p",
+   "nombre": "Miuler Yoel Jimenes Rojas",
+   "emitida": "05/11/2026",
+   "expira": "12/11/2026",
+   "emitidaTs": 1793917259657,
+   "venceTs": 1794522059657,
+   "estado": "activo",
+   "restante": {
+    "dias": 6,
+    "horas": 21,
+    "minutos": 1,
+    "ms": 594118462
+   },
+   "porVencer": false
+  },
+  {
+   "pid": "1ul2zbk07bqkuo",
+   "nombre": "Jamer Nilson Sánchez",
+   "emitida": "05/11/2026",
+   "expira": "12/11/2026",
+   "emitidaTs": 1793921861176,
+   "venceTs": 1794526661176,
+   "estado": "activo",
+   "restante": {
+    "dias": 6,
+    "horas": 22,
+    "minutos": 18,
+    "ms": 598719981
+   },
+   "porVencer": false
+  }
+ ],
+ "resumenPases": {
+  "activos": 2,
+  "porVencer": 0,
+  "vencidos": 0
+ },
  "rankings": {
   "wins": {
    "titulo": "VICTORIAS",
@@ -299,13 +338,7 @@
   }
  ],
  "resultados": [],
- "cambios": [
-  {
-   "t": 1793921999944,
-   "tipo": "estrellas",
-   "texto": "Jhan Carlos Cotrina Z: estrellas 1 → 2"
-  }
- ],
+ "cambios": [],
  "novedades": [
   {
    "t": 1793921999944,
