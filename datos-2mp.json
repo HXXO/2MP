@@ -1,12 +1,12 @@
 {
  "v": 1,
- "generado": "2026-11-06T02:14:02.898Z",
+ "generado": "2026-11-06T02:48:34.587Z",
  "miembros": [
   {
    "pid": "0zmyd6w1beq0p4",
    "nombre": "MAX CASTAÑEDA",
    "rango": "RAW",
-   "estrellas": 1,
+   "estrellas": 2,
    "record": {
     "v": 0,
     "e": 0,
@@ -16,7 +16,7 @@
    },
    "racha": 0,
    "mejorRacha": 0,
-   "puntosMerito": 50,
+   "puntosMerito": 100,
    "ultimos": [],
    "predator": false,
    "tier": "bronce",
@@ -140,9 +140,9 @@
    "estado": "activo",
    "restante": {
     "dias": 6,
-    "horas": 20,
-    "minutos": 6,
-    "ms": 590816759
+    "horas": 19,
+    "minutos": 32,
+    "ms": 588745070
    },
    "porVencer": false
   },
@@ -156,9 +156,9 @@
    "estado": "activo",
    "restante": {
     "dias": 6,
-    "horas": 21,
-    "minutos": 23,
-    "ms": 595418278
+    "horas": 20,
+    "minutos": 49,
+    "ms": 593346589
    },
    "porVencer": false
   },
@@ -172,15 +172,31 @@
    "estado": "activo",
    "restante": {
     "dias": 6,
+    "horas": 22,
+    "minutos": 45,
+    "ms": 600302268
+   },
+   "porVencer": false
+  },
+  {
+   "pid": "02cfupi0e47i7q",
+   "nombre": "Paris Santiago Castillo Caruajulca",
+   "emitida": "05/11/2026",
+   "expira": "12/11/2026",
+   "emitidaTs": 1793933265071,
+   "venceTs": 1794538065071,
+   "estado": "activo",
+   "restante": {
+    "dias": 6,
     "horas": 23,
-    "minutos": 19,
-    "ms": 602373957
+    "minutos": 59,
+    "ms": 604750484
    },
    "porVencer": false
   }
  ],
  "resumenPases": {
-  "activos": 3,
+  "activos": 4,
   "porVencer": 0,
   "vencidos": 0
  },
@@ -250,19 +266,19 @@
    "lista": [
     {
      "pos": 1,
-     "pid": "0lb6itl0x2y6bt",
-     "nombre": "Jhan Carlos Cotrina Z",
+     "pid": "0zmyd6w1beq0p4",
+     "nombre": "MAX CASTAÑEDA",
      "rango": "RAW",
      "valor": "100 PM",
      "detalle": "★ 2 de 3"
     },
     {
      "pos": 2,
-     "pid": "0zmyd6w1beq0p4",
-     "nombre": "MAX CASTAÑEDA",
+     "pid": "0lb6itl0x2y6bt",
+     "nombre": "Jhan Carlos Cotrina Z",
      "rango": "RAW",
-     "valor": "50 PM",
-     "detalle": "★ 1 de 3"
+     "valor": "100 PM",
+     "detalle": "★ 2 de 3"
     }
    ]
   },
@@ -362,8 +378,29 @@
   }
  ],
  "resultados": [],
- "cambios": [],
+ "cambios": [
+  {
+   "t": 1793933314587,
+   "tipo": "estrellas",
+   "texto": "MAX CASTAÑEDA: estrellas 1 → 2"
+  },
+  {
+   "t": 1793933314587,
+   "tipo": "pase",
+   "texto": "Nuevo pase temporal: Paris Santiago Castillo Caruajulca · vence 11/11/2026"
+  }
+ ],
  "novedades": [
+  {
+   "t": 1793933314587,
+   "tipo": "pase",
+   "texto": "Nuevo pase temporal: Paris Santiago Castillo Caruajulca · vence 11/11/2026"
+  },
+  {
+   "t": 1793933314587,
+   "tipo": "estrellas",
+   "texto": "MAX CASTAÑEDA: estrellas 1 → 2"
+  },
   {
    "t": 1793931109695,
    "tipo": "pase",
