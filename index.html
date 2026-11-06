@@ -410,7 +410,7 @@
 </style>
 <style id="cal-pv-ux">
 .cal-x{position:absolute;top:4px;right:5px;font-style:normal;font-size:13px;line-height:1;color:var(--steel);font-variant-emoji:text;text-shadow:0 0 8px rgba(120,170,230,.55)}
-.pv-medal{width:92px;height:92px;filter:drop-shadow(0 0 12px rgba(168,85,247,.6)) drop-shadow(0 2px 6px rgba(0,0,0,.6))}
+.pv-medal{width:92px;height:92px;filter:drop-shadow(0 0 12px rgba(230,57,70,.55)) drop-shadow(0 2px 6px rgba(0,0,0,.6))}
 .pv-medal .pv-eye{animation:pvEye 4.6s ease-in-out infinite}
 @keyframes pvEye{0%,46%,56%,100%{opacity:1}50%{opacity:.35}}
 @media(prefers-reduced-motion:reduce){.pv-medal .pv-eye{animation:none}}
@@ -1473,7 +1473,7 @@ function renderResultados(){
 function initParticles(){const c=$("#heroParticles");if(!c)return;
   let m="";for(let i=0;i<16;i++){const x=(i*37+9)%96+2,sz=2+(i%3),t=24+(i*7)%18,o=-((i*5.3)%t).toFixed(1),dx=((i%2?1:-1)*(10+(i*13)%40))+"px";m+=`<i style="--x:${x}%;--s:${sz}px;--t:${t}s;--o:${o}s;--dx:${dx}"></i>`;}
   c.innerHTML='<div class="hx-aurora a1"></div><div class="hx-aurora a2"></div><div class="hx-spot s1"></div><div class="hx-spot s2"></div><div class="hx-floor2"></div><div class="hv-motes">'+m+'</div><div class="hx-horizon"><i></i></div>';}
-const PV_MEDAL=`<svg class="pv-medal" viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="pvMt" gradientUnits="userSpaceOnUse" x1="0" y1="6" x2="0" y2="96"><stop offset="0" stop-color="#f5e9ff"/><stop offset=".5" stop-color="#c084fc"/><stop offset="1" stop-color="#7c3aed"/></linearGradient><path id="pvH" d="M50 11C46 9 38 9 33 13C26 18 23 30 25 42C26 50 30 56 34 59L50 65ZM50 72.5L41 70.5L42.5 83L47.5 94L50 94ZM37 65.5L39 69L38.5 82L34 89L31 75L32.5 67.5ZM19 22C9 30 3 48 6 68C8 52 13 40 22 32ZM17 40C9 50 8 64 12 79C12 66 15 58 20 50ZM21 56C17 63 17 72 20 82C21 74 24 68 28 63Z"/><path id="pvG" d="M34 59.5L50 65.5L50 69.5L36 63.5Z"/></defs><g fill="url(#pvMt)"><use href="#pvH"/><use href="#pvH" transform="matrix(-1 0 0 1 100 0)"/></g><g class="pv-eye" fill="#f5d0fe"><use href="#pvG"/><use href="#pvG" transform="matrix(-1 0 0 1 100 0)"/></g></svg>`;
+const PV_MEDAL=`<svg class="pv-medal" viewBox="0 0 100 100" aria-hidden="true"><defs><path id="pvH" fill-rule="evenodd" d="M50 19L40 17L31 1L19 33L7 41L16 49L2 60L15 64L7 78L21 78L27 93L39 89L50 97ZM31 11L35 20L26 29ZM20 40L46 51L41 55L24 48ZM50 26L45 37L50 43ZM36 58L45 62L44 64L34 61ZM50 66L44 66L47 73L50 74ZM23 77L29 78L32 90L36 78.5L50 80L50 90L45 90L43.5 84L41.5 90L26 86Z"/></defs><g fill="#e63946"><use href="#pvH"/><use href="#pvH" transform="matrix(-1 0 0 1 100 0)"/></g></svg>`;
 function renderPredator(){
   const box=$("#predatorBox"); if(!box||!APP_DATA) return;
   const w=APP_DATA.miembros.find(m=>m.predator)||APP_DATA.miembros.filter(m=>m.record.total>=3).sort((a,b)=>b.record.pct-a.record.pct)[0];
