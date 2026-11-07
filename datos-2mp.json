@@ -1,12 +1,12 @@
 {
  "v": 1,
- "generado": "2026-11-06T23:17:39.280Z",
+ "generado": "2026-11-07T19:24:04.725Z",
  "miembros": [
   {
    "pid": "0zmyd6w1beq0p4",
    "nombre": "MAX CASTAÑEDA",
    "rango": "RAW",
-   "estrellas": 2,
+   "estrellas": 3,
    "record": {
     "v": 0,
     "e": 0,
@@ -16,7 +16,7 @@
    },
    "racha": 0,
    "mejorRacha": 0,
-   "puntosMerito": 150,
+   "puntosMerito": 200,
    "ultimos": [],
    "predator": false,
    "tier": "bronce",
@@ -140,9 +140,9 @@
    "estado": "activo",
    "restante": {
     "dias": 5,
-    "horas": 23,
-    "minutos": 3,
-    "ms": 515000377
+    "horas": 2,
+    "minutos": 56,
+    "ms": 442614932
    },
    "porVencer": false
   },
@@ -155,10 +155,10 @@
    "venceTs": 1794526661176,
    "estado": "activo",
    "restante": {
-    "dias": 6,
-    "horas": 0,
-    "minutos": 20,
-    "ms": 519601896
+    "dias": 5,
+    "horas": 4,
+    "minutos": 13,
+    "ms": 447216451
    },
    "porVencer": false
   },
@@ -171,10 +171,10 @@
    "venceTs": 1794533616855,
    "estado": "activo",
    "restante": {
-    "dias": 6,
-    "horas": 2,
-    "minutos": 15,
-    "ms": 526557575
+    "dias": 5,
+    "horas": 6,
+    "minutos": 9,
+    "ms": 454172130
    },
    "porVencer": false
   },
@@ -187,10 +187,10 @@
    "venceTs": 1794538065071,
    "estado": "activo",
    "restante": {
-    "dias": 6,
-    "horas": 3,
-    "minutos": 30,
-    "ms": 531005791
+    "dias": 5,
+    "horas": 7,
+    "minutos": 23,
+    "ms": 458620346
    },
    "porVencer": false
   },
@@ -204,15 +204,31 @@
    "estado": "activo",
    "restante": {
     "dias": 6,
+    "horas": 3,
+    "minutos": 45,
+    "ms": 531937396
+   },
+   "porVencer": false
+  },
+  {
+   "pid": "0w0ogra17sg49i",
+   "nombre": "Esnayder Jhair Pérez",
+   "emitida": "07/11/2026",
+   "expira": "14/11/2026",
+   "emitidaTs": 1794079398408,
+   "venceTs": 1794684198408,
+   "estado": "activo",
+   "restante": {
+    "dias": 6,
     "horas": 23,
-    "minutos": 52,
-    "ms": 604322841
+    "minutos": 59,
+    "ms": 604753683
    },
    "porVencer": false
   }
  ],
  "resumenPases": {
-  "activos": 5,
+  "activos": 6,
   "porVencer": 0,
   "vencidos": 0
  },
@@ -285,8 +301,8 @@
      "pid": "0zmyd6w1beq0p4",
      "nombre": "MAX CASTAÑEDA",
      "rango": "RAW",
-     "valor": "150 PM",
-     "detalle": "★ 2 de 3"
+     "valor": "200 PM",
+     "detalle": "★ 3 de 3"
     },
     {
      "pos": 2,
@@ -394,8 +410,29 @@
   }
  ],
  "resultados": [],
- "cambios": [],
+ "cambios": [
+  {
+   "t": 1794079444725,
+   "tipo": "estrellas",
+   "texto": "MAX CASTAÑEDA: estrellas 2 → 3"
+  },
+  {
+   "t": 1794079444725,
+   "tipo": "pase",
+   "texto": "Nuevo pase temporal: Esnayder Jhair Pérez · vence 13/11/2026"
+  }
+ ],
  "novedades": [
+  {
+   "t": 1794079444725,
+   "tipo": "pase",
+   "texto": "Nuevo pase temporal: Esnayder Jhair Pérez · vence 13/11/2026"
+  },
+  {
+   "t": 1794079444725,
+   "tipo": "estrellas",
+   "texto": "MAX CASTAÑEDA: estrellas 2 → 3"
+  },
   {
    "t": 1794006870228,
    "tipo": "pase",
