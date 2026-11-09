@@ -1,6 +1,6 @@
 {
  "v": 1,
- "generado": "2026-11-09T04:32:16.206Z",
+ "generado": "2026-11-09T04:34:04.449Z",
  "miembros": [
   {
    "pid": "0zmyd6w1beq0p4",
@@ -323,37 +323,6 @@
    "resultado": "rojo"
   },
   {
-   "t": 1794189491228,
-   "fecha": "2026-11-08",
-   "tipo": "sparring",
-   "puntua": false,
-   "rojo": {
-    "pid": "0zmyd6w1beq0p4",
-    "nombre": "MAX CASTAÑEDA",
-    "rango": "RAW",
-    "record": {
-     "v": 0,
-     "e": 0,
-     "d": 0,
-     "total": 0,
-     "pct": 0
-    }
-   },
-   "azul": {
-    "pid": "0lb6itl0x2y6bt",
-    "nombre": "Jhan Carlos Cotrina Z",
-    "rango": "RAW",
-    "record": {
-     "v": 0,
-     "e": 0,
-     "d": 0,
-     "total": 0,
-     "pct": 0
-    }
-   },
-   "resultado": "azul"
-  },
-  {
    "t": 1794189360611,
    "fecha": "2026-11-08",
    "tipo": "sparring",
@@ -383,37 +352,6 @@
     }
    },
    "resultado": "azul"
-  },
-  {
-   "t": 1794189133870,
-   "fecha": "2026-11-08",
-   "tipo": "sparring",
-   "puntua": false,
-   "rojo": {
-    "pid": "0zmyd6w1beq0p4",
-    "nombre": "MAX CASTAÑEDA",
-    "rango": "RAW",
-    "record": {
-     "v": 0,
-     "e": 0,
-     "d": 0,
-     "total": 0,
-     "pct": 0
-    }
-   },
-   "azul": {
-    "pid": "0lb6itl0x2y6bt",
-    "nombre": "Jhan Carlos Cotrina Z",
-    "rango": "RAW",
-    "record": {
-     "v": 0,
-     "e": 0,
-     "d": 0,
-     "total": 0,
-     "pct": 0
-    }
-   },
-   "resultado": "rojo"
   }
  ],
  "cambios": [],
