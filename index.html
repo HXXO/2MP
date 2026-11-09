@@ -1345,6 +1345,7 @@ html.modal-open :is(header.hero,section,footer,.cta-section,.quote-section) *,ht
         <button type="button" class="btn-form ghost" data-close="password">CANCELAR</button>
         <button type="submit" class="btn-form primary" id="gateBtn">ACCEDER</button>
       </div>
+      <button type="button" class="btn-form ghost" id="vaultForgot" hidden style="width:100%;margin-top:12px">¿OLVIDASTE LA CONTRASEÑA? RESTABLECER</button>
     </form>
   </div>
 </div>
@@ -1966,7 +1967,7 @@ function openAdmin(next) {
   if (Vault.unlocked()) { Vault.touch(); (next || showPanel)(); return; }
   ADMIN_NEXT = next || showPanel;
   const setup = !Vault.exists();
-  $("#vaultSetup").hidden = !setup; $("#vaultSetup2").hidden = !setup;
+  $("#vaultSetup").hidden = !setup; $("#vaultSetup2").hidden = !setup; $("#vaultForgot").hidden = setup;
   $("#gateTitle").textContent = setup ? "CONFIGURAR ADMIN" : "ACCESO ADMIN";
   $("#gateSub").textContent = setup ? "Primera vez en este dispositivo: pega tu token y crea una contraseña fuerte." : "Introduce tu contraseña para desbloquear.";
   $("#gateBtn").textContent = setup ? "GUARDAR Y ACCEDER" : "ACCEDER";
@@ -2000,6 +2001,11 @@ function setupPasswordModal() {
       const n = ADMIN_NEXT; ADMIN_NEXT = null; if (n) n();
     } catch(ex) { $("#adminPass").value = ""; fail(ex.message || "No se pudo acceder."); }
     finally { btn.disabled = false; btn.textContent = label; }
+  });
+  $("#vaultForgot").addEventListener("click", () => {
+    if (!confirm("Se borrará solo el token de GitHub guardado en este dispositivo. No se borran miembros, invitados ni datos de la consola. Después pegarás un token nuevo y crearás una contraseña nueva. ¿Continuar?")) return;
+    Vault.wipe(); wipeInputs(); err.classList.remove("show");
+    openAdmin(ADMIN_NEXT || undefined);
   });
   document.querySelectorAll('[data-close="password"]').forEach(b => b.addEventListener("click", () => { wipeInputs(); err.classList.remove("show"); ADMIN_NEXT = null; }));
 }
