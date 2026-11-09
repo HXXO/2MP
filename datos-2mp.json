@@ -1,6 +1,6 @@
 {
  "v": 1,
- "generado": "2026-11-09T02:22:03.008Z",
+ "generado": "2026-11-09T02:22:10.855Z",
  "miembros": [
   {
    "pid": "0zmyd6w1beq0p4",
@@ -274,13 +274,7 @@
    "resultado": "rojo"
   }
  ],
- "cambios": [
-  {
-   "t": 1794190923008,
-   "tipo": "inicio",
-   "texto": "Primera exportación"
-  }
- ],
+ "cambios": [],
  "novedades": [
   {
    "t": 1794190923008,
