@@ -1,6 +1,6 @@
 {
  "v": 1,
- "generado": "2026-11-09T18:15:34.629Z",
+ "generado": "2026-11-09T22:05:57.427Z",
  "miembros": [
   {
    "pid": "0zmyd6w1beq0p4",
@@ -20,7 +20,15 @@
    "ultimos": [],
    "predator": false,
    "tier": "bronce",
-   "insignias": []
+   "insignias": [],
+   "sparring": {
+    "v": 0,
+    "e": 0,
+    "d": 1,
+    "total": 1,
+    "pct": 0,
+    "puntos": 0
+   }
   },
   {
    "pid": "1rc6og7042u9zb",
@@ -40,7 +48,15 @@
    "ultimos": [],
    "predator": false,
    "tier": "bronce",
-   "insignias": []
+   "insignias": [],
+   "sparring": {
+    "v": 1,
+    "e": 0,
+    "d": 0,
+    "total": 1,
+    "pct": 100,
+    "puntos": 3
+   }
   },
   {
    "pid": "1l391j81wv0p1g",
@@ -60,7 +76,15 @@
    "ultimos": [],
    "predator": false,
    "tier": "bronce",
-   "insignias": []
+   "insignias": [],
+   "sparring": {
+    "v": 0,
+    "e": 0,
+    "d": 1,
+    "total": 1,
+    "pct": 0,
+    "puntos": 0
+   }
   },
   {
    "pid": "0lb6itl0x2y6bt",
@@ -80,7 +104,15 @@
    "ultimos": [],
    "predator": false,
    "tier": "bronce",
-   "insignias": []
+   "insignias": [],
+   "sparring": {
+    "v": 1,
+    "e": 0,
+    "d": 0,
+    "total": 1,
+    "pct": 100,
+    "puntos": 3
+   }
   },
   {
    "pid": "0cp41nq0ogvp5y",
@@ -103,7 +135,15 @@
    "insignias": [
     "acero",
     "defensivo"
-   ]
+   ],
+   "sparring": {
+    "v": 0,
+    "e": 1,
+    "d": 0,
+    "total": 1,
+    "pct": 0,
+    "puntos": 1
+   }
   },
   {
    "pid": "0tgzcah158qzsp",
@@ -126,7 +166,15 @@
    "insignias": [
     "agresivo",
     "contragolpe"
-   ]
+   ],
+   "sparring": {
+    "v": 0,
+    "e": 1,
+    "d": 0,
+    "total": 1,
+    "pct": 0,
+    "puntos": 1
+   }
   }
  ],
  "rankings": {
