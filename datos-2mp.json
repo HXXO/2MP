@@ -1,6 +1,6 @@
 {
  "v": 1,
- "generado": "2026-11-09T02:22:10.855Z",
+ "generado": "2026-11-09T03:32:35.322Z",
  "miembros": [
   {
    "pid": "0zmyd6w1beq0p4",
@@ -20,12 +20,7 @@
    "ultimos": [],
    "predator": false,
    "tier": "bronce",
-   "insignias": [],
-   "fisico": {
-    "estatura": 173,
-    "peso": 51.3,
-    "division": "Supermosca"
-   }
+   "insignias": []
   },
   {
    "pid": "1rc6og7042u9zb",
@@ -65,12 +60,7 @@
    "ultimos": [],
    "predator": false,
    "tier": "bronce",
-   "insignias": [],
-   "fisico": {
-    "estatura": 146,
-    "peso": 37.5,
-    "division": "Mínimo"
-   }
+   "insignias": []
   },
   {
    "pid": "0lb6itl0x2y6bt",
@@ -90,12 +80,7 @@
    "ultimos": [],
    "predator": false,
    "tier": "bronce",
-   "insignias": [],
-   "fisico": {
-    "estatura": 167,
-    "peso": 63,
-    "division": "Superligero"
-   }
+   "insignias": []
   },
   {
    "pid": "0cp41nq0ogvp5y",
@@ -118,12 +103,7 @@
    "insignias": [
     "acero",
     "defensivo"
-   ],
-   "fisico": {
-    "estatura": 170,
-    "peso": 86,
-    "division": "Crucero"
-   }
+   ]
   },
   {
    "pid": "0tgzcah158qzsp",
@@ -146,12 +126,7 @@
    "insignias": [
     "agresivo",
     "contragolpe"
-   ],
-   "fisico": {
-    "estatura": 166,
-    "peso": 60,
-    "division": "Ligero"
-   }
+   ]
   }
  ],
  "rankings": {
