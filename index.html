@@ -1596,18 +1596,31 @@ const Store = {
 };
 const isSpar = x => !!x && (x.sparring === true || ["sparring", "entrenamiento"].includes(String(x.tipo || "").toLowerCase()));
 function normPases(d) {
-  const src = [d.pases, d.pasesTemporales, d.invitados].find(v => v !== undefined && v !== null);
-  const num = v => { const n = parseInt(v); return Number.isFinite(n) ? n : null; };
-  const ts = v => (typeof v === "number" && Number.isFinite(v) ? v : null);
-  let cupo = num(d.cupoPases ?? d.cupoInvitados), fijo = null, lista = [];
+  const KEYS = ["pases", "pasesTemporales", "pases_temporales", "invitados", "invitadosTemporales", "invitados_temporales", "guests", "temporales", "pasesSemana", "invitadosSemana"];
+  const SKIP = new Set(["miembros", "rankings", "cartelera", "resultados", "novedades"]);
+  const num = v => { const n = parseInt(v, 10); return Number.isFinite(n) ? n : null; };
+  const ms = t => (Number.isFinite(t) ? (t < 1e11 ? t * 1000 : t) : null);
+  const ts = v => typeof v === "number" ? ms(v) : (typeof v === "string" && v.trim() ? ms(/^\d+$/.test(v.trim()) ? +v : Date.parse(v)) : null);
+  const first = (o, ks) => { for (const k of ks) if (o[k] !== undefined && o[k] !== null && o[k] !== "") return o[k]; return undefined; };
+  const isGuest = g => /invit|temporal|guest|pase/i.test(String(first(g, ["tipo", "type", "categoria", "clase", "rol"]) ?? ""));
+  const dead = g => g.activo === false || g.vencido === true || g.anulado === true || g.revocado === true || /anul|revoc|cancel|vencid/i.test(String(g.estado ?? g.status ?? ""));
+  let src = KEYS.map(k => d[k]).find(v => v !== undefined && v !== null);
+  if (src === undefined) { const k = Object.keys(d).find(k => !SKIP.has(k) && d[k] != null && /invit|temporal|pase|guest/i.test(k)); if (k) src = d[k]; }
+  if (src === undefined) for (const k of Object.keys(d)) {
+    if (SKIP.has(k) || !Array.isArray(d[k])) continue;
+    const g = d[k].filter(x => x && typeof x === "object" && isGuest(x));
+    if (g.length) { src = g; break; }
+  }
+  let cupo = num(first(d, ["cupoPases", "cupoInvitados", "cupoSemanal", "pasesPorSemana", "cupo"])), fijo = null, lista = [];
   if (Array.isArray(src)) {
-    lista = src.filter(g => g && (typeof g !== "object" || (g.activo !== false && g.vencido !== true && g.anulado !== true)))
-      .map(g => typeof g === "object" ? {d: ts(g.desde ?? g.inicio ?? g.t), h: ts(g.hasta ?? g.vence ?? g.fin)} : {d: null, h: null}).slice(0, 500);
+    lista = src.filter(g => g && (typeof g !== "object" || !dead(g)))
+      .map(g => typeof g === "object" ? {d: ts(first(g, ["desde", "inicio", "t", "emitido", "emision", "creado", "creadoEn", "fecha", "ts", "createdAt", "issuedAt"])), h: ts(first(g, ["hasta", "vence", "fin", "expira", "vencimiento", "venceEn", "expiraEn", "expires", "expiresAt"]))} : {d: null, h: null}).slice(0, 500);
   } else if (typeof src === "number" || typeof src === "string") fijo = num(src);
   else if (src && typeof src === "object") {
     cupo = num(src.cupo ?? src.max) ?? cupo;
-    if (Array.isArray(src.lista)) return normPases({pases: src.lista, cupoPases: cupo});
-    fijo = num(src.activos ?? src.usados ?? src.semana ?? src.actuales);
+    const l = src.lista ?? src.items ?? src.pases;
+    if (Array.isArray(l)) return normPases({pases: l, cupoPases: cupo});
+    fijo = num(src.activos ?? src.usados ?? src.semana ?? src.actuales ?? src.total);
   }
   return {cupo: Math.max(1, Math.min(99, cupo ?? 10)), fijo: fijo === null ? null : Math.max(0, Math.min(999, fijo)), lista};
 }
