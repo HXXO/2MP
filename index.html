@@ -657,7 +657,9 @@ html.co-open,html.co-open body{overflow:hidden}
       <h2 class="section-title">ÚLTIMOS COMBATES</h2>
     </div>
   </div>
+  <div class="rs-filter" id="rsFilter" role="group" aria-label="Filtrar combates" hidden></div>
   <div id="resultadosList"></div>
+  <div class="rs-more" id="rsMore"></div>
 </section>
 
 <!-- ═══ CTA FINAL ═══ -->
@@ -809,6 +811,17 @@ html.co-open,html.co-open body{overflow:hidden}
 .pf-t.spar .pf-ic{color:rgba(34,211,238,.17)}
 .pf-t.spar::before{background:linear-gradient(180deg,#a5f3fc,#0e7490)}
 @media(max-width:640px){.fx-card.spar .fx-vs{font-size:22px}.sp-chip{font-size:8px;padding:4px 9px}}
+.rs-title{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:9px 14px;border-bottom:1px solid rgba(242,237,226,.08);font:800 10px var(--f-mono);letter-spacing:.18em;color:var(--gold);text-transform:uppercase}
+.rs-title time{color:var(--muted);letter-spacing:.12em;font-weight:600}
+.rs.spar .rs-title{color:var(--sp-hi);border-bottom:1px dashed rgba(34,211,238,.3)}
+.rs-filter{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 16px}
+.rs-chip,.rs-more button{min-height:44px;padding:8px 18px;border-radius:99px;border:1px solid rgba(242,237,226,.16);background:transparent;color:var(--muted);font:700 11px var(--f-mono);letter-spacing:.14em;cursor:pointer;touch-action:manipulation;transition:border-color .5s,color .5s,background .5s}
+.rs-chip b{margin-left:6px;color:var(--ink)}
+.rs-chip:hover,.rs-chip:focus-visible,.rs-more button:hover,.rs-more button:focus-visible{border-color:var(--gold);color:var(--ink);outline:none}
+.rs-chip.active{background:rgba(212,169,78,.14);border-color:var(--gold);color:var(--gold-hi)}
+.rs-chip[data-rf="sp"].active{background:rgba(34,211,238,.12);border-color:var(--sp);color:var(--sp-hi)}
+.rs-more{display:flex;justify-content:center;margin-top:16px}
+
 </style>
 <style>
 /* ═══ ESTABILIDAD: sin titileo ni repintado constante ═══
@@ -1217,17 +1230,6 @@ function animateNumber(el, target, duration = 1) {
   }
   requestAnimationFrame(tick);
 }
-function formatCountdown(target) {
-  const diff = target - Date.now();
-  if (diff <= 0) return {text: "EN CURSO", urgent: true, pct: 100};
-  const totalWindow = 7 * 86400000;
-  const pct = Math.max(0, Math.min(100, 100 - (diff / totalWindow) * 100));
-  const d = Math.floor(diff / 86400000), h = Math.floor((diff % 86400000) / 3600000), m = Math.floor((diff % 3600000) / 60000), s = Math.floor((diff % 60000) / 1000);
-  const urgent = diff < 86400000;
-  if (d > 0) return {text: `${d}D ${pad(h)}H ${pad(m)}M`, urgent, pct};
-  if (h > 0) return {text: `${pad(h)}H ${pad(m)}M ${pad(s)}S`, urgent, pct};
-  return {text: `${pad(m)}M ${pad(s)}S`, urgent: true, pct};
-}
 const RANK_CATS = [
   {k:"wins",t:"VICTORIAS",color:"var(--gold)"},
   {k:"pct",t:"% VICTORIAS",color:"var(--victory)"},
@@ -1239,15 +1241,6 @@ const RANK_CATS = [
   {k:"predator",t:"⚡ PREDATOR",color:"var(--violet)"}
 ];
 let currentCat = "wins";
-function getTrend(name, pos) {
-  let hash = 0;
-  for (let i = 0; i < name.length; i++) { hash = ((hash << 5) - hash + name.charCodeAt(i)) | 0; }
-  const v = Math.abs(hash) % 3;
-  if (pos <= 3) return v === 0 ? "stable" : "up";
-  if (pos >= 8) return v === 0 ? "stable" : "down";
-  return ["up","down","stable"][v];
-}
-
 function renderGuests() {
   if (!APP_DATA) return;
   const {n, cupo} = pasesActivos(), pct = Math.min(100, Math.round(n / cupo * 100));
@@ -1394,7 +1387,7 @@ function setupUploadModal() {
       GhStore.markPending(); Store.save(parsed);
       APP_DATA = validated; APP_STATE = State.SUCCESS; renderAll();
       Vault.lock(); closePanel();
-      toast(`✓ Publicado en GitHub (commit ${String(out.commit.sha).slice(0,7)}) · ${validated.miembros.length} miembros · ${validated.cartelera.filter(c=>!c.sparring).length} combates + ${validated.cartelera.filter(c=>c.sparring).length} sparring. Visible para todos en 1–2 min`, "ok", 7000);
+      toast(`✓ Publicado en GitHub (commit ${String(out.commit.sha).slice(0,7)}) · ${validated.miembros.length} miembros · ${validated.cartelera.filter(c=>!c.sparring).length} combates + ${validated.cartelera.filter(c=>c.sparring).length} sparring · ${validated.resultados.length} resultados. Visible para todos en 1–2 min`, "ok", 7000);
     } catch(ex) { fail((ex && ex.message) || "No se pudo publicar."); }
     finally { submitBtn.disabled = false; submitBtn.textContent = "PUBLICAR EN GITHUB"; }
   });
@@ -1422,7 +1415,7 @@ function renderHeroStats(){
   if(!APP_DATA) return;
   if(!window._visited){window._visited=1; window._visits=getVisitCount();}
   animateNumber($('[data-stat="miembros"]'),APP_DATA.miembros.length,1500);
-  animateNumber($('[data-stat="combates"]'),APP_DATA.resultados.length+APP_DATA.cartelera.length,1500);
+  animateNumber($('[data-stat="combates"]'),APP_DATA.resultados.filter(r=>!r.sparring).length+APP_DATA.cartelera.filter(c=>!c.sparring).length,1500);
   const pz=pasesActivos(), hp=$("#heroPases");
   animateNumber($('[data-stat="pases"]'),pz.n,1500);
   if(hp){hp.hidden=pz.n<=0;hp.setAttribute("aria-label","Más "+pz.n+" pases temporales esta semana");}
@@ -1430,7 +1423,7 @@ function renderHeroStats(){
 }
 function renderActivity(){
   const s=$("#activitySection"); if(!s||!APP_DATA) return;
-  const M=APP_DATA.miembros,R=APP_DATA.resultados,C=APP_DATA.cartelera,now=Date.now(),D=86400000;
+  const R=APP_DATA.resultados,C=APP_DATA.cartelera,now=Date.now(),D=86400000;
   const day0=t=>{const d=new Date(t);d.setHours(0,0,0,0);return d.getTime();};
   const byDay={},upDay={},spDay={};
   R.forEach(r=>{const k=day0(r.t);if(r.sparring)spDay[k]=(spDay[k]||0)+1;else byDay[k]=(byDay[k]||0)+1;});
@@ -1440,14 +1433,7 @@ function renderActivity(){
   let cells="";
   for(let i=0;i<35;i++){const t=start+i*D,d=new Date(t),n=byDay[t]||0,u=upDay[t]||0,q=spDay[t]||0,fut=t>today;
     cells+=`<div class="cal-day ${n?"act":""} ${u?"up":""} ${q?"sp":""} ${fut&&!u&&!q?"fut":""} ${t===today?"today":""}" ${q?`data-sp="${q}"`:""} title="${d.getDate()}/${d.getMonth()+1}: ${n} combate(s)${q?` · ${q} sparring`:""}${u?` · ${u} programado(s)`:""}"><span>${d.getDate()}</span>${u?`<i class="cal-x" aria-hidden="true">⚔${u>1?u:""}</i>`:""}${n?`<em>${n}</em>`:""}</div>`;}
-  const last7=Array.from({length:7},(_,i)=>byDay[today-(6-i)*D]||0),mx=Math.max(1,...last7);
-  const spark=a=>`<div class="act-bars">${a.map(v=>`<i style="height:${Math.max(8,v/mx*100)}%"></i>`).join("")}</div>`;
-  const rk={};M.forEach(m=>rk[m.rango]=(rk[m.rango]||0)+1);
-  const chips=RANK_ORDER.filter(r=>rk[r]).map(r=>`<span class="act-chip" style="color:${RANK_COLORS[r]};border-color:${RANK_COLORS[r]}66">${r} ${rk[r]}</span>`).join("");
-  const nx=C.filter(c=>c.t>now).sort((a,b)=>a.t-b.t)[0];
-  const vic=M.reduce((q,m)=>q+m.record.v,0),emp=M.reduce((q,m)=>q+m.record.e,0);
   const mon=new Date(today).toLocaleDateString("es",{month:"long",year:"numeric"}).toUpperCase();
-  const card=(ac,lb,val,det,extra)=>`<div class="activity-card" style="--accent:${ac}"><div class="activity-top"><div><div class="activity-label">${lb}</div><div class="activity-value">${val}</div></div></div><div class="activity-detail">${det}</div>${extra}</div>`;
   s.innerHTML=`<div class="heatmap-section"><div class="cal-head"><div><div class="heatmap-title">CALENDARIO DE COMBATES</div><div class="heatmap-subtitle" style="margin:0">Últimas 3 semanas y las próximas</div></div><div class="cal-month">${mon}</div></div>
   <div class="cal-grid">${names.map(n=>`<div class="cal-dow">${n}</div>`).join("")}${cells}</div>
   <div class="cal-legend"><span><b style="background:rgba(212,169,78,.4)"></b>Hubo combates (número = cantidad)</span><span><b style="border:1px dashed var(--steel)"></b>Combate programado ⚔</span><span><b style="background:var(--sp)"></b>Sparring (no cuenta para récord)</span><span><b style="box-shadow:0 0 0 2px var(--gold)"></b>Hoy</span></div></div>`;
@@ -1516,7 +1502,6 @@ function updateCountdowns(){
 
 
 
-function openCompare(){}
 function showCompare(a,b){
   const st=[["VICTORIAS",a.record.v,b.record.v],["% VICTORIAS",a.record.pct,b.record.pct],["RACHA",a.racha,b.racha],["MEJOR RACHA",a.mejorRacha,b.mejorRacha],["PUNTOS MÉRITO",a.puntosMerito,b.puntosMerito],["COMBATES",a.record.total,b.record.total]];
   const ca=RANK_COLORS[a.rango]||"var(--gold)",cb=RANK_COLORS[b.rango]||"var(--steel)";
@@ -1527,13 +1512,26 @@ function showCompare(a,b){
   ${st.map(([l,x,y])=>{const mx=Math.max(x,y,1);return `<div class="cmp-row"><div class="cmp-top"><b class="${x>y?"w":x<y?"l":""}">${x}</b><span>${l}</span><b class="${y>x?"w":y<x?"l":""}">${y}</b></div><div class="cmp-track"><div class="cmp-half"><i class="a" style="width:${x/mx*100}%"></i></div><div class="cmp-half"><i class="b" style="width:${y/mx*100}%"></i></div></div></div>`;}).join("")}`;
   $("#compareModal").classList.add("show");
 }
+let rsFilter="all",rsLimit=8;
 function renderResultados(){
   const l=$("#resultadosList"); if(!l||!APP_DATA) return;
-  const f=[...APP_DATA.resultados].sort((a,b)=>b.t-a.t).slice(0,10);
-  if(!f.length){l.innerHTML=`<div class="state-box"><div class="state-icon">📋</div><h3>SIN COMBATES REGISTRADOS</h3><p>Los resultados aparecerán aquí.</p></div>`;return;}
+  const all=[...APP_DATA.resultados].sort((a,b)=>b.t-a.t),nSp=all.filter(c=>c.sparring).length,f=$("#rsFilter"),more=$("#rsMore");
+  if(f){
+    f.hidden=!all.length;
+    f.innerHTML=[["all","TODOS",all.length],["of","COMBATES",all.length-nSp],["sp","SPARRING",nSp]].map(([k,t,n])=>`<button type="button" class="rs-chip${rsFilter===k?" active":""}" data-rf="${k}" aria-pressed="${rsFilter===k}">${t}<b>${n}</b></button>`).join("");
+    f.onclick=e=>{const b=e.target.closest("[data-rf]");if(!b)return;rsFilter=b.dataset.rf;rsLimit=8;renderResultados();};
+  }
+  if(!all.length){l.innerHTML=`<div class="state-box"><div class="state-icon">📋</div><h3>SIN COMBATES REGISTRADOS</h3><p>Los resultados aparecerán aquí.</p></div>`;if(more)more.innerHTML="";return;}
+  const list=all.filter(c=>rsFilter==="sp"?c.sparring:rsFilter==="of"?!c.sparring:true);
+  if(!list.length){l.innerHTML=`<div class="state-box"><div class="state-icon">📋</div><h3>NADA EN ESTE FILTRO</h3><p>Prueba con otra pestaña.</p></div>`;if(more)more.innerHTML="";return;}
+  const vis=list.slice(0,rsLimit);
   const sd=(x,st,r,sp)=>`<div class="rs-side ${st} ${r}"><div class="rs-av">${esc(ini(x.nombre))}</div><div class="rs-nm">${esc(x.nombre)}<small>${esc(x.rango||"")}</small><span class="rs-tag">${st==="w"?(sp?"🥊 VENTAJA":"🏆 GANÓ"):st==="l"?(sp?"ENTRENÓ":"PERDIÓ"):"EMPATE"}</span></div></div>`;
-  l.innerHTML=f.map((c,i)=>{const d=c.resultado==="empate",rw=c.resultado==="rojo",sp=!!c.sparring;
-    return `<div class="rs ${sp?"spar":""}" style="animation-delay:${i*.05}s">${sd(c.rojo,d?"d":rw?"w":"l","",sp)}<div class="rs-mid">${sp?"SPAR":"VS"}<small>${fmtDate(c.t)}</small></div>${sd(c.azul,d?"d":rw?"l":"w","r",sp)}${sp?`<div class="rs-note"><span class="sp-chip">ENTRENAMIENTO · NO CUENTA PARA EL RÉCORD</span>${c.puntos?`<span class="sp-chip pts">+${c.puntos} PTS</span>`:""}</div>`:""}</div>`;}).join("");
+  l.innerHTML=vis.map((c,i)=>{const d=c.resultado==="empate",rw=c.resultado==="rojo",sp=!!c.sparring;
+    return `<div class="rs ${sp?"spar":""}" style="animation-delay:${Math.min(i,8)*.05}s"><div class="rs-title"><span>${sp?"🥊 SPARRING · ENTRENAMIENTO":"COMBATE OFICIAL"}</span><time>${fmtDate(c.t)}</time></div>${sd(c.rojo,d?"d":rw?"w":"l","",sp)}<div class="rs-mid">${sp?"SPAR":"VS"}</div>${sd(c.azul,d?"d":rw?"l":"w","r",sp)}${sp?`<div class="rs-note"><span class="sp-chip">ENTRENAMIENTO · NO CUENTA PARA EL RÉCORD</span>${c.puntos?`<span class="sp-chip pts">+${c.puntos} PTS</span>`:""}</div>`:""}</div>`;}).join("");
+  if(more){
+    more.innerHTML=list.length>vis.length?`<button type="button" data-rm="1">VER MÁS · ${list.length-vis.length}</button>`:"";
+    more.onclick=e=>{if(!e.target.closest("[data-rm]"))return;rsLimit+=8;renderResultados();};
+  }
 }
 
 function initParticles(){const c=$("#heroParticles");if(!c)return;
