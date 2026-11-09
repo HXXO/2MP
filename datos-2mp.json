@@ -1,6 +1,6 @@
 {
  "v": 1,
- "generado": "2026-11-09T04:34:07.094Z",
+ "generado": "2026-11-09T18:15:23.888Z",
  "miembros": [
   {
    "pid": "0zmyd6w1beq0p4",
@@ -16,7 +16,7 @@
    },
    "racha": 0,
    "mejorRacha": 0,
-   "puntosMerito": 200,
+   "puntosMerito": 255,
    "ultimos": [],
    "predator": false,
    "tier": "bronce",
@@ -76,7 +76,7 @@
    },
    "racha": 0,
    "mejorRacha": 0,
-   "puntosMerito": 100,
+   "puntosMerito": 105,
    "ultimos": [],
    "predator": false,
    "tier": "bronce",
@@ -239,7 +239,7 @@
      "pid": "0zmyd6w1beq0p4",
      "nombre": "MAX CASTAÑEDA",
      "rango": "RAW",
-     "valor": "200 PM",
+     "valor": "255 PM",
      "detalle": "★ 3 de 3"
     },
     {
@@ -247,7 +247,7 @@
      "pid": "0lb6itl0x2y6bt",
      "nombre": "Jhan Carlos Cotrina Z",
      "rango": "RAW",
-     "valor": "100 PM",
+     "valor": "105 PM",
      "detalle": "★ 2 de 3"
     }
    ]
