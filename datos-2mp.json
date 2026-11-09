@@ -1,6 +1,6 @@
 {
  "v": 1,
- "generado": "2026-11-07T19:24:04.725Z",
+ "generado": "2026-11-09T02:22:03.008Z",
  "miembros": [
   {
    "pid": "0zmyd6w1beq0p4",
@@ -20,7 +20,12 @@
    "ultimos": [],
    "predator": false,
    "tier": "bronce",
-   "insignias": []
+   "insignias": [],
+   "fisico": {
+    "estatura": 173,
+    "peso": 51.3,
+    "division": "Supermosca"
+   }
   },
   {
    "pid": "1rc6og7042u9zb",
@@ -60,7 +65,12 @@
    "ultimos": [],
    "predator": false,
    "tier": "bronce",
-   "insignias": []
+   "insignias": [],
+   "fisico": {
+    "estatura": 146,
+    "peso": 37.5,
+    "division": "Mínimo"
+   }
   },
   {
    "pid": "0lb6itl0x2y6bt",
@@ -80,7 +90,12 @@
    "ultimos": [],
    "predator": false,
    "tier": "bronce",
-   "insignias": []
+   "insignias": [],
+   "fisico": {
+    "estatura": 167,
+    "peso": 63,
+    "division": "Superligero"
+   }
   },
   {
    "pid": "0cp41nq0ogvp5y",
@@ -103,7 +118,12 @@
    "insignias": [
     "acero",
     "defensivo"
-   ]
+   ],
+   "fisico": {
+    "estatura": 170,
+    "peso": 86,
+    "division": "Crucero"
+   }
   },
   {
    "pid": "0tgzcah158qzsp",
@@ -126,112 +146,14 @@
    "insignias": [
     "agresivo",
     "contragolpe"
-   ]
+   ],
+   "fisico": {
+    "estatura": 166,
+    "peso": 60,
+    "division": "Ligero"
+   }
   }
  ],
- "pases": [
-  {
-   "pid": "1bozjih1ngr70p",
-   "nombre": "Miuler Yoel Jimenes Rojas",
-   "emitida": "05/11/2026",
-   "expira": "12/11/2026",
-   "emitidaTs": 1793917259657,
-   "venceTs": 1794522059657,
-   "estado": "activo",
-   "restante": {
-    "dias": 5,
-    "horas": 2,
-    "minutos": 56,
-    "ms": 442614932
-   },
-   "porVencer": false
-  },
-  {
-   "pid": "1ul2zbk07bqkuo",
-   "nombre": "Jamer Nilson Sánchez",
-   "emitida": "05/11/2026",
-   "expira": "12/11/2026",
-   "emitidaTs": 1793921861176,
-   "venceTs": 1794526661176,
-   "estado": "activo",
-   "restante": {
-    "dias": 5,
-    "horas": 4,
-    "minutos": 13,
-    "ms": 447216451
-   },
-   "porVencer": false
-  },
-  {
-   "pid": "09oh8xz0lg8wg7",
-   "nombre": "Yeick Arias",
-   "emitida": "05/11/2026",
-   "expira": "12/11/2026",
-   "emitidaTs": 1793928816855,
-   "venceTs": 1794533616855,
-   "estado": "activo",
-   "restante": {
-    "dias": 5,
-    "horas": 6,
-    "minutos": 9,
-    "ms": 454172130
-   },
-   "porVencer": false
-  },
-  {
-   "pid": "02cfupi0e47i7q",
-   "nombre": "Paris Santiago Castillo Caruajulca",
-   "emitida": "05/11/2026",
-   "expira": "12/11/2026",
-   "emitidaTs": 1793933265071,
-   "venceTs": 1794538065071,
-   "estado": "activo",
-   "restante": {
-    "dias": 5,
-    "horas": 7,
-    "minutos": 23,
-    "ms": 458620346
-   },
-   "porVencer": false
-  },
-  {
-   "pid": "1u8ds6o06z1dps",
-   "nombre": "Jhon Edilberto Olano Calderón",
-   "emitida": "06/11/2026",
-   "expira": "13/11/2026",
-   "emitidaTs": 1794006582121,
-   "venceTs": 1794611382121,
-   "estado": "activo",
-   "restante": {
-    "dias": 6,
-    "horas": 3,
-    "minutos": 45,
-    "ms": 531937396
-   },
-   "porVencer": false
-  },
-  {
-   "pid": "0w0ogra17sg49i",
-   "nombre": "Esnayder Jhair Pérez",
-   "emitida": "07/11/2026",
-   "expira": "14/11/2026",
-   "emitidaTs": 1794079398408,
-   "venceTs": 1794684198408,
-   "estado": "activo",
-   "restante": {
-    "dias": 6,
-    "horas": 23,
-    "minutos": 59,
-    "ms": 604753683
-   },
-   "porVencer": false
-  }
- ],
- "resumenPases": {
-  "activos": 6,
-  "porVencer": 0,
-  "vencidos": 0
- },
  "rankings": {
   "wins": {
    "titulo": "VICTORIAS",
@@ -320,40 +242,11 @@
    "lista": []
   }
  },
- "cartelera": [
+ "cartelera": [],
+ "resultados": [
   {
-   "t": 1794186000000,
-   "tipo": "sparring",
-   "puntua": false,
-   "rojo": {
-    "pid": "0zmyd6w1beq0p4",
-    "nombre": "MAX CASTAÑEDA",
-    "rango": "RAW",
-    "record": {
-     "v": 0,
-     "e": 0,
-     "d": 0,
-     "total": 0,
-     "pct": 0
-    }
-   },
-   "azul": {
-    "pid": "0lb6itl0x2y6bt",
-    "nombre": "Jhan Carlos Cotrina Z",
-    "rango": "RAW",
-    "record": {
-     "v": 0,
-     "e": 0,
-     "d": 0,
-     "total": 0,
-     "pct": 0
-    }
-   }
-  },
-  {
-   "t": 1794187200000,
-   "tipo": "sparring",
-   "puntua": false,
+   "t": 1794189190140,
+   "fecha": "2026-11-08",
    "rojo": {
     "pid": "1rc6og7042u9zb",
     "nombre": "JULIO SMITH CHOLAN CARRERA",
@@ -377,129 +270,20 @@
      "total": 0,
      "pct": 0
     }
-   }
-  },
-  {
-   "t": 1794187800000,
-   "tipo": "sparring",
-   "puntua": false,
-   "rojo": {
-    "pid": "0tgzcah158qzsp",
-    "nombre": "HAROLD OSPINO",
-    "rango": "APEX",
-    "record": {
-     "v": 3,
-     "e": 0,
-     "d": 0,
-     "total": 3,
-     "pct": 100
-    }
    },
-   "azul": {
-    "pid": "0cp41nq0ogvp5y",
-    "nombre": "Alexander Velazquez",
-    "rango": "APEX",
-    "record": {
-     "v": 3,
-     "e": 0,
-     "d": 0,
-     "total": 3,
-     "pct": 100
-    }
-   }
+   "resultado": "rojo"
   }
  ],
- "resultados": [],
  "cambios": [
   {
-   "t": 1794079444725,
-   "tipo": "estrellas",
-   "texto": "MAX CASTAÑEDA: estrellas 2 → 3"
-  },
-  {
-   "t": 1794079444725,
-   "tipo": "pase",
-   "texto": "Nuevo pase temporal: Esnayder Jhair Pérez · vence 13/11/2026"
+   "t": 1794190923008,
+   "tipo": "inicio",
+   "texto": "Primera exportación"
   }
  ],
  "novedades": [
   {
-   "t": 1794079444725,
-   "tipo": "pase",
-   "texto": "Nuevo pase temporal: Esnayder Jhair Pérez · vence 13/11/2026"
-  },
-  {
-   "t": 1794079444725,
-   "tipo": "estrellas",
-   "texto": "MAX CASTAÑEDA: estrellas 2 → 3"
-  },
-  {
-   "t": 1794006870228,
-   "tipo": "pase",
-   "texto": "Nuevo pase temporal: Jhon Edilberto Olano Calderón · vence 12/11/2026"
-  },
-  {
-   "t": 1793933314587,
-   "tipo": "pase",
-   "texto": "Nuevo pase temporal: Paris Santiago Castillo Caruajulca · vence 11/11/2026"
-  },
-  {
-   "t": 1793933314587,
-   "tipo": "estrellas",
-   "texto": "MAX CASTAÑEDA: estrellas 1 → 2"
-  },
-  {
-   "t": 1793931109695,
-   "tipo": "pase",
-   "texto": "Nuevo pase temporal: Yeick Arias · vence 11/11/2026"
-  },
-  {
-   "t": 1793921999944,
-   "tipo": "estrellas",
-   "texto": "Jhan Carlos Cotrina Z: estrellas 1 → 2"
-  },
-  {
-   "t": 1793910048888,
-   "tipo": "cartelera",
-   "texto": "Sparring programado: HAROLD OSPINO vs Alexander Velazquez"
-  },
-  {
-   "t": 1793909401676,
-   "tipo": "cartelera",
-   "texto": "Sparring programado: JULIO SMITH CHOLAN CARRERA vs Ever Jhanpol Carrera Portal"
-  },
-  {
-   "t": 1793909401676,
-   "tipo": "cartelera",
-   "texto": "Sparring programado: MAX CASTAÑEDA vs Jhan Carlos Cotrina Z"
-  },
-  {
-   "t": 1793905430478,
-   "tipo": "miembro",
-   "texto": "Nuevo miembro: MAX CASTAÑEDA"
-  },
-  {
-   "t": 1793902360234,
-   "tipo": "record",
-   "texto": "HAROLD OSPINO: récord V/E/D 0/0/0 → 3/0/0"
-  },
-  {
-   "t": 1793902360234,
-   "tipo": "rango",
-   "texto": "HAROLD OSPINO: rango SPARK → APEX"
-  },
-  {
-   "t": 1793902360234,
-   "tipo": "record",
-   "texto": "Alexander Velazquez: récord V/E/D 0/0/0 → 3/0/0"
-  },
-  {
-   "t": 1793902360234,
-   "tipo": "rango",
-   "texto": "Alexander Velazquez: rango SPARK → APEX"
-  },
-  {
-   "t": 1793902085169,
+   "t": 1794190923008,
    "tipo": "inicio",
    "texto": "Primera exportación"
   }
