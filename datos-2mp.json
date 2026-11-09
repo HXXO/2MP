@@ -1,6 +1,6 @@
 {
  "v": 1,
- "generado": "2026-11-09T03:32:50.953Z",
+ "generado": "2026-11-09T04:32:08.254Z",
  "miembros": [
   {
    "pid": "0zmyd6w1beq0p4",
@@ -181,8 +181,49 @@
   },
   "att": {
    "titulo": "ASISTENCIA",
-   "regla": "Semanas perfectas de los últimos 30 días (un mes sin faltas vale 4). Se suma desde la ficha del miembro.",
-   "lista": []
+   "regla": "Asistencias marcadas en el pase de lista durante los últimos 30 días. Desempata por semanas perfectas (un mes sin faltas vale 4).",
+   "lista": [
+    {
+     "pos": 1,
+     "pid": "0zmyd6w1beq0p4",
+     "nombre": "MAX CASTAÑEDA",
+     "rango": "RAW",
+     "valor": "1 asist.",
+     "detalle": "últimos 30 días"
+    },
+    {
+     "pos": 2,
+     "pid": "1rc6og7042u9zb",
+     "nombre": "JULIO SMITH CHOLAN CARRERA",
+     "rango": "RAW",
+     "valor": "1 asist.",
+     "detalle": "últimos 30 días"
+    },
+    {
+     "pos": 3,
+     "pid": "0lb6itl0x2y6bt",
+     "nombre": "Jhan Carlos Cotrina Z",
+     "rango": "RAW",
+     "valor": "1 asist.",
+     "detalle": "últimos 30 días"
+    },
+    {
+     "pos": 4,
+     "pid": "0cp41nq0ogvp5y",
+     "nombre": "Alexander Velazquez",
+     "rango": "APEX",
+     "valor": "1 asist.",
+     "detalle": "últimos 30 días"
+    },
+    {
+     "pos": 5,
+     "pid": "0tgzcah158qzsp",
+     "nombre": "HAROLD OSPINO",
+     "rango": "APEX",
+     "valor": "1 asist.",
+     "detalle": "últimos 30 días"
+    }
+   ]
   },
   "impr": {
    "titulo": "MAYOR MEJORA",
@@ -220,8 +261,41 @@
  "cartelera": [],
  "resultados": [
   {
-   "t": 1794189190140,
+   "t": 1794190915756,
    "fecha": "2026-11-08",
+   "tipo": "sparring",
+   "puntua": false,
+   "rojo": {
+    "pid": "0tgzcah158qzsp",
+    "nombre": "HAROLD OSPINO",
+    "rango": "APEX",
+    "record": {
+     "v": 3,
+     "e": 0,
+     "d": 0,
+     "total": 3,
+     "pct": 100
+    }
+   },
+   "azul": {
+    "pid": "0cp41nq0ogvp5y",
+    "nombre": "Alexander Velazquez",
+    "rango": "APEX",
+    "record": {
+     "v": 3,
+     "e": 0,
+     "d": 0,
+     "total": 3,
+     "pct": 100
+    }
+   },
+   "resultado": "empate"
+  },
+  {
+   "t": 1794189529275,
+   "fecha": "2026-11-08",
+   "tipo": "sparring",
+   "puntua": false,
    "rojo": {
     "pid": "1rc6og7042u9zb",
     "nombre": "JULIO SMITH CHOLAN CARRERA",
@@ -247,10 +321,154 @@
     }
    },
    "resultado": "rojo"
+  },
+  {
+   "t": 1794189491228,
+   "fecha": "2026-11-08",
+   "tipo": "sparring",
+   "puntua": false,
+   "rojo": {
+    "pid": "0zmyd6w1beq0p4",
+    "nombre": "MAX CASTAÑEDA",
+    "rango": "RAW",
+    "record": {
+     "v": 0,
+     "e": 0,
+     "d": 0,
+     "total": 0,
+     "pct": 0
+    }
+   },
+   "azul": {
+    "pid": "0lb6itl0x2y6bt",
+    "nombre": "Jhan Carlos Cotrina Z",
+    "rango": "RAW",
+    "record": {
+     "v": 0,
+     "e": 0,
+     "d": 0,
+     "total": 0,
+     "pct": 0
+    }
+   },
+   "resultado": "azul"
+  },
+  {
+   "t": 1794189360611,
+   "fecha": "2026-11-08",
+   "tipo": "sparring",
+   "puntua": false,
+   "rojo": {
+    "pid": "0zmyd6w1beq0p4",
+    "nombre": "MAX CASTAÑEDA",
+    "rango": "RAW",
+    "record": {
+     "v": 0,
+     "e": 0,
+     "d": 0,
+     "total": 0,
+     "pct": 0
+    }
+   },
+   "azul": {
+    "pid": "0lb6itl0x2y6bt",
+    "nombre": "Jhan Carlos Cotrina Z",
+    "rango": "RAW",
+    "record": {
+     "v": 0,
+     "e": 0,
+     "d": 0,
+     "total": 0,
+     "pct": 0
+    }
+   },
+   "resultado": "azul"
+  },
+  {
+   "t": 1794189133870,
+   "fecha": "2026-11-08",
+   "tipo": "sparring",
+   "puntua": false,
+   "rojo": {
+    "pid": "0zmyd6w1beq0p4",
+    "nombre": "MAX CASTAÑEDA",
+    "rango": "RAW",
+    "record": {
+     "v": 0,
+     "e": 0,
+     "d": 0,
+     "total": 0,
+     "pct": 0
+    }
+   },
+   "azul": {
+    "pid": "0lb6itl0x2y6bt",
+    "nombre": "Jhan Carlos Cotrina Z",
+    "rango": "RAW",
+    "record": {
+     "v": 0,
+     "e": 0,
+     "d": 0,
+     "total": 0,
+     "pct": 0
+    }
+   },
+   "resultado": "rojo"
   }
  ],
- "cambios": [],
+ "cambios": [
+  {
+   "t": 1794198728254,
+   "tipo": "resultado",
+   "texto": "Sparring: HAROLD OSPINO vs Alexander Velazquez · empate"
+  },
+  {
+   "t": 1794198728254,
+   "tipo": "resultado",
+   "texto": "Sparring: JULIO SMITH CHOLAN CARRERA vs Ever Jhanpol Carrera Portal · ganó JULIO SMITH CHOLAN CARRERA"
+  },
+  {
+   "t": 1794198728254,
+   "tipo": "resultado",
+   "texto": "Sparring: MAX CASTAÑEDA vs Jhan Carlos Cotrina Z · ganó Jhan Carlos Cotrina Z"
+  },
+  {
+   "t": 1794198728254,
+   "tipo": "resultado",
+   "texto": "Sparring: MAX CASTAÑEDA vs Jhan Carlos Cotrina Z · ganó Jhan Carlos Cotrina Z"
+  },
+  {
+   "t": 1794198728254,
+   "tipo": "resultado",
+   "texto": "Sparring: MAX CASTAÑEDA vs Jhan Carlos Cotrina Z · ganó MAX CASTAÑEDA"
+  }
+ ],
  "novedades": [
+  {
+   "t": 1794198728254,
+   "tipo": "resultado",
+   "texto": "Sparring: MAX CASTAÑEDA vs Jhan Carlos Cotrina Z · ganó MAX CASTAÑEDA"
+  },
+  {
+   "t": 1794198728254,
+   "tipo": "resultado",
+   "texto": "Sparring: MAX CASTAÑEDA vs Jhan Carlos Cotrina Z · ganó Jhan Carlos Cotrina Z"
+  },
+  {
+   "t": 1794198728254,
+   "tipo": "resultado",
+   "texto": "Sparring: MAX CASTAÑEDA vs Jhan Carlos Cotrina Z · ganó Jhan Carlos Cotrina Z"
+  },
+  {
+   "t": 1794198728254,
+   "tipo": "resultado",
+   "texto": "Sparring: JULIO SMITH CHOLAN CARRERA vs Ever Jhanpol Carrera Portal · ganó JULIO SMITH CHOLAN CARRERA"
+  },
+  {
+   "t": 1794198728254,
+   "tipo": "resultado",
+   "texto": "Sparring: HAROLD OSPINO vs Alexander Velazquez · empate"
+  },
   {
    "t": 1794190923008,
    "tipo": "inicio",
