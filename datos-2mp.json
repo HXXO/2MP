@@ -1,6 +1,6 @@
 {
  "v": 1,
- "generado": "2026-11-09T22:18:18.343Z",
+ "generado": "2026-11-09T22:25:27.907Z",
  "miembros": [
   {
    "pid": "0zmyd6w1beq0p4",
@@ -28,6 +28,11 @@
     "total": 1,
     "pct": 0,
     "puntos": 0
+   },
+   "fisico": {
+    "estatura": 173,
+    "peso": 51.3,
+    "division": "Supermosca"
    }
   },
   {
@@ -84,6 +89,11 @@
     "total": 1,
     "pct": 0,
     "puntos": 0
+   },
+   "fisico": {
+    "estatura": 146,
+    "peso": 37.5,
+    "division": "Mínimo"
    }
   },
   {
@@ -112,6 +122,11 @@
     "total": 1,
     "pct": 100,
     "puntos": 3
+   },
+   "fisico": {
+    "estatura": 167,
+    "peso": 63,
+    "division": "Superligero"
    }
   },
   {
@@ -143,6 +158,11 @@
     "total": 1,
     "pct": 0,
     "puntos": 1
+   },
+   "fisico": {
+    "estatura": 170,
+    "peso": 86,
+    "division": "Crucero"
    }
   },
   {
@@ -174,6 +194,11 @@
     "total": 1,
     "pct": 0,
     "puntos": 1
+   },
+   "fisico": {
+    "estatura": 166,
+    "peso": 60,
+    "division": "Ligero"
    }
   }
  ],
@@ -402,6 +427,45 @@
    "resultado": "azul"
   }
  ],
+ "pases": [
+  {
+   "desde": 1794260779464,
+   "hasta": 1794865579464
+  },
+  {
+   "desde": 1794248104399,
+   "hasta": 1794852904399
+  },
+  {
+   "desde": 1794247827227,
+   "hasta": 1794852627227
+  },
+  {
+   "desde": 1794079398408,
+   "hasta": 1794684198408
+  },
+  {
+   "desde": 1794006582121,
+   "hasta": 1794611382121
+  },
+  {
+   "desde": 1793933265071,
+   "hasta": 1794538065071
+  },
+  {
+   "desde": 1793928816855,
+   "hasta": 1794533616855
+  },
+  {
+   "desde": 1793921861176,
+   "hasta": 1794526661176
+  },
+  {
+   "desde": 1793917259657,
+   "hasta": 1794522059657
+  }
+ ],
+ "cupoPases": 10,
  "cambios": [],
  "novedades": [
   {
