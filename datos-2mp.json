@@ -1,6 +1,6 @@
 {
  "v": 1,
- "generado": "2026-11-09T04:32:08.254Z",
+ "generado": "2026-11-09T04:32:16.206Z",
  "miembros": [
   {
    "pid": "0zmyd6w1beq0p4",
@@ -416,33 +416,7 @@
    "resultado": "rojo"
   }
  ],
- "cambios": [
-  {
-   "t": 1794198728254,
-   "tipo": "resultado",
-   "texto": "Sparring: HAROLD OSPINO vs Alexander Velazquez · empate"
-  },
-  {
-   "t": 1794198728254,
-   "tipo": "resultado",
-   "texto": "Sparring: JULIO SMITH CHOLAN CARRERA vs Ever Jhanpol Carrera Portal · ganó JULIO SMITH CHOLAN CARRERA"
-  },
-  {
-   "t": 1794198728254,
-   "tipo": "resultado",
-   "texto": "Sparring: MAX CASTAÑEDA vs Jhan Carlos Cotrina Z · ganó Jhan Carlos Cotrina Z"
-  },
-  {
-   "t": 1794198728254,
-   "tipo": "resultado",
-   "texto": "Sparring: MAX CASTAÑEDA vs Jhan Carlos Cotrina Z · ganó Jhan Carlos Cotrina Z"
-  },
-  {
-   "t": 1794198728254,
-   "tipo": "resultado",
-   "texto": "Sparring: MAX CASTAÑEDA vs Jhan Carlos Cotrina Z · ganó MAX CASTAÑEDA"
-  }
- ],
+ "cambios": [],
  "novedades": [
   {
    "t": 1794198728254,
