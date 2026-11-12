@@ -1,6 +1,6 @@
 {
  "v": 1,
- "generado": "2026-11-12T18:07:54.779Z",
+ "generado": "2026-11-12T23:28:05.564Z",
  "miembros": [
   {
    "pid": "0zmyd6w1beq0p4",
@@ -44,7 +44,7 @@
    },
    "racha": 0,
    "mejorRacha": 0,
-   "puntosMerito": 5,
+   "puntosMerito": 10,
    "ultimos": [],
    "predator": false,
    "tier": "bronce",
@@ -72,7 +72,7 @@
    },
    "racha": 0,
    "mejorRacha": 0,
-   "puntosMerito": 0,
+   "puntosMerito": 5,
    "ultimos": [],
    "predator": false,
    "tier": "bronce",
@@ -257,6 +257,14 @@
     },
     {
      "pos": 4,
+     "pid": "1l391j81wv0p1g",
+     "nombre": "Ever Jhanpol Carrera Portal",
+     "rango": "RAW",
+     "valor": "1 asist.",
+     "detalle": "últimos 30 días"
+    },
+    {
+     "pos": 5,
      "pid": "0cp41nq0ogvp5y",
      "nombre": "Alexander Velazquez",
      "rango": "APEX",
@@ -264,7 +272,7 @@
      "detalle": "últimos 30 días"
     },
     {
-     "pos": 5,
+     "pos": 6,
      "pid": "0tgzcah158qzsp",
      "nombre": "HAROLD OSPINO",
      "rango": "APEX",
@@ -302,6 +310,14 @@
      "pos": 3,
      "pid": "1rc6og7042u9zb",
      "nombre": "JULIO SMITH CHOLAN CARRERA",
+     "rango": "RAW",
+     "valor": "10 PM",
+     "detalle": "★ 1 de 3"
+    },
+    {
+     "pos": 4,
+     "pid": "1l391j81wv0p1g",
+     "nombre": "Ever Jhanpol Carrera Portal",
      "rango": "RAW",
      "valor": "5 PM",
      "detalle": "★ 1 de 3"
