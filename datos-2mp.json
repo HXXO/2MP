@@ -1,6 +1,6 @@
 {
  "v": 1,
- "generado": "2026-11-12T18:00:31.123Z",
+ "generado": "2026-11-12T18:07:39.397Z",
  "miembros": [
   {
    "pid": "0zmyd6w1beq0p4",
@@ -28,11 +28,6 @@
     "total": 0,
     "pct": 0,
     "puntos": 0
-   },
-   "fisico": {
-    "estatura": 173,
-    "peso": 51.3,
-    "division": "Supermosca"
    }
   },
   {
@@ -89,11 +84,6 @@
     "total": 0,
     "pct": 0,
     "puntos": 0
-   },
-   "fisico": {
-    "estatura": 146,
-    "peso": 37.5,
-    "division": "Mínimo"
    }
   },
   {
@@ -122,11 +112,6 @@
     "total": 0,
     "pct": 0,
     "puntos": 0
-   },
-   "fisico": {
-    "estatura": 167,
-    "peso": 63,
-    "division": "Superligero"
    }
   },
   {
@@ -158,11 +143,6 @@
     "total": 0,
     "pct": 0,
     "puntos": 0
-   },
-   "fisico": {
-    "estatura": 170,
-    "peso": 86,
-    "division": "Crucero"
    }
   },
   {
@@ -194,11 +174,6 @@
     "total": 0,
     "pct": 0,
     "puntos": 0
-   },
-   "fisico": {
-    "estatura": 166,
-    "peso": 60,
-    "division": "Ligero"
    }
   }
  ],
