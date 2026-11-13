@@ -1,6 +1,6 @@
 {
  "v": 1,
- "generado": "2026-11-13T01:21:26.487Z",
+ "generado": "2026-11-13T22:35:57.360Z",
  "miembros": [
   {
    "pid": "0zmyd6w1beq0p4",
@@ -100,7 +100,7 @@
    },
    "racha": 0,
    "mejorRacha": 0,
-   "puntosMerito": 110,
+   "puntosMerito": 160,
    "ultimos": [],
    "predator": false,
    "tier": "bronce",
@@ -303,7 +303,7 @@
      "pid": "0lb6itl0x2y6bt",
      "nombre": "Jhan Carlos Cotrina Z",
      "rango": "RAW",
-     "valor": "110 PM",
+     "valor": "160 PM",
      "detalle": "★ 2 de 3"
     },
     {
@@ -333,6 +333,10 @@
  "cartelera": [],
  "resultados": [],
  "pases": [
+  {
+   "desde": 1794608639890,
+   "hasta": 1795213439890
+  },
   {
    "desde": 1794532468273,
    "hasta": 1795137268273
