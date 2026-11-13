@@ -1,6 +1,6 @@
 {
  "v": 1,
- "generado": "2026-11-13T01:14:37.161Z",
+ "generado": "2026-11-13T01:21:26.487Z",
  "miembros": [
   {
    "pid": "0zmyd6w1beq0p4",
@@ -44,7 +44,7 @@
    },
    "racha": 0,
    "mejorRacha": 0,
-   "puntosMerito": 10,
+   "puntosMerito": 60,
    "ultimos": [],
    "predator": false,
    "tier": "bronce",
@@ -311,7 +311,7 @@
      "pid": "1rc6og7042u9zb",
      "nombre": "JULIO SMITH CHOLAN CARRERA",
      "rango": "RAW",
-     "valor": "10 PM",
+     "valor": "60 PM",
      "detalle": "★ 1 de 3"
     },
     {
