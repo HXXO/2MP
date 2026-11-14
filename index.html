@@ -1463,6 +1463,32 @@ html.modal-open :is(header.hero,section,footer,.cta-section,.quote-section) *,ht
 .rh-s.w .rh-n{color:rgba(242,237,226,.92)}
 .rh-s.w .rh-n small{color:rgba(var(--ac),.9)}
 .rh-vs{font:400 13px var(--f-display);letter-spacing:.12em;color:rgba(var(--ac),.55)}</style>
+<style>/* sparring · variantes de cartelera */
+.sp-hype{grid-column:1/-1;text-align:center;font:600 13px/1.45 var(--f-ui);color:var(--sp-hi);padding:2px 10px 0;max-width:560px;margin:0 auto}
+@media(max-width:640px){.sp-hype{font-size:12px}}
+.fx-card.spar.sp-final{--sp:#c084fc;--sp-hi:#e9d5ff;--sp-deep:#7c3aed;border-color:rgba(192,132,252,.6);box-shadow:0 0 34px -14px rgba(192,132,252,.65);background:repeating-linear-gradient(135deg,rgba(192,132,252,.06) 0 10px,transparent 10px 22px),linear-gradient(115deg,rgba(91,33,182,.34),rgba(91,33,182,.06) 38%,transparent 50%,rgba(55,48,163,.06) 62%,rgba(55,48,163,.34)),var(--void-2)}
+.fx-card.spar.sp-final::before{background:linear-gradient(transparent,#e9d5ff,transparent)}
+.fx-card.spar.sp-final .fx-red .fx-av,.fx-card.spar.sp-final .fx-blue .fx-av{background:linear-gradient(145deg,#e9d5ff,#7c3aed);--cc:#c084fc}
+.fx-card.spar.sp-final .fx-date{border-color:rgba(192,132,252,.5)}
+.fx-card.spar.sp-final .fx-date b{background:rgba(192,132,252,.08)}
+.fx-card.spar.sp-final .sp-chip{border-color:rgba(192,132,252,.5);background:rgba(192,132,252,.1)}
+.fx-card.spar.sp-final .sp-chip.pts{background:linear-gradient(90deg,#7c3aed,#c084fc);border-color:transparent}
+.fx-card.spar.sp-rematch{--sp:#fb7185;--sp-hi:#fecdd3;--sp-deep:#be123c;border-color:rgba(251,113,133,.6);box-shadow:0 0 34px -14px rgba(251,113,133,.65);background:repeating-linear-gradient(135deg,rgba(251,113,133,.06) 0 10px,transparent 10px 22px),linear-gradient(115deg,rgba(159,18,57,.34),rgba(159,18,57,.06) 38%,transparent 50%,rgba(127,29,29,.06) 62%,rgba(127,29,29,.34)),var(--void-2)}
+.fx-card.spar.sp-rematch::before{background:linear-gradient(transparent,#fecdd3,transparent)}
+.fx-card.spar.sp-rematch .fx-red .fx-av,.fx-card.spar.sp-rematch .fx-blue .fx-av{background:linear-gradient(145deg,#fecdd3,#be123c);--cc:#fb7185}
+.fx-card.spar.sp-rematch .fx-date{border-color:rgba(251,113,133,.5)}
+.fx-card.spar.sp-rematch .fx-date b{background:rgba(251,113,133,.08)}
+.fx-card.spar.sp-rematch .sp-chip{border-color:rgba(251,113,133,.5);background:rgba(251,113,133,.1)}
+.fx-card.spar.sp-rematch .sp-chip.pts{background:linear-gradient(90deg,#be123c,#fb7185);border-color:transparent}
+.fx-card.spar.sp-main{--sp:#34d399;--sp-hi:#a7f3d0;--sp-deep:#047857;border-color:rgba(52,211,153,.6);box-shadow:0 0 34px -14px rgba(52,211,153,.65);background:repeating-linear-gradient(135deg,rgba(52,211,153,.06) 0 10px,transparent 10px 22px),linear-gradient(115deg,rgba(6,95,70,.34),rgba(6,95,70,.06) 38%,transparent 50%,rgba(19,78,74,.06) 62%,rgba(19,78,74,.34)),var(--void-2)}
+.fx-card.spar.sp-main::before{background:linear-gradient(transparent,#a7f3d0,transparent)}
+.fx-card.spar.sp-main .fx-red .fx-av,.fx-card.spar.sp-main .fx-blue .fx-av{background:linear-gradient(145deg,#a7f3d0,#047857);--cc:#34d399}
+.fx-card.spar.sp-main .fx-date{border-color:rgba(52,211,153,.5)}
+.fx-card.spar.sp-main .fx-date b{background:rgba(52,211,153,.08)}
+.fx-card.spar.sp-main .sp-chip{border-color:rgba(52,211,153,.5);background:rgba(52,211,153,.1)}
+.fx-card.spar.sp-main .sp-chip.pts{background:linear-gradient(90deg,#047857,#34d399);border-color:transparent}
+</style>
+
 <style>.pw-crown,.wt-ghost,.state-box .state-icon,.fx-hint{animation:none!important}
 .fx-hint{opacity:.9}
 .pm-rank b,.member-card.rank-imperator .member-name{animation:none!important}
@@ -2132,6 +2158,69 @@ function pickMain(all){
   if(k2>=0){const d=gt(S[best],S[k2]);window._mainWhy=["","MAYOR RANGO COMBINADO","MAYOR EFECTIVIDAD COMBINADA","MEJOR RACHA COMBINADA","MÁS COMBATES DE EXPERIENCIA"][d]||"";}
   return best;
 }
+/* ═══ SPARRING: puntúa como combate oficial en MEJORA y RACHA ═══ */
+function sparRank(cat,data){
+  if(cat!=="impr"&&cat!=="streak")return data;
+  const R=(APP_DATA.resultados||[]).slice().sort((a,b)=>a.t-b.t),M=APP_DATA.miembros||[];
+  if(!R.some(r=>r.sparring))return data;
+  const isM=n=>M.some(m=>m.nombre===n),rkOf=n=>{const m=M.find(q=>q.nombre===n);return m?m.rango:"";},
+    num=v=>parseInt(String(v==null?"":v).replace(/[^\d]/g,""))||0,
+    base=data&&Array.isArray(data.lista)?data.lista:[],out=new Map(base.map(x=>[x.nombre,Object.assign({},x)])),
+    outcome=(r,n)=>r.resultado==="empate"?"E":((r.resultado==="rojo")===(r.rojo.nombre===n))?"V":"D",
+    dOf=x=>x&&/derrota/i.test(String(x.detalle))?num((String(x.detalle).match(/(\d+)\s*derrota/i)||[])[1]):0;
+  if(cat==="impr"){
+    const lim=Date.now()-30*864e5,add={};
+    R.forEach(r=>{if(!r.sparring||r.t<lim)return;[r.rojo.nombre,r.azul.nombre].forEach(n=>{if(!isM(n))return;const o=outcome(r,n),a=add[n]||(add[n]={v:0,d:0});if(o==="V")a.v++;else if(o==="D")a.d++;});});
+    Object.keys(add).forEach(n=>{const a=add[n],cur=out.get(n),w=(cur?num(cur.valor):0)+a.v,d=(cur?dOf(cur):0)+a.d;
+      if(!cur&&w<=0)return;
+      out.set(n,{pos:0,nombre:n,rango:cur?cur.rango:rkOf(n),valor:"+"+w+"V",detalle:(d?d+" derrota(s) en 30 d":"sin derrotas")+(a.v?" · "+a.v+" sparring":"")});});
+  }else{
+    const by={};
+    R.forEach(r=>[r.rojo.nombre,r.azul.nombre].forEach(n=>{if(isM(n))(by[n]=by[n]||[]).push(r);}));
+    Object.keys(by).forEach(n=>{const seq=by[n];if(!seq.some(r=>r.sparring))return;
+      let run=0,sp=0,broke=false;
+      for(let i=seq.length-1;i>=0;i--){if(outcome(seq[i],n)!=="V"){broke=true;break;}run++;if(seq[i].sparring)sp++;}
+      const cur=out.get(n),total=broke?run:Math.max(run,(cur?num(cur.valor):0)+sp);
+      if(total<=0){out.delete(n);return;}
+      const best=cur&&/mejor racha/i.test(String(cur.detalle))?num((String(cur.detalle).match(/mejor racha\s*(\d+)/i)||[])[1]):0;
+      out.set(n,{pos:0,nombre:n,rango:cur?cur.rango:rkOf(n),valor:String(total),detalle:"mejor racha "+Math.max(best,total)+(sp?" · "+sp+" sparring":"")});});
+  }
+  const lista=[...out.values()].sort((a,b)=>num(b.valor)-num(a.valor)||dOf(a)-dOf(b)).map((x,i)=>Object.assign({},x,{pos:i+1}));
+  const c0=RANK_CATS.find(c=>c.k===cat)||{t:cat},rg=(data&&data.regla)||"";
+  return {titulo:(data&&data.titulo)||c0.t,regla:/sparring/i.test(rg)?rg:(rg?rg+" · ":"")+"Incluye victorias de sparring.",lista};
+}
+/* ═══ SPARRING EN CARTELERA: título contextual + frase de ambiente ═══ */
+function sparHype(c,k,prev,guest){
+  const A=c.rojo,Z=c.azul,M=APP_DATA.miembros||[],R=APP_DATA.resultados||[],mem=n=>M.find(m=>m.nombre===n),
+    pick=a=>a[Math.abs(c.t+A.nombre.length*7+Z.nombre.length*13)%a.length],
+    spN=n=>R.filter(r=>r.sparring&&r.t<c.t&&(r.rojo.nombre===n||r.azul.nombre===n)).length,
+    win=r=>r.resultado==="rojo"?r.rojo.nombre:r.resultado==="azul"?r.azul.nombre:null,
+    rc=n=>(mem(n)&&mem(n).racha)||0;
+  if(k==="rematch"){const w=win(prev),l=w?(w===prev.rojo.nombre?prev.azul.nombre:prev.rojo.nombre):null;
+    return w?pick([l+" tiene una cuenta pendiente: la última vez ganó "+w+" ("+fmtDate(prev.t)+").","Revancha servida. "+w+" se llevó el primero; "+l+" viene a cobrárselo.","La historia dice "+w+". El ring dirá si "+l+" la reescribe."])
+      :pick(["Terminaron en tablas la última vez ("+fmtDate(prev.t)+"). Esta vez alguien tiene que ceder.","El primer round se quedó en empate. Ahora toca desempatar."]);}
+  if(k==="final"){const g=guest[0],o=g===A.nombre?Z:A,oR=o.rango||(mem(o.nombre)&&mem(o.nombre).rango)||"",n=spN(g);
+    return pick([g+" afronta su prueba final contra "+o.nombre+(oR?" ("+oR+")":"")+".","Examen definitivo para "+g+(n?" tras "+n+" sparring"+(n>1?"s":"")+" previo"+(n>1?"s":""):"")+": "+o.nombre+" no lo va a regalar.","Última prueba de "+g+". Enfrente, "+o.nombre+(oR?", "+oR:"")+"."]);}
+  const mx=Math.max(rc(A.nombre),rc(Z.nombre)),st=rc(A.nombre)>=rc(Z.nombre)?A:Z;
+  if(k==="main"){const L=["El sparring más pesado de la cartelera: "+A.nombre+" contra "+Z.nombre+"."];
+    if(mx>=3)L.push(st.nombre+" llega encendido con "+mx+" victorias seguidas. ¿Quién lo frena?");
+    if(A.rango&&Z.rango)L.push(A.rango+" contra "+Z.rango+": aquí nadie viene a calentar.");
+    return pick(L);}
+  if(mx>=3)return st.nombre+" trae "+mx+" victorias seguidas y aquí no hay récord que cuidar: solo ganas de ganar.";
+  return pick(["Sin récord en juego, con orgullo de sobra: "+A.nombre+" vs "+Z.nombre+".","Entrenamiento con filo: lo que se gana aquí suma en MEJORA y RACHA.",A.nombre+" y "+Z.nombre+" se miden donde se forjan los campeones."]);
+}
+function sparInfo(c,spAll,nNormal){
+  const R=APP_DATA.resultados||[],M=APP_DATA.miembros||[],isM=n=>M.some(m=>m.nombre===n),A=c.rojo.nombre,Z=c.azul.nombre,
+    prev=R.filter(r=>r.t<c.t&&((r.rojo.nombre===A&&r.azul.nombre===Z)||(r.rojo.nombre===Z&&r.azul.nombre===A))).sort((a,b)=>b.t-a.t)[0]||null,
+    guest=[A,Z].filter(n=>!isM(n));
+  let top=false;
+  if(spAll.length){const S=spAll.map(x=>{const a=fScore(x.rojo),b=fScore(x.azul);return a.map((v,k)=>v+b[k]);}),
+      gt=(x,y)=>{for(let k=0;k<4;k++)if(x[k]!==y[k])return x[k]>y[k];return false;};
+    let b=0;for(let i=1;i<S.length;i++)if(gt(S[i],S[b]))b=i;
+    top=spAll[b]===c&&(spAll.length>1||!nNormal);}
+  const k=prev?"rematch":guest.length?"final":top?"main":"plain";
+  return {k,tag:{rematch:"REVANCHA",final:"PRUEBA FINAL",main:"MAIN EVENT",plain:"ENTRENAMIENTO"}[k],hype:sparHype(c,k,prev,guest)};
+}
 function renderCartelera(){
   const list=$("#carteleraList"); if(!list||!APP_DATA) return;
   const all=APP_DATA.cartelera.filter(c=>c.t>Date.now()-36e5).sort((a,b)=>a.t-b.t),normal=all.filter(c=>!c.sparring),mi=pickMain(normal),main=mi<0?null:normal[mi],f=(main?[main,...all.filter(c=>c!==main)]:all).slice(0,10);
@@ -2140,12 +2229,12 @@ function renderCartelera(){
     <div class="wt-cd" aria-hidden="true"><span>--<small>DÍAS</small></span><span>--<small>HRS</small></span><span>--<small>MIN</small></span><span>--<small>SEG</small></span></div></div>`;return;}
   const side=(x,c)=>`<div class="fx-side fx-${c}"><span class="fx-wm">${esc(ini(x.nombre).charAt(0))}</span><div class="fx-av">${esc(ini(x.nombre))}</div><div class="fx-txt"><div class="fx-name">${esc(x.nombre)}</div>${x.rango?`<div class="fx-rk">${esc(x.rango)}</div>`:""}</div></div>`;
   const SP_IC='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8v8M3 10v4M18 8v8M21 10v4M6 12h12"/></svg>';
-  list.innerHTML=f.map((c,i)=>{const d=new Date(c.t),p=cdParts(c.t),sp=!!c.sparring,mn=!sp&&c===main;
-    return `<div class="fx-card ${sp?"spar":c.campeonato?"champ":mn?"main":""}"${mn?' data-main="1" tabindex="0" role="button" aria-label="Ver entrada al ring"':""} style="animation:fadeUp .5s var(--e-out) ${i*.08}s both">${sp?`<div class="fx-tag">🥊 SPARRING · ENTRENAMIENTO</div>`:c.campeonato?`<div class="fx-tag">🏆 CAMPEONATO</div>`:mn?`<div class="fx-tag">MAIN EVENT</div>`:""}
+  list.innerHTML=f.map((c,i)=>{const d=new Date(c.t),p=cdParts(c.t),sp=!!c.sparring,mn=!sp&&c===main,SI=sp?sparInfo(c,all.filter(x=>x.sparring),normal.length):null;
+    return `<div class="fx-card ${sp?"spar sp-"+SI.k:c.campeonato?"champ":mn?"main":""}"${mn?' data-main="1" tabindex="0" role="button" aria-label="Ver entrada al ring"':""} style="animation:fadeUp .5s var(--e-out) ${i*.08}s both">${sp?`<div class="fx-tag">🥊 SPARRING · ${SI.tag}</div>`:c.campeonato?`<div class="fx-tag">🏆 CAMPEONATO</div>`:mn?`<div class="fx-tag">MAIN EVENT</div>`:""}
     ${side(c.rojo,"red")}<div class="fx-vs">${sp?"SPAR":"VS"}</div>${side(c.azul,"blue")}
     <div class="fx-foot"><div class="fx-when"><div class="fx-date"><small>${d.toLocaleDateString("es",{month:"short"}).replace(".","").toUpperCase()}</small><b>${pad(d.getDate())}</b></div><div class="fx-clock">${fmtTime(c.t)}<small>${d.toLocaleDateString("es",{weekday:"long"}).toUpperCase()}</small></div></div>
     <div class="fx-cd ${p.urgent?"urgent":""}" data-t="${c.t}">${cdHTML(p)}</div></div>
-    ${sp?`<div class="sp-note"><span class="sp-chip">${SP_IC}NO CUENTA PARA EL RÉCORD</span><span class="sp-chip pts">${c.puntos?`+${c.puntos} PTS`:"SUMA PUNTOS"}</span></div>`:""}${mn?`<div class="fx-hint">${window._mainWhy?window._mainWhy+" · ":""}▶ TOCA PARA VER LA ENTRADA</div>`:""}<div class="fx-bar"><i data-bar="${c.t}" style="width:${p.pct}%"></i></div></div>`;}).join("");
+    ${sp?`<div class="sp-hype">🔥 ${esc(SI.hype)}</div><div class="sp-note"><span class="sp-chip">${SP_IC}NO CUENTA PARA EL RÉCORD</span><span class="sp-chip pts">${c.puntos?`+${c.puntos} PTS`:"SUMA PUNTOS"}</span><span class="sp-chip">⚡ SUMA A MEJORA Y RACHA</span></div>`:""}${mn?`<div class="fx-hint">${window._mainWhy?window._mainWhy+" · ":""}▶ TOCA PARA VER LA ENTRADA</div>`:""}<div class="fx-bar"><i data-bar="${c.t}" style="width:${p.pct}%"></i></div></div>`;}).join("");
   window._mainFight=main;if(!list._rb){list._rb=1;const go=e=>{if(e.target.closest("[data-main]")&&window._mainFight&&(e.type==="click"||e.key==="Enter"))ringEntrance(window._mainFight);};list.addEventListener("click",go);list.addEventListener("keydown",go);}
   if(!window._cdInterval) window._cdInterval=setInterval(updateCountdowns,1000);
 }
@@ -2498,7 +2587,7 @@ function renderRankings(){
   const tabs=$("#rankTabs"),content=$("#rankContent");if(!tabs||!content||!APP_DATA)return;
   tabs.innerHTML=RANK_CATS.map(c=>`<button class="rank-tab ${c.k===currentCat?"active":""}" data-cat="${c.k}">${c.t}</button>`).join("");
   tabs.onclick=e=>{const b=e.target.closest("[data-cat]");if(!b)return;currentCat=b.dataset.cat;renderRankings();};
-  let data=APP_DATA.rankings[currentCat];
+  let data=sparRank(currentCat,APP_DATA.rankings[currentCat]);
   if(!data||!data.lista||!data.lista.length){const c0=RANK_CATS.find(c=>c.k===currentCat)||RANK_CATS[0];
     content.innerHTML=`<div class="wt" style="--c:${c0.color}"><div class="wt-pod" aria-hidden="true"><i>2</i><i>1</i><i>3</i></div>
     <span class="wt-tag">${esc(c0.t)}</span><h3>PODIO SIN CORONAR</h3><p>Aún no hay miembros clasificados en esta categoría. El primer lugar sigue libre.${data&&data.regla?` <em>${esc(data.regla)}</em>`:""}</p></div>`;return;}
