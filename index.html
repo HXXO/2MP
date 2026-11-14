@@ -2191,23 +2191,51 @@ function sparRank(cat,data){
 }
 /* ═══ SPARRING EN CARTELERA: título contextual + frase de ambiente ═══ */
 function sparHype(c,k,prev,guest){
-  const A=c.rojo,Z=c.azul,M=APP_DATA.miembros||[],R=APP_DATA.resultados||[],mem=n=>M.find(m=>m.nombre===n),
+  const A=c.rojo,Z=c.azul,M=APP_DATA.miembros||[],R=APP_DATA.resultados||[],mem=n=>M.find(m=>m.nombre===n)||null,
     pick=a=>a[Math.abs(c.t+A.nombre.length*7+Z.nombre.length*13)%a.length],
+    rc=n=>(mem(n)&&mem(n).racha)||0,pc=n=>mem(n)&&mem(n).record&&mem(n).record.total?mem(n).record.pct:null,
     spN=n=>R.filter(r=>r.sparring&&r.t<c.t&&(r.rojo.nombre===n||r.azul.nombre===n)).length,
     win=r=>r.resultado==="rojo"?r.rojo.nombre:r.resultado==="azul"?r.azul.nombre:null,
-    rc=n=>(mem(n)&&mem(n).racha)||0;
+    rk=x=>x.rango||(mem(x.nombre)&&mem(x.nombre).rango)||"",
+    inv=n=>{const m=mem(n);return !!m&&!!m.record&&m.record.total>=3&&m.record.d===0;},
+    mx=Math.max(rc(A.nombre),rc(Z.nombre)),hot=rc(A.nombre)>=rc(Z.nombre)?A:Z,cold=hot===A?Z:A;
   if(k==="rematch"){const w=win(prev),l=w?(w===prev.rojo.nombre?prev.azul.nombre:prev.rojo.nombre):null;
-    return w?pick([l+" tiene una cuenta pendiente: la última vez ganó "+w+" ("+fmtDate(prev.t)+").","Revancha servida. "+w+" se llevó el primero; "+l+" viene a cobrárselo.","La historia dice "+w+". El ring dirá si "+l+" la reescribe."])
-      :pick(["Terminaron en tablas la última vez ("+fmtDate(prev.t)+"). Esta vez alguien tiene que ceder.","El primer round se quedó en empate. Ahora toca desempatar."]);}
-  if(k==="final"){const g=guest[0],o=g===A.nombre?Z:A,oR=o.rango||(mem(o.nombre)&&mem(o.nombre).rango)||"",n=spN(g);
-    return pick([g+" afronta su prueba final contra "+o.nombre+(oR?" ("+oR+")":"")+".","Examen definitivo para "+g+(n?" tras "+n+" sparring"+(n>1?"s":"")+" previo"+(n>1?"s":""):"")+": "+o.nombre+" no lo va a regalar.","Última prueba de "+g+". Enfrente, "+o.nombre+(oR?", "+oR:"")+"."]);}
-  const mx=Math.max(rc(A.nombre),rc(Z.nombre)),st=rc(A.nombre)>=rc(Z.nombre)?A:Z;
-  if(k==="main"){const L=["El sparring más pesado de la cartelera: "+A.nombre+" contra "+Z.nombre+"."];
-    if(mx>=3)L.push(st.nombre+" llega encendido con "+mx+" victorias seguidas. ¿Quién lo frena?");
-    if(A.rango&&Z.rango)L.push(A.rango+" contra "+Z.rango+": aquí nadie viene a calentar.");
+    return w?pick([
+      w+" ganó la primera. "+l+" no la olvidó. Esta vez nadie se esconde.",
+      "Hay una cuenta abierta desde el "+fmtDate(prev.t)+". Se cierra aquí, y va a doler.",
+      "Primera pelea: ganó "+w+". La segunda no trae excusas para ninguno de los dos.",
+      w+" se llevó el primero. "+l+" volvió por el segundo. Solo uno se queda con la última palabra.",
+      l+" cargó con esa derrota hasta hoy. "+w+" lo sabe. Nadie sale igual."
+    ]):pick([
+      "Empataron y ninguno lo aceptó. Esta vez uno se queda con la última palabra.",
+      "El empate no resolvió nada. Esto sí.",
+      "Tablas la última vez ("+fmtDate(prev.t)+"). Ahora no hay empate que los salve."
+    ]);}
+  if(k==="final"){const g=guest[0],o=g===A.nombre?Z:A,n=spN(g),r=rk(o),ro=rc(o.nombre),po=pc(o.nombre),
+      L=[
+      "Prueba final: "+g+" contra "+o.nombre+(r?", "+r:"")+". Sin segundas oportunidades.",
+      g+" ya no puede esconderse. "+o.nombre+" tampoco. Prueba final."];
+    if(n)L.push(n+" sparring"+(n>1?"s":"")+" de calentamiento. Ahora la prueba final de "+g+" contra "+o.nombre+". Aquí se separa quien aguanta de quien no.");
+    if(ro>=3)L.push(o.nombre+" trae "+ro+" victorias seguidas. "+g+" llega con una prueba final y cero margen. Alguien se queda sin nada.");
+    if(po!==null&&po>=60)L.push(o.nombre+" promedia "+po+"% de victorias. "+g+" tiene una sola oportunidad. Prueba final.");
+    if(inv(o.nombre))L.push(o.nombre+" sigue sin derrotas. "+g+" viene a probar si eso dura. Prueba final.");
     return pick(L);}
-  if(mx>=3)return st.nombre+" trae "+mx+" victorias seguidas y aquí no hay récord que cuidar: solo ganas de ganar.";
-  return pick(["Sin récord en juego, con orgullo de sobra: "+A.nombre+" vs "+Z.nombre+".","Entrenamiento con filo: lo que se gana aquí suma en MEJORA y RACHA.",A.nombre+" y "+Z.nombre+" se miden donde se forjan los campeones."]);
+  const both=inv(A.nombre)&&inv(Z.nombre);
+  if(k==="main"){const L=[
+      "El sparring más pesado de la cartelera. "+A.nombre+" vs "+Z.nombre+". Nadie quiere perdérselo.",
+      "Nadie en la cartelera pelea con tanto en juego: "+A.nombre+" y "+Z.nombre+". Sin récord, con todo el orgullo."];
+    if(A.nombre&&rk(A)&&rk(Z))L.push(rk(A)+" contra "+rk(Z)+". Sin récord en juego y con todo el orgullo sobre la mesa.");
+    if(mx>=3)L.push("Una racha de "+mx+" y alguien dispuesto a romperla: "+hot.nombre+" vs "+cold.nombre+". No parpadees.");
+    if(pc(A.nombre)!==null&&pc(Z.nombre)!==null)L.push(pc(A.nombre)+"% contra "+pc(Z.nombre)+"%. Los números no pelean. Ellos sí.");
+    if(both)L.push("Dos sin derrotas en el mismo ring. Uno deja de serlo.");
+    return pick(L);}
+  const L=[
+    "Sin cinturón, sin récord, sin excusas. "+A.nombre+" y "+Z.nombre+" se miden y uno se va con algo que recordar.",
+    A.nombre+" vs "+Z.nombre+". Aquí no se pelea por puntos de récord: se pelea para que el otro no lo olvide."];
+  if(mx>=3)L.push(hot.nombre+" trae "+mx+" seguidas. "+cold.nombre+" no vino a mirar. Alguien pierde algo.");
+  if(both)L.push("Dos sin derrotas. Un solo ring. Uno deja de ser intocable.");
+  else if(inv(A.nombre)||inv(Z.nombre)){const iv=inv(A.nombre)?A:Z,ot=iv===A?Z:A;L.push(iv.nombre+" no conoce la derrota. "+ot.nombre+" viene a presentársela.");}
+  return pick(L);
 }
 function sparInfo(c,spAll,nNormal){
   const R=APP_DATA.resultados||[],M=APP_DATA.miembros||[],isM=n=>M.some(m=>m.nombre===n),A=c.rojo.nombre,Z=c.azul.nombre,
@@ -2234,7 +2262,7 @@ function renderCartelera(){
     ${side(c.rojo,"red")}<div class="fx-vs">${sp?"SPAR":"VS"}</div>${side(c.azul,"blue")}
     <div class="fx-foot"><div class="fx-when"><div class="fx-date"><small>${d.toLocaleDateString("es",{month:"short"}).replace(".","").toUpperCase()}</small><b>${pad(d.getDate())}</b></div><div class="fx-clock">${fmtTime(c.t)}<small>${d.toLocaleDateString("es",{weekday:"long"}).toUpperCase()}</small></div></div>
     <div class="fx-cd ${p.urgent?"urgent":""}" data-t="${c.t}">${cdHTML(p)}</div></div>
-    ${sp?`<div class="sp-hype">🔥 ${esc(SI.hype)}</div><div class="sp-note"><span class="sp-chip">${SP_IC}NO CUENTA PARA EL RÉCORD</span><span class="sp-chip pts">${c.puntos?`+${c.puntos} PTS`:"SUMA PUNTOS"}</span><span class="sp-chip">⚡ SUMA A MEJORA Y RACHA</span></div>`:""}${mn?`<div class="fx-hint">${window._mainWhy?window._mainWhy+" · ":""}▶ TOCA PARA VER LA ENTRADA</div>`:""}<div class="fx-bar"><i data-bar="${c.t}" style="width:${p.pct}%"></i></div></div>`;}).join("");
+    ${sp?`<div class="sp-hype">🔥 ${esc(SI.hype)}</div><div class="sp-note"><span class="sp-chip">${SP_IC}NO CUENTA PARA EL RÉCORD</span><span class="sp-chip pts">${c.puntos?`+${c.puntos} PTS`:"SUMA PUNTOS"}</span></div>`:""}${mn?`<div class="fx-hint">${window._mainWhy?window._mainWhy+" · ":""}▶ TOCA PARA VER LA ENTRADA</div>`:""}<div class="fx-bar"><i data-bar="${c.t}" style="width:${p.pct}%"></i></div></div>`;}).join("");
   window._mainFight=main;if(!list._rb){list._rb=1;const go=e=>{if(e.target.closest("[data-main]")&&window._mainFight&&(e.type==="click"||e.key==="Enter"))ringEntrance(window._mainFight);};list.addEventListener("click",go);list.addEventListener("keydown",go);}
   if(!window._cdInterval) window._cdInterval=setInterval(updateCountdowns,1000);
 }
