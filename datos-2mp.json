@@ -1,6 +1,6 @@
 {
  "v": 1,
- "generado": "2026-11-13T22:36:01.263Z",
+ "generado": "2026-11-14T17:54:35.292Z",
  "miembros": [
   {
    "pid": "0zmyd6w1beq0p4",
@@ -16,7 +16,7 @@
    },
    "racha": 0,
    "mejorRacha": 0,
-   "puntosMerito": 255,
+   "puntosMerito": 260,
    "ultimos": [],
    "predator": false,
    "tier": "bronce",
@@ -295,7 +295,7 @@
      "pid": "0zmyd6w1beq0p4",
      "nombre": "MAX CASTAÑEDA",
      "rango": "RAW",
-     "valor": "255 PM",
+     "valor": "260 PM",
      "detalle": "★ 3 de 3"
     },
     {
@@ -330,9 +330,85 @@
    "lista": []
   }
  },
- "cartelera": [],
+ "cartelera": [
+  {
+   "t": 1796000700000,
+   "tipo": "sparring",
+   "puntua": false,
+   "rojo": {
+    "pid": "1l391j81wv0p1g",
+    "nombre": "Ever Jhanpol Carrera Portal",
+    "rango": "RAW",
+    "record": {
+     "v": 0,
+     "e": 0,
+     "d": 0,
+     "total": 0,
+     "pct": 0
+    }
+   },
+   "azul": {
+    "pid": "1rc6og7042u9zb",
+    "nombre": "JULIO SMITH CHOLAN CARRERA",
+    "rango": "RAW",
+    "record": {
+     "v": 0,
+     "e": 0,
+     "d": 0,
+     "total": 0,
+     "pct": 0
+    }
+   }
+  },
+  {
+   "t": 1796001600000,
+   "tipo": "sparring",
+   "puntua": false,
+   "rojo": {
+    "nombre": "Esnayder Jhair Pérez",
+    "tipo": "invitado"
+   },
+   "azul": {
+    "nombre": "Paris Santiago Castillo Caruajulca",
+    "tipo": "invitado"
+   }
+  },
+  {
+   "t": 1796002200000,
+   "tipo": "sparring",
+   "puntua": false,
+   "rojo": {
+    "pid": "0zmyd6w1beq0p4",
+    "nombre": "MAX CASTAÑEDA",
+    "rango": "RAW",
+    "record": {
+     "v": 0,
+     "e": 0,
+     "d": 0,
+     "total": 0,
+     "pct": 0
+    }
+   },
+   "azul": {
+    "pid": "0lb6itl0x2y6bt",
+    "nombre": "Jhan Carlos Cotrina Z",
+    "rango": "RAW",
+    "record": {
+     "v": 0,
+     "e": 0,
+     "d": 0,
+     "total": 0,
+     "pct": 0
+    }
+   }
+  }
+ ],
  "resultados": [],
  "pases": [
+  {
+   "desde": 1794678700350,
+   "hasta": 1795283500350
+  },
   {
    "desde": 1794608639890,
    "hasta": 1795213439890
@@ -379,8 +455,39 @@
   }
  ],
  "cupoPases": 10,
- "cambios": [],
+ "cambios": [
+  {
+   "t": 1794678875292,
+   "tipo": "cartelera",
+   "texto": "Sparring programado: Ever Jhanpol Carrera Portal vs JULIO SMITH CHOLAN CARRERA"
+  },
+  {
+   "t": 1794678875292,
+   "tipo": "cartelera",
+   "texto": "Sparring programado: Esnayder Jhair Pérez vs Paris Santiago Castillo Caruajulca"
+  },
+  {
+   "t": 1794678875292,
+   "tipo": "cartelera",
+   "texto": "Sparring programado: MAX CASTAÑEDA vs Jhan Carlos Cotrina Z"
+  }
+ ],
  "novedades": [
+  {
+   "t": 1794678875292,
+   "tipo": "cartelera",
+   "texto": "Sparring programado: MAX CASTAÑEDA vs Jhan Carlos Cotrina Z"
+  },
+  {
+   "t": 1794678875292,
+   "tipo": "cartelera",
+   "texto": "Sparring programado: Esnayder Jhair Pérez vs Paris Santiago Castillo Caruajulca"
+  },
+  {
+   "t": 1794678875292,
+   "tipo": "cartelera",
+   "texto": "Sparring programado: Ever Jhanpol Carrera Portal vs JULIO SMITH CHOLAN CARRERA"
+  },
   {
    "t": 1794263356121,
    "tipo": "inicio",
