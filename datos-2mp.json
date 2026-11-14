@@ -1,6 +1,6 @@
 {
  "v": 1,
- "generado": "2026-11-14T17:54:35.292Z",
+ "generado": "2026-11-14T17:54:51.657Z",
  "miembros": [
   {
    "pid": "0zmyd6w1beq0p4",
@@ -455,23 +455,7 @@
   }
  ],
  "cupoPases": 10,
- "cambios": [
-  {
-   "t": 1794678875292,
-   "tipo": "cartelera",
-   "texto": "Sparring programado: Ever Jhanpol Carrera Portal vs JULIO SMITH CHOLAN CARRERA"
-  },
-  {
-   "t": 1794678875292,
-   "tipo": "cartelera",
-   "texto": "Sparring programado: Esnayder Jhair Pérez vs Paris Santiago Castillo Caruajulca"
-  },
-  {
-   "t": 1794678875292,
-   "tipo": "cartelera",
-   "texto": "Sparring programado: MAX CASTAÑEDA vs Jhan Carlos Cotrina Z"
-  }
- ],
+ "cambios": [],
  "novedades": [
   {
    "t": 1794678875292,
