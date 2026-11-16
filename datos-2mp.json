@@ -1,6 +1,6 @@
 {
  "v": 1,
- "generado": "2026-11-14T17:54:51.657Z",
+ "generado": "2026-11-16T03:37:01.405Z",
  "miembros": [
   {
    "pid": "0zmyd6w1beq0p4",
@@ -233,16 +233,16 @@
    "lista": [
     {
      "pos": 1,
-     "pid": "1rc6og7042u9zb",
-     "nombre": "JULIO SMITH CHOLAN CARRERA",
+     "pid": "0lb6itl0x2y6bt",
+     "nombre": "Jhan Carlos Cotrina Z",
      "rango": "RAW",
-     "valor": "2 asist.",
+     "valor": "3 asist.",
      "detalle": "últimos 30 días"
     },
     {
      "pos": 2,
-     "pid": "0lb6itl0x2y6bt",
-     "nombre": "Jhan Carlos Cotrina Z",
+     "pid": "1rc6og7042u9zb",
+     "nombre": "JULIO SMITH CHOLAN CARRERA",
      "rango": "RAW",
      "valor": "2 asist.",
      "detalle": "últimos 30 días"
@@ -361,6 +361,19 @@
    }
   },
   {
+   "t": 1796001000000,
+   "tipo": "sparring",
+   "puntua": false,
+   "rojo": {
+    "nombre": "Riky Maykiu Tirado Paredes",
+    "tipo": "invitado"
+   },
+   "azul": {
+    "nombre": "Renan keyler carrera acosta",
+    "tipo": "invitado"
+   }
+  },
+  {
    "t": 1796001600000,
    "tipo": "sparring",
    "puntua": false,
@@ -401,10 +414,27 @@
      "pct": 0
     }
    }
+  },
+  {
+   "t": 1796002800000,
+   "tipo": "sparring",
+   "puntua": false,
+   "rojo": {
+    "nombre": "Cleyder Rodriguez",
+    "tipo": "invitado"
+   },
+   "azul": {
+    "nombre": "Jesús Elvin Lozano Sánchez",
+    "tipo": "invitado"
+   }
   }
  ],
  "resultados": [],
  "pases": [
+  {
+   "desde": 1794778279222,
+   "hasta": 1795383079222
+  },
   {
    "desde": 1794678700350,
    "hasta": 1795283500350
@@ -455,8 +485,29 @@
   }
  ],
  "cupoPases": 10,
- "cambios": [],
+ "cambios": [
+  {
+   "t": 1794800221405,
+   "tipo": "cartelera",
+   "texto": "Sparring programado: Riky Maykiu Tirado Paredes vs Renan keyler carrera acosta"
+  },
+  {
+   "t": 1794800221405,
+   "tipo": "cartelera",
+   "texto": "Sparring programado: Cleyder Rodriguez vs Jesús Elvin Lozano Sánchez"
+  }
+ ],
  "novedades": [
+  {
+   "t": 1794800221405,
+   "tipo": "cartelera",
+   "texto": "Sparring programado: Cleyder Rodriguez vs Jesús Elvin Lozano Sánchez"
+  },
+  {
+   "t": 1794800221405,
+   "tipo": "cartelera",
+   "texto": "Sparring programado: Riky Maykiu Tirado Paredes vs Renan keyler carrera acosta"
+  },
   {
    "t": 1794678875292,
    "tipo": "cartelera",
