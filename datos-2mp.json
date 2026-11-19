@@ -1,6 +1,6 @@
 {
  "v": 1,
- "generado": "2026-11-19T23:54:11.051Z",
+ "generado": "2026-11-19T23:54:15.695Z",
  "miembros": [
   {
    "pid": "0zmyd6w1beq0p4",
@@ -502,13 +502,7 @@
   }
  ],
  "cupoPases": 10,
- "cambios": [
-  {
-   "t": 1795132451051,
-   "tipo": "cartelera",
-   "texto": "Sparring programado: Jhon  Olano vs Jamer Nilson Sánchez"
-  }
- ],
+ "cambios": [],
  "novedades": [
   {
    "t": 1795132451051,
