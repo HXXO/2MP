@@ -1,6 +1,6 @@
 {
  "v": 1,
- "generado": "2026-11-16T04:52:06.876Z",
+ "generado": "2026-11-19T23:54:11.051Z",
  "miembros": [
   {
    "pid": "0zmyd6w1beq0p4",
@@ -44,7 +44,7 @@
    },
    "racha": 0,
    "mejorRacha": 0,
-   "puntosMerito": 60,
+   "puntosMerito": 65,
    "ultimos": [],
    "predator": false,
    "tier": "bronce",
@@ -100,7 +100,7 @@
    },
    "racha": 0,
    "mejorRacha": 0,
-   "puntosMerito": 160,
+   "puntosMerito": 165,
    "ultimos": [],
    "predator": false,
    "tier": "bronce",
@@ -236,7 +236,7 @@
      "pid": "1rc6og7042u9zb",
      "nombre": "JULIO SMITH CHOLAN CARRERA",
      "rango": "RAW",
-     "valor": "3 asist.",
+     "valor": "4 asist.",
      "detalle": "últimos 30 días"
     },
     {
@@ -252,7 +252,7 @@
      "pid": "0zmyd6w1beq0p4",
      "nombre": "MAX CASTAÑEDA",
      "rango": "RAW",
-     "valor": "1 asist.",
+     "valor": "2 asist.",
      "detalle": "últimos 30 días"
     },
     {
@@ -260,7 +260,7 @@
      "pid": "1l391j81wv0p1g",
      "nombre": "Ever Jhanpol Carrera Portal",
      "rango": "RAW",
-     "valor": "1 asist.",
+     "valor": "2 asist.",
      "detalle": "últimos 30 días"
     },
     {
@@ -303,7 +303,7 @@
      "pid": "0lb6itl0x2y6bt",
      "nombre": "Jhan Carlos Cotrina Z",
      "rango": "RAW",
-     "valor": "160 PM",
+     "valor": "165 PM",
      "detalle": "★ 2 de 3"
     },
     {
@@ -311,7 +311,7 @@
      "pid": "1rc6og7042u9zb",
      "nombre": "JULIO SMITH CHOLAN CARRERA",
      "rango": "RAW",
-     "valor": "60 PM",
+     "valor": "65 PM",
      "detalle": "★ 1 de 3"
     },
     {
@@ -331,6 +331,19 @@
   }
  },
  "cartelera": [
+  {
+   "t": 1796000100000,
+   "tipo": "sparring",
+   "puntua": false,
+   "rojo": {
+    "nombre": "Jhon  Olano",
+    "tipo": "invitado"
+   },
+   "azul": {
+    "nombre": "Jamer Nilson Sánchez",
+    "tipo": "invitado"
+   }
+  },
   {
    "t": 1796000700000,
    "tipo": "sparring",
@@ -432,6 +445,14 @@
  "resultados": [],
  "pases": [
   {
+   "desde": 1795132395901,
+   "hasta": 1795737195901
+  },
+  {
+   "desde": 1795132155823,
+   "hasta": 1795736955823
+  },
+  {
    "desde": 1794804505747,
    "hasta": 1795409305747
   },
@@ -481,8 +502,19 @@
   }
  ],
  "cupoPases": 10,
- "cambios": [],
+ "cambios": [
+  {
+   "t": 1795132451051,
+   "tipo": "cartelera",
+   "texto": "Sparring programado: Jhon  Olano vs Jamer Nilson Sánchez"
+  }
+ ],
  "novedades": [
+  {
+   "t": 1795132451051,
+   "tipo": "cartelera",
+   "texto": "Sparring programado: Jhon  Olano vs Jamer Nilson Sánchez"
+  },
   {
    "t": 1794800221405,
    "tipo": "cartelera",
