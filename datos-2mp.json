@@ -1,6 +1,6 @@
 {
  "v": 1,
- "generado": "2026-11-19T23:54:15.695Z",
+ "generado": "2026-11-26T21:33:01.157Z",
  "miembros": [
   {
    "pid": "0zmyd6w1beq0p4",
@@ -433,17 +433,29 @@
    "tipo": "sparring",
    "puntua": false,
    "rojo": {
-    "nombre": "Cleyder Rodriguez",
+    "nombre": "Jhair Pérez",
     "tipo": "invitado"
    },
    "azul": {
-    "nombre": "Jesús Elvin Lozano Sánchez",
+    "nombre": "Cleyder Rodriguez",
     "tipo": "invitado"
    }
   }
  ],
  "resultados": [],
  "pases": [
+  {
+   "desde": 1795728730283,
+   "hasta": 1796333530283
+  },
+  {
+   "desde": 1795728723487,
+   "hasta": 1796333523487
+  },
+  {
+   "desde": 1795728240812,
+   "hasta": 1796333040812
+  },
   {
    "desde": 1795132395901,
    "hasta": 1795737195901
@@ -502,8 +514,29 @@
   }
  ],
  "cupoPases": 10,
- "cambios": [],
+ "cambios": [
+  {
+   "t": 1795728781157,
+   "tipo": "cartelera",
+   "texto": "Sparring programado: Jhair Pérez vs Cleyder Rodriguez"
+  },
+  {
+   "t": 1795728781157,
+   "tipo": "cartelera",
+   "texto": "Combate o sparring cancelado o reemplazado"
+  }
+ ],
  "novedades": [
+  {
+   "t": 1795728781157,
+   "tipo": "cartelera",
+   "texto": "Combate o sparring cancelado o reemplazado"
+  },
+  {
+   "t": 1795728781157,
+   "tipo": "cartelera",
+   "texto": "Sparring programado: Jhair Pérez vs Cleyder Rodriguez"
+  },
   {
    "t": 1795132451051,
    "tipo": "cartelera",
