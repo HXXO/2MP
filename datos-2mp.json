@@ -1,6 +1,6 @@
 {
  "v": 1,
- "generado": "2026-11-26T21:33:01.157Z",
+ "generado": "2026-11-28T02:22:50.344Z",
  "miembros": [
   {
    "pid": "0zmyd6w1beq0p4",
@@ -433,7 +433,7 @@
    "tipo": "sparring",
    "puntua": false,
    "rojo": {
-    "nombre": "Jhair Pérez",
+    "nombre": "Yefferson Yair Carrera Cerdán",
     "tipo": "invitado"
    },
    "azul": {
@@ -444,6 +444,10 @@
  ],
  "resultados": [],
  "pases": [
+  {
+   "desde": 1795832514207,
+   "hasta": 1796437314207
+  },
   {
    "desde": 1795728730283,
    "hasta": 1796333530283
@@ -495,38 +499,32 @@
   {
    "desde": 1794247827227,
    "hasta": 1794852627227
-  },
-  {
-   "desde": 1794006582121,
-   "hasta": 1794611382121
-  },
-  {
-   "desde": 1793928816855,
-   "hasta": 1794533616855
-  },
-  {
-   "desde": 1793921861176,
-   "hasta": 1794526661176
-  },
-  {
-   "desde": 1793917259657,
-   "hasta": 1794522059657
   }
  ],
  "cupoPases": 10,
  "cambios": [
   {
-   "t": 1795728781157,
+   "t": 1795832570344,
    "tipo": "cartelera",
-   "texto": "Sparring programado: Jhair Pérez vs Cleyder Rodriguez"
+   "texto": "Sparring programado: Yefferson Yair Carrera Cerdán vs Cleyder Rodriguez"
   },
   {
-   "t": 1795728781157,
+   "t": 1795832570344,
    "tipo": "cartelera",
    "texto": "Combate o sparring cancelado o reemplazado"
   }
  ],
  "novedades": [
+  {
+   "t": 1795832570344,
+   "tipo": "cartelera",
+   "texto": "Combate o sparring cancelado o reemplazado"
+  },
+  {
+   "t": 1795832570344,
+   "tipo": "cartelera",
+   "texto": "Sparring programado: Yefferson Yair Carrera Cerdán vs Cleyder Rodriguez"
+  },
   {
    "t": 1795728781157,
    "tipo": "cartelera",
